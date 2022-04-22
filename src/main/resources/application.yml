@@ -1,0 +1,4 @@
+micronaut:
+  application:
+    name: dapanda-api-core
+
