@@ -14,6 +14,10 @@ import io.micronaut.http.HttpResponse
 import jakarta.inject.Singleton
 import java.net.URI
 
+/**
+ * アプリケーションサーバへのLocation ヘッダを返すリダイレクトAPI
+ * okは認証に成功するトークンを含んだヘッダを返します。
+ */
 @Singleton
 class OkManagement(
     private val apiBase: ApiBase,

@@ -3,7 +3,6 @@
  */
 package dapanda.api.emulator.blanco
 
-import blanco.restgenerator.util.BlancoRestGeneratorKtRequestDeserializer
 import blanco.restgenerator.valueobject.CommonRequest
 import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
@@ -18,10 +17,10 @@ import io.micronaut.http.annotation.RequestBean
 /** アプリケーションサーバへのLocation ヘッダを返すリダイレクトAPI&lt;br&gt; */
 @Controller("/ng")
 class NgController
-    constructor(
-        /** The implementation class to be called by NgController. */
-        var ngManagement: NgManagement
-    ) {
+constructor(
+    /** The implementation class to be called by NgController. */
+    var ngManagement: NgManagement
+) {
   /**
    * APIベースクラスから呼ばれる実行メソッドです
    *
@@ -38,7 +37,7 @@ class NgController
     /* At this stage, commonRequest is tentative.*/
     val httpCommonRequest =
         HttpCommonRequest<CommonRequest<RequestHeader, NgGetRequest>>(
-            argHttpRequest, false, listOf(), null)
+            argHttpRequest, true, listOf(), null)
 
     val info = RequestHeader()
     val commonRequest: CommonRequest<RequestHeader, NgGetRequest> = CommonRequest(info, bean)

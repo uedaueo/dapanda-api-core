@@ -9,18 +9,20 @@ import blanco.restgenerator.valueobject.CommonRequest
 import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
+import dapanda.api.common.domain.model.logging.LoggerDelegate
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import jakarta.inject.Singleton
-import org.apache.commons.logging.Log
-import org.apache.commons.logging.LogFactory
 
+/**
+ * アプリケーションサーバから認証シーケンスサーバに対して要求する認可トークンの確認
+ */
 @Singleton
 class CheckTokenApiManagement(
     private val apiBase: ApiBase,
 ) : IApiBase by apiBase {
     companion object {
-        private val log: Log = LogFactory.getLog(CheckTokenApiManagement::class.java)
+        private val log by LoggerDelegate()
     }
 
     fun doGet(

@@ -7,5 +7,4 @@ import blanco.restgenerator.valueobject.ApiGetTelegram
 import io.micronaut.core.annotation.Introspected
 
 /** 認可トークン確認用APIの応答電文です。 */
-@Introspected
-class CheckTokenApiGetResponse : ApiGetTelegram()
+@Introspected class CheckTokenApiGetResponse : ApiGetTelegram()

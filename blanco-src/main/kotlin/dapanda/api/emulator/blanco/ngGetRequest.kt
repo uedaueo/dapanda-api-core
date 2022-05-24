@@ -10,11 +10,11 @@ import io.micronaut.http.annotation.PathVariable
 /** 認証に失敗するトークンを含んだヘッダを返すAPIの要求電文です。 */
 @Introspected
 data class NgGetRequest
-    constructor(
-        /** アプリケーションserverのホスト名 */
-        @field:PathVariable var appServer: String,
-        /** グループID */
-        @field:PathVariable var groupId: String,
-        /** ユーザーID */
-        @field:PathVariable var userId: String
-    ) : ApiGetTelegram()
+constructor(
+    /** アプリケーションserverのホスト名 */
+    @field:PathVariable var appServer: String,
+    /** グループID */
+    @field:PathVariable var groupId: String,
+    /** ユーザーID */
+    @field:PathVariable var userId: String
+) : ApiGetTelegram()

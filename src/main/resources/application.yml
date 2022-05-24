@@ -1,4 +1,84 @@
 micronaut:
   application:
     name: dapanda-api-core
-
+globalErrorHandler:
+  enabled: true
+datasources:
+  default:
+    url: jdbc:mysql://${db.host:`10.211.55.19`}:${db.port:`3306`}
+    username: ${db.username:`mysql`}
+    # 【注意】デフォルト値に「``」と設定すると、パスワードありで空のパスワードを指定することになる。
+    # パスワード無しの設定にするには、デフォルト値には何も設定しないこと
+    password: ${db.password:`pass`}
+    driverClassName: 'com.mysql.cj.jdbc.Driver'
+    autoCommit: false
+    catalog: ${db.dbname:`sample`}
+    # コネクション時のタイムアウト(ms)
+    connectionTimeout: ${db.connection.timeout:`5000`}
+    # 未使用（アイドル状態）コネクションの切断時間(ms)
+    # コネクションがプール内で待機状態を維持できる最大時間。タイムアウトすると切断状態となる。
+    idleTimeout: ${db.idle.timeout:`10000`}
+    # 起動時の検証タイムアウト(ms)
+    # 1 以上の場合は、起動時に接続の取得と検証を行い、失敗した場合は、例外をスローする
+    # 0 の場合は、起動時に接続の取得と検証を行い、接続の取得に失敗した場合は、何もしない。検証に失敗した場合は、例外をスローする。
+    # 0 未満の場合は、何もしない。
+    initializationFailTimeout: ${db.initialization.fail.timeout:`-1`}
+    # 接続リークの可能性をログに出力する閾値(ms)
+    leakDetectionThreshold: ${db.leak.detection.threshold:`30000`}
+    # 最大コネクション保持数
+    maximumPoolSize: ${db.maximum.pool.size:`40`}
+    # 切断状態のコネクションが、プールから削除されるまでの時間(ms)
+    maxLifetime: ${db.max.lifetime:`1800000`}
+    # 最小コネクション保持数
+    minimumIdle: ${db.minimum.idle:`4`}
+    # ログなどに出力されるプール名
+    # デフォルトでは、「HikariPool-1」のような名称となる
+    poolName: Pool-RW
+    # 読み込み専用設定
+    readOnly: false
+    # トランザクション分離レベル
+    # MySQL のデフォルトは、「TRANSACTION_REPEATABLE_READ」
+    # デフォルト値の場合、同一処理内では、default 側で Commit した内容を readonly 側では参照できない。
+    transactionIsolation: TRANSACTION_READ_COMMITTED
+    # MySQL Connector/J のプロパティを設定
+    # HikariDataSource の dataSourceProperties に格納され、最終的に MySQL Connector/J に伝播する。
+    # この設定は、構造化せずに以下のようにピリオドでキーを結合して値を定義することもできる。
+    # data-source-properties.cachePropStmts: true
+    # 設定の内容は、HikariCP が推奨している項目の一部となり、それ以外の設定も記載しているので注意。
+    # 詳細は、以下を参照。
+    # https://github.com/brettwooldridge/HikariCP/wiki/MySQL-Configuration
+    # MySQL Connector/J に設定できるプロパティは、以下を参照
+    # https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-reference-configuration-properties.html
+    data-source-properties: &data-source-properties
+      characterEncoding: UTF-8
+      characterSetResults: UTF-8
+      cachePropStmts: true
+      prepStmtCacheSize: 250
+      prepStmtCacheSqlLimit: 2048
+      useServerPrepStmts: true
+      useLocalSessionState: true
+      rewriteBatchedStatements: true
+      cacheResultSetMetadata: true
+      cacheServerConfiguration: true
+      elideSetAutoCommits: true
+      maintainTimeStats: false
+      # SQL 実行タイムアウト(コネクションの再取得が必要となる。Prepared Statement 利用時に処理の続行は困難。)
+      #socketTimeout: 2000
+      # ResultSet フェッチモードをカーソルモードに変更（デフォルトは、全件一括取得）
+      # カーソルモードでは、ResultSet の参照位置を戻すことや、件数の取得ができない。
+      #useCursorFetch: true
+      #defaultFetchSize: 2000
+      # ロガーを Slf4J に変更
+      logger: Slf4JLogger
+      # ログに SQL のプロファイル情報を出力
+      profileSQL: ${db.profile.sql:`true`}
+      # サーバ側プリペアド ステートメントを含む、実行中の SQL を STDERR へダンプ
+      autoGenerateTestcaseScript: false
+      # サーバに送られたクエリの内容を、SQLExceptions のメッセージにダンプ
+      dumpQueriesOnException: true
+      # 'logSlowQueries' が有効な場合、自動的に'EXPLAIN' を発行し、WARN レベルログに出力
+      explainSlowQueries: true
+      # 'slowQueryThresholdMillis' より長くかかるクエリを記録（※ true にすると、問題が発生した）
+      logSlowQueries: false
+      # 'logSlowQueries' が有効な場合、クエリが 'slow' と記録されるまでの長さ
+      slowQueryThresholdMillis: 1000

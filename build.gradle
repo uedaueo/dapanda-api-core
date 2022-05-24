@@ -9,14 +9,15 @@ plugins {
 }
 
 version = "0.0.1"
-group = "assemulator"
+// プロジェクトグループ
+group project.name.replace("-", ".")
+// group = "emulator"
 
 repositories {
     mavenLocal()
     maven {
-        url "https://raw.github.com/uedaueo/blancofw-maven2/gh-pages-poi4/"
+        url 'https://raw.github.com/uedaueo/blancofw-maven2/gh-pages-poi5/'
     }
-
     mavenCentral()
 }
 
@@ -44,6 +45,7 @@ micronaut {
 }
 
 configurations {
+    blancoDb
     blancoRestGeneratorKt
     blancoFramework
 }
@@ -56,21 +58,22 @@ dependencies {
     implementation('io.micronaut:micronaut-runtime')
     implementation('io.micronaut.kotlin:micronaut-kotlin-runtime')
     implementation('javax.annotation:javax.annotation-api')
+    runtimeOnly "io.micronaut.sql:micronaut-jdbc-hikari"
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     runtimeOnly('ch.qos.logback:logback-classic')
     compileOnly('org.graalvm.nativeimage:svm')
-
     implementation('io.micronaut:micronaut-validation')
     implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator")
-
-
     runtimeOnly('com.fasterxml.jackson.module:jackson-module-kotlin')
-
     implementation group: 'commons-logging', name: 'commons-logging', version: '1.2'
 
+    blancoDb "mysql:mysql-connector-java:${mysqlJdbcVersion}"
+    blancoDb "blanco.db:blanco-db:[2.0,3.0)"
     blancoFramework "blanco.valueobjectkt:blanco-valueobjectkt:[0.0,1.0)"
     blancoRestGeneratorKt "blanco.restgeneratorkt:blanco-restgeneratorkt:[0.0,1.0)"
+
+    implementation "mysql:mysql-connector-java:${mysqlJdbcVersion}"
 }
 
 
@@ -79,6 +82,107 @@ application {
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("11")
+}
+
+task blancoDb {
+    group "blanco"
+    description "Generate source code by blancoDB"
+    doFirst {
+        // 作業用ディレクトリを作成
+        mkdir("build/tmp/blanco/db")
+        // blancodb Ant タスクを定義
+        ant.taskdef(
+                name: "blancoDb",
+                classname: "blanco.db.task.BlancoDbTask",
+                // 依存設定を参照
+                classpath: configurations.blancoDb.asPath
+        )
+        // サブディレクトリも処理する
+        file(blancoDbMetaDir).traverse(
+                // ディレクトリを対象とする
+                type: FileType.DIRECTORIES,
+                // 指定したディレクトリも対象に含める
+                visitRoot: true
+        ) { metaDir ->
+            println("metaDir: $metaDir")
+            // blancodb Ant タスクを実行
+            ant.blancoDb(
+                    // 定義書解析エラー時に処理を中止する
+                    failonerror: true,
+                    // 詳細なログ出力
+                    // 「gradlew blancoDb --debug」で実行すると、
+                    // "[ant:blancodb]"を含む行にログが出力される。
+                    verbose: true,
+                    // JDBC ドライバのクラスを指定する（必須）
+                    jdbcdriver: "com.mysql.cj.jdbc.Driver",
+                    // JDBC 接続先 URL を指定する（必須）
+                    jdbcurl: blancoDbJdbcUrl,
+                    // JDBC 接続時のユーザ名を指定する（必須）
+                    jdbcuser: blancoDbJdbcUser,
+                    // JDBC 接続時のパスワードを指定する（必須）
+                    // パスワード無しの設定を行う場合は、"" （空文字）を指定する。
+                    jdbcpassword: blancoDbJdbcPassword,
+                    // SQL 定義ファイル格納ディレクトリ（ファイル名はマルチバイトでも問題なし）
+                    metadir: metaDir,
+                    // 作業用ディレクトリ
+                    tmpdir: file("build/tmp/blanco"),
+                    // 自動生成ファイル格納先ベースディレクトリ
+                    targetdir: file("blanco-src"),
+                    // 自動生成クラスのデフォルトパッケージ
+                    basepackage: "${project.group}.blanco.db.common",
+                    // blancoDB のランタイムパッケージ（共通処理）
+                    //runtimepackage: "${basePackage}.blanco.db.runtime",
+                    // Oracle DB の場合にスキーマを指定する
+                    //schema: "app",
+                    // DB のメタ情報を元に、テーブル単位でアクセスする、ソースコードを自動生成する
+                    // MySQL の場合は、エラーとなる。
+                    table: false,
+                    // SQL 定義書を元にソースコードを自動生成する
+                    sql: true,
+                    // ログモードを指定する。debug, performance, sqlid のいずれかを指定する。
+                    logmode: "debug",
+                    // Statement のタイムアウト値を指定する。SQL 実行時のタイムアウト設定を行える。
+                    //statementtimeout: 0,
+                    // 自動生成時に SQL を実行するかどうかを指定する。「iterator」は、検索型のみ実行。「none」は、実行しない。
+                    executesql: "iterator",
+                    // 自動生成ソースコードのエンコーディングを指定する
+                    encoding: "UTF-8",
+                    // 定義書メタファイルから中間 XML ファイルへの変換を、キャッシュで済ますかどうかを指定する
+                    //cache: false
+                    // 出力先フォルダの書式を指定する
+                    // blanco: [targetdir]/main
+                    // maven: [targetdir]/main/java
+                    // free: [targetdir](targetdir が無指定の場合は blanco/main)
+                    targetStyle: "maven",
+                    // 自動生成ソースコードの改行文字を指定する
+                    lineSeparator: "LF"
+            )
+        }
+        // blanco DB の Row クラスに @Introspected アノテーションを追記する
+        modifyBlancoDBRowClasses()
+    }
+}
+
+/**
+ * blanco DB の Row クラスに @Introspected アノテーションを追加する
+ */
+void modifyBlancoDBRowClasses() {
+    println("BlancoDB の Row クラスに @Introspected アノテーションを追加")
+    sourceSets.main.java.srcDirs()
+            .findAll { it.name.endsWith("Row.java") }
+            .each { File file ->
+                String source = file.getText("UTF-8")
+                if (!source.contains("@io.micronaut.core.annotation.Introspected")) {
+                    // 未処理ファイルの場合
+                    // @Introspected アノテーションを追記
+                    String modified = source.replace(
+                            "public class ",
+                            "@io.micronaut.core.annotation.Introspected\npublic class "
+                    )
+                    file.write(modified, "UTF-8")
+                    println("更新: [$file]")
+                }
+            }
 }
 
 task blancoValueObjectKt {
@@ -222,7 +326,7 @@ task generateTelegrams {
 task meta(type: GradleBuild) {
     group "blanco"
     startParameter.projectProperties = gradle.startParameter.projectProperties
-    tasks = ["blancoValueObjectKt", "generateTelegrams","blancoRestGeneratorKt"]
+    tasks = ["blancoDb", "blancoValueObjectKt", "generateTelegrams","blancoRestGeneratorKt"]
 }
 
 tasks {

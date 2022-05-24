@@ -13,6 +13,10 @@ import io.micronaut.http.HttpResponse
 import jakarta.inject.Singleton
 import java.net.URI
 
+/**
+ * アプリケーションサーバへのLocation ヘッダを返すリダイレクトAPI
+ * ngは認証に失敗するトークンを含んだヘッダを返します。
+ */
 @Singleton
 class NgManagement(
     private val apiBase: ApiBase,

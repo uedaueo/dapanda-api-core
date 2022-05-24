@@ -3,7 +3,6 @@
  */
 package dapanda.api.emulator.blanco
 
-import blanco.restgenerator.util.BlancoRestGeneratorKtRequestDeserializer
 import blanco.restgenerator.valueobject.CommonRequest
 import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
@@ -18,10 +17,10 @@ import io.micronaut.http.annotation.RequestBean
 /** アプリケーションサーバから認証シーケンスサーバに対して要求する認可トークン確認用APIです。 */
 @Controller("/check_token_api")
 class CheckTokenApiController
-    constructor(
-        /** The implementation class to be called by CheckTokenApiController. */
-        var checkTokenApiManagement: CheckTokenApiManagement
-    ) {
+constructor(
+    /** The implementation class to be called by CheckTokenApiController. */
+    var checkTokenApiManagement: CheckTokenApiManagement
+) {
   /**
    * APIベースクラスから呼ばれる実行メソッドです
    *
@@ -38,7 +37,7 @@ class CheckTokenApiController
     /* At this stage, commonRequest is tentative.*/
     val httpCommonRequest =
         HttpCommonRequest<CommonRequest<RequestHeader, CheckTokenApiGetRequest>>(
-            argHttpRequest, false, listOf(), null)
+            argHttpRequest, true, listOf(), null)
 
     val info = RequestHeader()
     val commonRequest: CommonRequest<RequestHeader, CheckTokenApiGetRequest> =

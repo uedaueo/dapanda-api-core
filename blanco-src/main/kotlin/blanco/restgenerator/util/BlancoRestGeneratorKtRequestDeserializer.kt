@@ -20,10 +20,10 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer
  * @author blanco Framework
  */
 class BlancoRestGeneratorKtRequestDeserializer<S : RequestHeader, T : ApiTelegram>
-    constructor(
-        /** A valueClass passed from the standard deserializer. */
-        val vc: Class<*>?
-    ) : StdDeserializer<CommonRequest<S, T>>(vc) {
+constructor(
+    /** A valueClass passed from the standard deserializer. */
+    val vc: Class<*>?
+) : StdDeserializer<CommonRequest<S, T>>(vc) {
   /** Sets the implementation class of CommonRequest#info. */
   var infoClazz: Class<S>? = null
 

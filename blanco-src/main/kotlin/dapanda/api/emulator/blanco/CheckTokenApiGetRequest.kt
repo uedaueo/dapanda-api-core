@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank
 /** 認可トークン確認用APIの要求電文です。 */
 @Introspected
 data class CheckTokenApiGetRequest
-    constructor(
-        /** 認証シーケンスサーバが発行した認可トークン */
-        @field:Valid @field:NotBlank @field:QueryValue var token: String?
-    ) : ApiGetTelegram()
+constructor(
+    /** 認証シーケンスサーバが発行した認可トークン */
+    @field:Valid @field:NotBlank @field:QueryValue var token: String?
+) : ApiGetTelegram()

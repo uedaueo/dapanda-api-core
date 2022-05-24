@@ -7,5 +7,4 @@ import blanco.restgenerator.valueobject.ApiGetTelegram
 import io.micronaut.core.annotation.Introspected
 
 /** 認証に失敗するトークンを含んだヘッダを返すAPIの応答電文です。 */
-@Introspected
-class NgGetResponse : ApiGetTelegram()
+@Introspected class NgGetResponse : ApiGetTelegram()
