@@ -6,13 +6,14 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * APIの返却用メッセージの日本語版を定義します。
+ * APIの返却用メッセージの英語版を定義します。
  *
  * リソースバンドル定義: [ApiResultMessage]。<BR>
  * このクラスはリソースバンドル定義書から自動生成されたリソースバンドルクラスです。<BR>
  * 既知のロケール<BR>
  * <UL>
  * <LI>ja
+ * <LI>en
  * </UL>
  */
 public class ApiResultMessageResourceBundle {
@@ -77,6 +78,7 @@ public class ApiResultMessageResourceBundle {
      * bundle[ApiResultMessage], key[ARM001]
      *
      * [リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}] (ja)<br>
+     * [Invalid value set for request parameter. Item: {0}, value: {1}] (en)<br>
      *
      * @param arg0 置換文字列{0}を置換する値。java.lang.String型を与えてください。
      * @param arg1 置換文字列{1}を置換する値。java.lang.String型を与えてください。
@@ -102,6 +104,7 @@ public class ApiResultMessageResourceBundle {
      * bundle[ApiResultMessage], key[ARM002]
      *
      * [そのユーザーIDはすでに登録されています。] (ja)<br>
+     * [User ID is already registered.] (en)<br>
      *
      * @return key[ARM002]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
@@ -122,6 +125,7 @@ public class ApiResultMessageResourceBundle {
      * bundle[ApiResultMessage], key[ARM003]
      *
      * [そのユーザーIDは登録されていません。] (ja)<br>
+     * [User ID is not registered.] (en)<br>
      *
      * @return key[ARM003]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
@@ -142,6 +146,7 @@ public class ApiResultMessageResourceBundle {
      * bundle[ApiResultMessage], key[ARM004]
      *
      * [パスワードが間違っています。] (ja)<br>
+     * [Incorrect password.] (en)<br>
      *
      * @return key[ARM004]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
@@ -162,6 +167,7 @@ public class ApiResultMessageResourceBundle {
      * bundle[ApiResultMessage], key[ARM005]
      *
      * [トークン認証に失敗しました。] (ja)<br>
+     * [Incorrect token.] (en)<br>
      *
      * @return key[ARM005]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */

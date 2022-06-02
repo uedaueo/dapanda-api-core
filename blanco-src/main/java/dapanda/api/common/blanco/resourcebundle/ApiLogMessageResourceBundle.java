@@ -6,13 +6,14 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * APIのログ用メッセージの日本語版を定義します。
+ * APIのログ用メッセージの英語版を定義します。
  *
  * リソースバンドル定義: [ApiLogMessage]。<BR>
  * このクラスはリソースバンドル定義書から自動生成されたリソースバンドルクラスです。<BR>
  * 既知のロケール<BR>
  * <UL>
  * <LI>ja
+ * <LI>en
  * </UL>
  */
 public class ApiLogMessageResourceBundle {
@@ -77,6 +78,7 @@ public class ApiLogMessageResourceBundle {
      * bundle[ApiLogMessage], key[ALM001]
      *
      * [0001 リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}] (ja)<br>
+     * [0001 Invalid value set for request parameter. Item: {0}, value: {1}] (en)<br>
      *
      * @param arg0 置換文字列{0}を置換する値。java.lang.String型を与えてください。
      * @param arg1 置換文字列{1}を置換する値。java.lang.String型を与えてください。
@@ -102,6 +104,7 @@ public class ApiLogMessageResourceBundle {
      * bundle[ApiLogMessage], key[ALM002]
      *
      * [0002 そのユーザーIDはすでに登録されています。] (ja)<br>
+     * [0002 User ID is already registered.] (en)<br>
      *
      * @return key[ALM002]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
@@ -122,6 +125,7 @@ public class ApiLogMessageResourceBundle {
      * bundle[ApiLogMessage], key[ALM003]
      *
      * [0003 そのユーザーIDは登録されていません。] (ja)<br>
+     * [0003 User ID is not registered.] (en)<br>
      *
      * @return key[ALM003]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
@@ -142,6 +146,7 @@ public class ApiLogMessageResourceBundle {
      * bundle[ApiLogMessage], key[ALM004]
      *
      * [0004 データベースから取得した値がNULLです。] (ja)<br>
+     * [0004 The value from the database is NULL.] (en)<br>
      *
      * @return key[ALM004]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
@@ -162,6 +167,7 @@ public class ApiLogMessageResourceBundle {
      * bundle[ApiLogMessage], key[ALM005]
      *
      * [0005 トークン認証に失敗しました。] (ja)<br>
+     * [0005 Incorrect token.] (en)<br>
      *
      * @return key[ALM005]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
@@ -182,6 +188,7 @@ public class ApiLogMessageResourceBundle {
      * bundle[ApiLogMessage], key[ALM006]
      *
      * [0006 トークン 認証不要は不要です。] (ja)<br>
+     * [0006 Token authentication is not required.] (en)<br>
      *
      * @return key[ALM006]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
