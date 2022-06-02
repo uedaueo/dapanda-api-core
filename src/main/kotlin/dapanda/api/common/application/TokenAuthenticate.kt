@@ -4,11 +4,12 @@ import blanco.restgenerator.valueobject.ApiTelegram
 import blanco.restgenerator.valueobject.CommonRequest
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
-import dapanda.api.common.CommonConst
-import dapanda.api.common.domain.model.ErrorResponseMessage
+import dapanda.api.common.domain.CommonConstants
 import dapanda.api.common.domain.model.exceptions.DapandaRuntimeException
 import dapanda.api.common.domain.model.http.getToken
+import dapanda.api.common.domain.model.locale.LocaleResolver
 import dapanda.api.common.domain.model.logging.LoggerDelegate
+import dapanda.api.common.domain.model.resourcebundle.CommonResourceBundleFactory
 import dapanda.api.common.domain.model.verifier.ITokenInfoQuery
 import dapanda.api.common.domain.model.verifier.ITokenInfoRepository
 import dapanda.api.common.domain.model.verifier.TokenInfo
@@ -23,7 +24,9 @@ import java.util.*
 @Singleton
 class TokenAuthenticate(
     private val tokenInfoQuery: ITokenInfoQuery,
-    private val tokenInfoRepository: ITokenInfoRepository
+    private val tokenInfoRepository: ITokenInfoRepository,
+    private val localeResolver: LocaleResolver,
+    private val resourceBundle: CommonResourceBundleFactory
 ) {
     companion object {
         private val log by LoggerDelegate()
@@ -32,8 +35,9 @@ class TokenAuthenticate(
     fun <S : RequestHeader, T : ApiTelegram> authenticate(
         request: HttpCommonRequest<CommonRequest<S, T>>,
     ) {
+        val locale = localeResolver.resolve(request)
         if (request.noAuthentication) {
-            log.debug("TokenAuthenticate#authenticate: トークン 認証不要")
+            log.info(resourceBundle.getApiLogMessage(locale).alm006)
             return
         }
 
@@ -42,7 +46,7 @@ class TokenAuthenticate(
         val tokenInfo = TokenInfo(
             request.getToken(),
             now,
-            now + CommonConst.LOGIN_TOKEN_VALID_TERM
+            now + CommonConstants.LOGIN_TOKEN_VALID_TERM
         )
 
         // トークン認証を実施する
@@ -53,9 +57,9 @@ class TokenAuthenticate(
         }
 
         if (!isAuthenticate) {
-            log.debug("TokenAuthenticate#authenticate: トークン 認証に失敗")
+            log.error(resourceBundle.getApiLogMessage(locale).alm005)
             throw DapandaRuntimeException(
-                message = ErrorResponseMessage.faildTokenAuthenticate
+                message = resourceBundle.getApiResultMessage(locale).arm005
             )
         }
         log.debug("TokenAuthenticate#authenticate: トークン 認証に成功")
@@ -103,7 +107,7 @@ class TokenAuthenticate(
     private fun nowDateTime(): Long {
         return LocalDateTime.now().toEpochSecond(
             ZoneOffset.ofTotalSeconds(
-                TimeZone.getDefault().rawOffset / CommonConst.RATIO_MILLISECOND_TO_SECOND
+                TimeZone.getDefault().rawOffset / CommonConstants.RATIO_MILLISECOND_TO_SECOND
             )
         )
     }

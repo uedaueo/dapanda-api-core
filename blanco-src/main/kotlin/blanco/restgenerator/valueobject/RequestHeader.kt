@@ -7,4 +7,7 @@ import io.micronaut.core.annotation.Introspected
 open class RequestHeader {
   /** フィールド: [token]。 デフォルト: [null]。 */
   var token: String? = null
+
+  /** フィールド: [lang]。 デフォルト: [null]。 */
+  var lang: String? = null
 }

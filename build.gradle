@@ -59,6 +59,10 @@ dependencies {
     implementation('io.micronaut.kotlin:micronaut-kotlin-runtime')
     implementation('javax.annotation:javax.annotation-api')
     runtimeOnly "io.micronaut.sql:micronaut-jdbc-hikari"
+    // Micronaut Cache
+    implementation "io.micronaut.cache:micronaut-cache-caffeine"
+    // Micronaut Cache NoOp
+    implementation "io.micronaut.cache:micronaut-cache-noop"
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     runtimeOnly('ch.qos.logback:logback-classic')
@@ -72,6 +76,7 @@ dependencies {
     blancoDb "blanco.db:blanco-db:[2.0,3.0)"
     blancoFramework "blanco.valueobjectkt:blanco-valueobjectkt:[0.0,1.0)"
     blancoRestGeneratorKt "blanco.restgeneratorkt:blanco-restgeneratorkt:[0.0,1.0)"
+    blancoFramework "blanco.resourcebundle:blanco-resourcebundle:[2.0,3.0)"
 
     implementation "mysql:mysql-connector-java:${mysqlJdbcVersion}"
 }
@@ -323,10 +328,143 @@ task generateTelegrams {
     }
 }
 
+task blancoResourceBundle {
+    group "blanco"
+    description "Generate resource bundle by blancoResourceBundle"
+    doFirst {
+        // 作業用ディレクトリを作成
+        mkdir("build/tmp/blanco/resourcebundle")
+        // blancoResourceBundle Ant タスクを定義
+        ant.taskdef(
+                name: "blancoResourceBundle",
+                classname: "blanco.resourcebundle.task.BlancoResourceBundleTask",
+                // 依存設定を参照
+                classpath: configurations.blancoFramework.asPath
+        )
+        // サブディレクトリも処理する
+//        file(blancoResourceBundleMetaDir).traverse(
+//            // ディレクトリを対象とする
+//            type: FileType.DIRECTORIES,
+//            // 指定したディレクトリも対象に含める
+//            visitRoot: true
+//        ) { metaDir ->
+        println("metaDir: $blancoResourceBundleMetaDir")
+        ant.blancoResourceBundle(
+                // リソースバンドル定義ファイル格納ディレクトリ（ファイル名はマルチバイトでも問題なし）
+                metadir: blancoResourceBundleMetaDir,
+                // 自動生成ファイル格納先ベースディレクトリ
+                targetdir: file("blanco-src"),
+                // 作業用ディレクトリ
+                tmpdir: file("build/tmp/blanco"),
+                // 自動生成ソースコードのエンコーディング指定
+                encoding: "UTF-8",
+                // プロパティファイルの生成時刻を、プロパティファイルのコメントに出力するフラグ
+                commenttimestamp: false,
+                // リソースバンドル文字列をMessageFormatによるパースを行った際に、
+                // 例外が発生したら処理を中断するかどうかのフラグ。
+                // true なら処理中断して例外を発生させます。
+                // false なら処理続行し、置換文字列は無いものとみなします。
+                // Java のソースコードを処理する際などに、
+                // あえて false に設定して波括弧を扱うことができるように切り替える場合があります。
+                failonmessageformaterror: true,
+                // プロパティファイルをディレクトリ付きで出力するフラグ
+                propertieswithdirectory: true,
+                // 出力先フォルダの書式を指定する
+                // blanco: [targetdir]/main
+                // maven: [targetdir]/main/java
+                // free: [targetdir](targetdir が無指定の場合は blanco/main)
+                targetStyle: "maven",
+                // 自動生成ソースコードの改行文字を指定する
+                lineSeparator: "LF"
+        )
+//        }
+    }
+}
+
+task blancoResponseMetaInfoVO {
+    group "blanco"
+    description "Generate resource constants by blancoValueObject"
+    doFirst {
+        // 作業用ディレクトリを作成
+        mkdir("build/tmp/blanco/metainfo/valueobject")
+        // blancoConstants Ant タスクを定義
+        ant.taskdef(
+                name: "blancoConstants",
+                classname: "blanco.valueobject.task.BlancoValueObjectTask",
+                // 依存設定を参照
+                classpath: configurations.blancoFramework.asPath
+        )
+        // サブディレクトリも処理する
+//        file(blancoConstantsMetaDir).traverse(
+//            // ディレクトリを対象とする
+//            type: FileType.DIRECTORIES,
+//            // 指定したディレクトリも対象に含める
+//            visitRoot: true
+//        ) { metaDir ->
+        println("metaDir: $blancoConstantsMetaDir")
+        ant.blancoConstants(
+                // リソースバンドル定義ファイル格納ディレクトリ（ファイル名はマルチバイトでも問題なし）
+                metadir: blancoConstantsMetaDir,
+                // 自動生成ファイル格納先ベースディレクトリ
+                targetdir: file("blanco-src"),
+                // 作業用ディレクトリ
+                tmpdir: file("build/tmp/blanco/metainfo"),
+                // 自動生成ソースコードのエンコーディング指定
+                encoding: "UTF-8",
+                targetStyle: "maven",
+                lineSeparator: "LF"
+        )
+//        }
+    }
+}
+
+task blancoResponseMetaInfo {
+    dependsOn "blancoResponseMetaInfoVO"
+    group "blanco"
+    description "Generate ResponseMetaInfo constants by blancoConstatns"
+    doFirst {
+        // 作業用ディレクトリを作成
+        mkdir("build/tmp/blanco/metainfo/constants")
+        // blancoConstants Ant タスクを定義
+        ant.taskdef(
+                name: "blancoConstants",
+                classname: "blanco.constants.task.BlancoConstantsTask",
+                // 依存設定を参照
+                classpath: configurations.blancoFramework.asPath
+        )
+        // サブディレクトリも処理する
+//        file(blancoConstantsMetaDir).traverse(
+//            // ディレクトリを対象とする
+//            type: FileType.DIRECTORIES,
+//            // 指定したディレクトリも対象に含める
+//            visitRoot: true
+//        ) { metaDir ->
+        println("metaDir: $blancoConstantsMetaDir")
+        ant.blancoConstants(
+                // リソースバンドル定義ファイル格納ディレクトリ（ファイル名はマルチバイトでも問題なし）
+                metadir: blancoConstantsMetaDir,
+                // 自動生成ファイル格納先ベースディレクトリ
+                targetdir: file("blanco-src"),
+                // 作業用ディレクトリ
+                tmpdir: file("build/tmp/blanco/metainfo"),
+                // 自動生成ソースコードのエンコーディング指定
+                encoding: "UTF-8",
+                // 出力先フォルダの書式を指定する
+                // blanco: [targetdir]/main
+                // maven: [targetdir]/main/java
+                // free: [targetdir](targetdir が無指定の場合は blanco/main)
+                targetStyle: "maven",
+                // 自動生成ソースコードの改行文字を指定する
+                lineSeparator: "LF"
+        )
+//        }
+    }
+}
+
 task meta(type: GradleBuild) {
     group "blanco"
     startParameter.projectProperties = gradle.startParameter.projectProperties
-    tasks = ["blancoDb", "blancoValueObjectKt", "generateTelegrams","blancoRestGeneratorKt"]
+    tasks = ["blancoDb", "blancoValueObjectKt", "generateTelegrams","blancoRestGeneratorKt","blancoResourceBundle","blancoResponseMetaInfo"]
 }
 
 tasks {

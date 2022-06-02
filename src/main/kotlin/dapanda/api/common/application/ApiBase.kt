@@ -5,6 +5,7 @@ import blanco.restgenerator.util.BlancoRestGeneratorKtRequestDeserializer
 import blanco.restgenerator.valueobject.*
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
+import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
 import dapanda.api.common.domain.model.exceptions.DapandaRuntimeException
 import dapanda.api.common.domain.model.http.processHeaderInfo
 import dapanda.api.common.domain.model.logging.LoggerDelegate
@@ -34,6 +35,8 @@ class ApiBase(
                 )
             }
         }
+
+        ApiResponseMetaInfoConstants.META001
 
         // httpRequestにヘッダー情報を設定
         val info = httpRequest.commonRequest!!.info
