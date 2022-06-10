@@ -64,6 +64,17 @@ public class ApiHttpStatus {
     private HttpStatus fARM005 = HttpStatus.FORBIDDEN;
 
     /**
+     * システムエラー。システム管理者にお問い合わせください。&lt;BR&gt;
+     *
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 上記に定義できないエラーが発生した場合に返却
+     * フィールド: [ARM006]。
+     * デフォルト: [HttpStatus.INTERNAL_SERVER_ERROR]。
+     */
+    private HttpStatus fARM006 = HttpStatus.INTERNAL_SERVER_ERROR;
+
+    /**
      * フィールド [ARM001] の値を設定します。
      *
      * フィールドの説明: [リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}<BR>]。
@@ -209,6 +220,35 @@ public class ApiHttpStatus {
     }
 
     /**
+     * フィールド [ARM006] の値を設定します。
+     *
+     * フィールドの説明: [システムエラー。システム管理者にお問い合わせください。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 上記に定義できないエラーが発生した場合に返却
+     *
+     * @param argARM006 フィールド[ARM006]に設定する値。
+     */
+    public void setARM006(final HttpStatus argARM006) {
+        fARM006 = argARM006;
+    }
+
+    /**
+     * フィールド [ARM006] の値を取得します。
+     *
+     * フィールドの説明: [システムエラー。システム管理者にお問い合わせください。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 上記に定義できないエラーが発生した場合に返却
+     * デフォルト: [HttpStatus.INTERNAL_SERVER_ERROR]。
+     *
+     * @return フィールド[ARM006]から取得した値。
+     */
+    public HttpStatus getARM006() {
+        return fARM006;
+    }
+
+    /**
      * Copies this value object to the specified target.
      *
      * <P>Cautions for use</P>
@@ -241,5 +281,8 @@ public class ApiHttpStatus {
         // Name: fARM005
         // Type: io.micronaut.http.HttpStatus
         // Field[fARM005] is an unsupported type[io.micronaut.http.HttpStatus].
+        // Name: fARM006
+        // Type: io.micronaut.http.HttpStatus
+        // Field[fARM006] is an unsupported type[io.micronaut.http.HttpStatus].
     }
 }

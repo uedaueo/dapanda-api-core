@@ -4,8 +4,10 @@ import blanco.restgenerator.valueobject.ApiTelegram
 import blanco.restgenerator.valueobject.CommonRequest
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
+import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
 import dapanda.api.common.domain.CommonConstants
-import dapanda.api.common.domain.model.exceptions.DapandaRuntimeException
+import dapanda.api.common.domain.model.exceptions.ApiRuntimeException
+import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
 import dapanda.api.common.domain.model.http.getToken
 import dapanda.api.common.domain.model.locale.LocaleResolver
 import dapanda.api.common.domain.model.logging.LoggerDelegate
@@ -57,10 +59,10 @@ class TokenAuthenticate(
         }
 
         if (!isAuthenticate) {
-            log.error(resourceBundle.getApiLogMessage(locale).alm005)
-            throw DapandaRuntimeException(
-                message = resourceBundle.getApiResultMessage(locale).arm005
-            )
+            val metaInfo = ApiResponseMetaInfoConstants.META005
+            metaInfo.message = resourceBundle.getApiResultMessage(locale).arm005
+            val logMessage = resourceBundle.getApiLogMessage(locale).alm005
+            throw ApiRuntimeExceptionFactory.create(metaInfo, logMessage)
         }
         log.debug("TokenAuthenticate#authenticate: トークン 認証に成功")
     }

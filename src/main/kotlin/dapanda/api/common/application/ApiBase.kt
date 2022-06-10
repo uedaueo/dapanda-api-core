@@ -6,9 +6,13 @@ import blanco.restgenerator.valueobject.*
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
 import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
-import dapanda.api.common.domain.model.exceptions.DapandaRuntimeException
+import dapanda.api.common.domain.model.common.Utilities
+import dapanda.api.common.domain.model.exceptions.ApiRuntimeException
+import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
 import dapanda.api.common.domain.model.http.processHeaderInfo
+import dapanda.api.common.domain.model.locale.LocaleResolver
 import dapanda.api.common.domain.model.logging.LoggerDelegate
+import dapanda.api.common.domain.model.resourcebundle.CommonResourceBundleFactory
 import io.micronaut.http.HttpResponse
 import jakarta.inject.Singleton
 import javax.validation.Validation
@@ -18,25 +22,31 @@ import javax.validation.Validation
  */
 @Singleton
 class ApiBase(
-    private val tokenAuthenticate: TokenAuthenticate
+    private val tokenAuthenticate: TokenAuthenticate,
+    private val bundleFactory: CommonResourceBundleFactory,
+    private val localeResolver: LocaleResolver,
 ) : IApiBase {
     companion object {
         private val log by LoggerDelegate()
     }
 
     override fun <S : RequestHeader, T : ApiTelegram> prepare(httpRequest: HttpCommonRequest<CommonRequest<S, T>>) {
+        // ロケールを取得
+        val locale = localeResolver.resolve(httpRequest)
+
         // バリデーション
         val violations = Validation.buildDefaultValidatorFactory().validator.validate(httpRequest)
         if (violations.isNotEmpty()) {
-            for (violation in violations) {
-                throw DapandaRuntimeException(
-                    property = violation.propertyPath.last().toString(),
-                    message = violation.message
-                )
-            }
+            val metaInfo = ApiResponseMetaInfoConstants.META006
+            metaInfo.message = bundleFactory.getApiResultMessage(locale = locale).arm006
+            log.debug("バリデーションエラーは「システムエラー」で返却されます。")
+            log.debug("message : " + metaInfo.message)
+            log.debug("messageNumber : " + metaInfo.messageNumber)
+            throw ApiRuntimeExceptionFactory.create(
+                metaInfo = metaInfo,
+                logMessage = violations.joinToString(", ")
+            )
         }
-
-        ApiResponseMetaInfoConstants.META001
 
         // httpRequestにヘッダー情報を設定
         val info = httpRequest.commonRequest!!.info

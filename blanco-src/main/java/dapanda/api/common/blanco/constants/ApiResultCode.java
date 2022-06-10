@@ -64,6 +64,17 @@ public class ApiResultCode {
     private ResponseResultCode fARM005 = ResponseResultCode.ERROR;
 
     /**
+     * システムエラー。システム管理者にお問い合わせください。&lt;BR&gt;
+     *
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 上記に定義できないエラーが発生した場合に返却
+     * フィールド: [ARM006]。
+     * デフォルト: [ResponseResultCode.ERROR]。
+     */
+    private ResponseResultCode fARM006 = ResponseResultCode.ERROR;
+
+    /**
      * フィールド [ARM001] の値を設定します。
      *
      * フィールドの説明: [リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}<BR>]。
@@ -209,6 +220,35 @@ public class ApiResultCode {
     }
 
     /**
+     * フィールド [ARM006] の値を設定します。
+     *
+     * フィールドの説明: [システムエラー。システム管理者にお問い合わせください。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 上記に定義できないエラーが発生した場合に返却
+     *
+     * @param argARM006 フィールド[ARM006]に設定する値。
+     */
+    public void setARM006(final ResponseResultCode argARM006) {
+        fARM006 = argARM006;
+    }
+
+    /**
+     * フィールド [ARM006] の値を取得します。
+     *
+     * フィールドの説明: [システムエラー。システム管理者にお問い合わせください。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 上記に定義できないエラーが発生した場合に返却
+     * デフォルト: [ResponseResultCode.ERROR]。
+     *
+     * @return フィールド[ARM006]から取得した値。
+     */
+    public ResponseResultCode getARM006() {
+        return fARM006;
+    }
+
+    /**
      * Copies this value object to the specified target.
      *
      * <P>Cautions for use</P>
@@ -241,5 +281,8 @@ public class ApiResultCode {
         // Name: fARM005
         // Type: dapanda.api.common.domain.CommonConstants.ResponseResultCode
         // Field[fARM005] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
+        // Name: fARM006
+        // Type: dapanda.api.common.domain.CommonConstants.ResponseResultCode
+        // Field[fARM006] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
     }
 }

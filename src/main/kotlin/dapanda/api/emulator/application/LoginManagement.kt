@@ -6,7 +6,10 @@ import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
 import dapanda.api.common.domain.CommonConstants
 import dapanda.api.common.application.ApiBase
-import dapanda.api.common.domain.model.exceptions.DapandaRuntimeException
+import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
+import dapanda.api.common.domain.model.exceptions.ApiRuntimeException
+import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
+import dapanda.api.common.domain.model.exceptions.DapandaApiRuntimeException
 import dapanda.api.common.domain.model.hashing.sha256WithSalt
 import dapanda.api.common.domain.model.http.IApiBase
 import dapanda.api.common.domain.model.locale.LocaleResolver
@@ -45,12 +48,14 @@ class LoginManagement (
         val telegram: LoginPostRequest = httpRequest.commonRequest!!.telegram!!
         val password = getPassword(telegram.userId, locale)
         if ((password == null) || !verifyPassword(password, telegram.password)) {
+            var logMessage = ""
+
             if (password == null) {
-                log.error(resourceBundle.getApiLogMessage(locale).alm004)
+                logMessage = resourceBundle.getApiLogMessage(locale).alm004
             }
-            throw DapandaRuntimeException(
-                message = resourceBundle.getApiResultMessage(locale).arm004
-            )
+            val metaInfo = ApiResponseMetaInfoConstants.META004
+            metaInfo.message = resourceBundle.getApiResultMessage(locale).arm004
+            throw ApiRuntimeExceptionFactory.create(metaInfo, logMessage)
         }
 
         val token = generateToken()
@@ -91,10 +96,10 @@ class LoginManagement (
         }
             .onFailure {
                 if (it is NoRowFoundException) {
-                    throw DapandaRuntimeException(
-                        message = resourceBundle.getApiResultMessage(locale).arm003,
-                        cause = it
-                    )
+                    val metaInfo = ApiResponseMetaInfoConstants.META003
+                    metaInfo.message = resourceBundle.getApiResultMessage(locale).arm003
+                    val logMessage = resourceBundle.getApiLogMessage(locale).alm003
+                    throw ApiRuntimeExceptionFactory.create(metaInfo, logMessage)
                 } else {
                     throw it
                 }

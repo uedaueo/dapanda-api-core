@@ -53,4 +53,13 @@ public class ApiResponseMetaInfoConstants {
      * 用途、使う箇所: トークン認証エラー
      */
     public static final ResponseMetaInfo META005 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "AuthorizeError", "", "");
+
+    /**
+     * 項目番号:6<br>
+     * システムエラー。システム管理者にお問い合わせください。<BR>
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 上記に定義できないエラーが発生した場合に返却
+     */
+    public static final ResponseMetaInfo META006 = new ResponseMetaInfo(HttpStatus.INTERNAL_SERVER_ERROR, ResponseResultCode.ERROR, "ServerError.InternalFailure", "", "");
 }

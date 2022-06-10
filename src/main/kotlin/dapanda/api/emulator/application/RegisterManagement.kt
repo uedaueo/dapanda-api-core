@@ -6,7 +6,9 @@ import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
 import dapanda.api.common.domain.CommonConstants
 import dapanda.api.common.application.ApiBase
-import dapanda.api.common.domain.model.exceptions.DapandaRuntimeException
+import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
+import dapanda.api.common.domain.model.exceptions.ApiRuntimeException
+import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
 import dapanda.api.common.domain.model.hashing.sha256WithSalt
 import dapanda.api.common.domain.model.http.IApiBase
 import dapanda.api.common.domain.model.locale.LocaleResolver
@@ -37,10 +39,10 @@ class RegisterManagement (
             registerRepository.add(telegram.userId, telegram.password.sha256WithSalt(CommonConstants.PASSWORD_SALT))
         }.onFailure {
             if(it.cause is SQLIntegrityConstraintViolationException) {
-                throw DapandaRuntimeException(
-                    message = resourceBundle.getApiResultMessage(locale).arm002,
-                    cause = it
-                )
+                val metaInfo = ApiResponseMetaInfoConstants.META002
+                metaInfo.message = resourceBundle.getApiResultMessage(locale).arm002
+                val logMessage = resourceBundle.getApiLogMessage(locale).alm002
+                throw ApiRuntimeExceptionFactory.create(metaInfo, logMessage)
             }
         }
 

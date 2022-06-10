@@ -183,4 +183,25 @@ public class ApiResultMessageResourceBundle {
         // 置換文字列はひとつもありません。
         return strFormat;
     }
+
+    /**
+     * bundle[ApiResultMessage], key[ARM006]
+     *
+     * [システムエラー。システム管理者にお問い合わせください。] (ja)<br>
+     * [System error. Contact your system administrator.] (en)<br>
+     *
+     * @return key[ARM006]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     */
+    public String getArm006() {
+        // 初期値として定義書の値を利用します。
+        String strFormat = "システムエラー。システム管理者にお問い合わせください。";
+        try {
+            if (fResourceBundle != null) {
+                strFormat = fResourceBundle.getString("ARM006");
+            }
+        } catch (MissingResourceException ex) {
+        }
+        // 置換文字列はひとつもありません。
+        return strFormat;
+    }
 }
