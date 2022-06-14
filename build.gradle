@@ -1,11 +1,18 @@
 import groovy.io.FileType
+import org.jetbrains.gradle.ext.EncodingConfiguration
 
 plugins {
+    id "application"
+    // ライブラリ化用
+    id "java-library"
+    id "maven-publish"
     id("org.jetbrains.kotlin.jvm") version "1.6.20"
     id("org.jetbrains.kotlin.kapt") version "1.6.20"
     id("org.jetbrains.kotlin.plugin.allopen") version "1.6.10"
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("io.micronaut.application") version "3.3.2"
+    // IntelliJ IDEA の設定用
+    id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.4"
 }
 
 version = "0.0.1"
@@ -87,6 +94,58 @@ application {
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("11")
+}
+
+javadoc {
+    options.charSet = "UTF-8"
+    options.encoding = "UTF-8"
+}
+
+// 依存ライブラリを除くクラスを格納した jar を生成
+jar {
+    enabled = true
+}
+
+// アプリケーション起動用スクリプトを生成
+startScripts {
+    enabled = false
+}
+
+// 配布用 tar ファイルを生成
+distTar {
+    enabled = false
+}
+
+// 配布用 zip ファイルを生成
+distZip {
+    enabled = false
+}
+
+// IntelliJ IDEA の設定
+idea {
+    project {
+        settings {
+            // File -> Settings...(Ctrl + Alt + S) -> Editor -> File Encodings の設定
+            encodings {
+                // Project Encoding
+                encoding = "UTF-8"
+                // BOM for new UTF-8 files -> Create new UTF-8 files
+                bomPolicy = EncodingConfiguration.BomPolicy.WITH_NO_BOM
+                // Properties Files (*.properties)
+                properties {
+                    // Default encoding for properties files
+                    encoding = "UTF-8"
+                    // Transparent native-to-ascii conversion
+                    transparentNativeToAsciiConversion = true
+                    // ファイルまたは、ディレクトリを指定してエンコーディングを設定
+                    // ファイル指定の場合は、プロジェクトルートからの相対指定で、ディレクトリ階層も必須。ワイルドカード指定不可
+                    // ディレクトリ指定の場合もファイル指定と同様
+                    // 存在しないファイルやディレクトリを指定した場合、IntelliJ に反映されない。
+                    mapping["gradlew.bat"] = "windows-31j"
+                }
+            }
+        }
+    }
 }
 
 task blancoDb {
@@ -476,6 +535,30 @@ tasks {
     compileTestKotlin {
         kotlinOptions {
             jvmTarget = "11"
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    duplicatesStrategy = 'include'
+    archiveClassifier.convention('sources')
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
+}
+
+java {
+    // 成果物にソースコードを含める
+    withSourcesJar()
+    // 成果物に Javadoc を含める
+    withJavadocJar()
+}
+
+// パッケージ公開設定
+publishing {
+    publications {
+        // GitHub Packages Repository
+        gpr(MavenPublication) {
+            from components.java
         }
     }
 }
