@@ -7,10 +7,9 @@ import blanco.restgenerator.valueobject.RequestHeader
 import dapanda.api.common.domain.CommonConstants
 import dapanda.api.common.application.ApiBase
 import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
-import dapanda.api.common.domain.model.exceptions.ApiRuntimeException
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
-import dapanda.api.common.domain.model.exceptions.DapandaApiRuntimeException
 import dapanda.api.common.domain.model.hashing.sha256WithSalt
+import dapanda.api.common.domain.model.http.CommonHttpResponseFactory
 import dapanda.api.common.domain.model.http.IApiBase
 import dapanda.api.common.domain.model.locale.LocaleResolver
 import dapanda.api.common.domain.model.logging.LoggerDelegate
@@ -67,10 +66,10 @@ class LoginManagement (
             connection.commit()
         }
 
-        return HttpResponse.ok(
-            CommonResponse(
-                telegram = LoginPostResponse(token)
-            )
+        val responseTelegram = LoginPostResponse(token)
+
+        return CommonHttpResponseFactory.create(
+            responseTelegram
         )
     }
 
