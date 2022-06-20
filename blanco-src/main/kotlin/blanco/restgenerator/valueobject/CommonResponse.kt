@@ -20,6 +20,6 @@ constructor(
     var errors: ArrayList<ErrorItem>? = ArrayList<ErrorItem>(),
     /** フィールド: [telegram]。 デフォルト: [null]。 */
     var telegram: T? = null,
-    /** フィールド: [message]。 デフォルト: [null]。 */
-    var message: String? = null
+    /** フィールド: [messages]。 デフォルト: [ArrayList&lt;MessageItem&gt;()]。 */
+    var messages: ArrayList<MessageItem>? = ArrayList<MessageItem>()
 )
