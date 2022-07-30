@@ -1,9 +1,6 @@
 package dapanda.api.common.domain.model.http
 
-import blanco.restgenerator.valueobject.ApiTelegram
-import blanco.restgenerator.valueobject.CommonResponse
-import blanco.restgenerator.valueobject.ErrorItem
-import dapanda.api.common.domain.CommonConstants
+import blanco.restgenerator.valueobject.*
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MutableHttpResponse
@@ -17,10 +14,10 @@ object CommonHttpResponseFactory {
      *
      * @param telegram 返却予定電文
      */
-    fun <T : ApiTelegram> create(telegram: T): MutableHttpResponse<CommonResponse<T>> {
+    fun <S : ResponseHeader, T : ApiTelegram> create(info: S, telegram: T): MutableHttpResponse<CommonResponse<S, T>> {
         return HttpResponse.ok(
-            CommonResponse<T>(
-                result = CommonConstants.ResponseResultCode.SUCCESS.code.toLong(),
+            CommonResponse<S, T>(
+                info = info,
                 telegram = telegram
             )
         )
@@ -32,29 +29,23 @@ object CommonHttpResponseFactory {
      *
      * @param result リザルトコード
      * @param errorCode エラーコード
-     * @param messageNumber メッセージ番号
      * @param message エラーメッセージ
      * @param httpStatus 返却ステータス
      */
     fun create(
-        result: Long,
+        info: ResponseHeader,
         errorCode: String,
-        messageNumber: String?,
         message: String,
         httpStatus: HttpStatus
-    ): MutableHttpResponse<CommonResponse<ApiTelegram>> {
-        var errors: ArrayList<ErrorItem> = ArrayList()
-        var number: String? = null
-        if ((messageNumber != null) && messageNumber.isNotEmpty()) {
-            number = messageNumber
-        }
-        errors.add(ErrorItem(errorCode, message, number))
+    ): MutableHttpResponse<CommonResponse<ResponseHeader, ApiTelegram>> {
+        val errors: ArrayList<MessageItem> = ArrayList()
+        errors.add(MessageItem(errorCode, message))
         return HttpResponse
-            .status<CommonResponse<ApiTelegram>>(httpStatus)
+            .status<CommonResponse<ResponseHeader, ApiTelegram>>(httpStatus)
             .body(
                 CommonResponse(
-                    result = result,
-                    errors = errors
+                    info = info,
+                    messages = errors
                 )
             )
     }
@@ -64,21 +55,21 @@ object CommonHttpResponseFactory {
      * エラーなので電文はありません。
      * 複数のエラーを返したい場合。
      *
-     * @param result リザルトコード
+     * @param info レスポンスヘッダー
      * @param errors エラーリスト
      * @param httpStatus 返却ステータス
      */
     fun create(
-        result: Long,
-        errors: ArrayList<ErrorItem>,
+        info: ResponseHeader,
+        errors: ArrayList<MessageItem>,
         httpStatus: HttpStatus
-    ): MutableHttpResponse<CommonResponse<ApiTelegram>> {
+    ): MutableHttpResponse<CommonResponse<ResponseHeader, ApiTelegram>> {
         return HttpResponse
-            .status<CommonResponse<ApiTelegram>>(httpStatus)
+            .status<CommonResponse<ResponseHeader, ApiTelegram>>(httpStatus)
             .body(
                 CommonResponse(
-                    result = result,
-                    errors = errors
+                    info = info,
+                    messages = errors
                 )
             )
     }

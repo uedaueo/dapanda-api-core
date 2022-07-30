@@ -7,6 +7,7 @@ import blanco.restgenerator.valueobject.CommonRequest
 import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
+import blanco.restgenerator.valueobject.ResponseHeader
 import dapanda.api.emulator.blanco.OkGetRequest
 import dapanda.api.emulator.blanco.OkGetResponse
 import io.micronaut.http.HttpResponse
@@ -21,5 +22,5 @@ interface IOkManagement {
    */
   fun doGet(
       httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, OkGetRequest>>
-  ): HttpResponse<CommonResponse<OkGetResponse>>
+  ): HttpResponse<CommonResponse<ResponseHeader, OkGetResponse>>
 }

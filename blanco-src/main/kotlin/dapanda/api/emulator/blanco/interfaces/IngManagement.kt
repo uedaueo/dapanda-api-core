@@ -7,6 +7,7 @@ import blanco.restgenerator.valueobject.CommonRequest
 import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
+import blanco.restgenerator.valueobject.ResponseHeader
 import dapanda.api.emulator.blanco.NgGetRequest
 import dapanda.api.emulator.blanco.NgGetResponse
 import io.micronaut.http.HttpResponse
@@ -21,5 +22,5 @@ interface INgManagement {
    */
   fun doGet(
       httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, NgGetRequest>>
-  ): HttpResponse<CommonResponse<NgGetResponse>>
+  ): HttpResponse<CommonResponse<ResponseHeader, NgGetResponse>>
 }

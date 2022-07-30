@@ -1,25 +1,26 @@
 package blanco.restgenerator.valueobject
 
-import io.micronaut.core.annotation.Introspected
+import javax.validation.Valid
 
 /** 共通レスポンスを表すオブジェクトです。 */
-@Introspected
-data class CommonResponse<T : ApiTelegram>
+data class CommonResponse<S : ResponseHeader, T : ApiTelegram>
 constructor(
     /**
-     * 処理結果（success = 10/error = 20）
+     * 通信に関するメタ情報
      *
-     * フィールド: [result]。 デフォルト: [10]。
+     * フィールド: [info]。 デフォルト: [null]。
      */
-    var result: Long = 10,
+    @field:Valid var info: S? = null,
     /**
-     * 処理時間（ミリ秒）
+     * API毎の応答電文, ApiTelegramを継承してAPI毎に独自の型を指定
      *
-     * フィールド: [errors]。 デフォルト: [ArrayList&lt;ErrorItem&gt;()]。
+     * フィールド: [telegram]。 デフォルト: [null]。
      */
-    var errors: ArrayList<ErrorItem>? = ArrayList<ErrorItem>(),
-    /** フィールド: [telegram]。 デフォルト: [null]。 */
     var telegram: T? = null,
-    /** フィールド: [messages]。 デフォルト: [ArrayList&lt;MessageItem&gt;()]。 */
+    /**
+     * メッセージ・エラー情報
+     *
+     * フィールド: [messages]。 デフォルト: [ArrayList&lt;MessageItem&gt;()]。
+     */
     var messages: ArrayList<MessageItem>? = ArrayList<MessageItem>()
 )

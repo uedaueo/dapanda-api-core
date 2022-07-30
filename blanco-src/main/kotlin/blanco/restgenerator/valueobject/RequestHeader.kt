@@ -1,21 +1,20 @@
 package blanco.restgenerator.valueobject
 
-import io.micronaut.core.annotation.Introspected
+import javax.validation.Valid
 
 /** 通信に関するメタ情報を表す型です */
-@Introspected
-open class RequestHeader {
-  /**
-   * トークン認証に使うトークン文字列
-   *
-   * フィールド: [token]。 デフォルト: [null]。
-   */
-  var token: String? = null
-
-  /**
-   * 言語コード
-   *
-   * フィールド: [lang]。 デフォルト: [null]。
-   */
-  var lang: String? = null
-}
+data class RequestHeader
+constructor(
+    /**
+     * ロケール
+     *
+     * フィールド: [locale]。 デフォルト: [Locale()]。
+     */
+    @field:Valid var locale: Locale = Locale(),
+    /**
+     * バージョン
+     *
+     * フィールド: [version]。 デフォルト: [&quot;&quot;]。
+     */
+    @field:Valid var version: String = ""
+)

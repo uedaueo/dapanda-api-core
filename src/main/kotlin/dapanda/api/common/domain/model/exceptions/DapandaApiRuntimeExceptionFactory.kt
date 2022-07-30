@@ -1,6 +1,6 @@
 package dapanda.api.common.domain.model.exceptions
 
-import blanco.restgenerator.valueobject.ErrorItem
+import blanco.restgenerator.valueobject.MessageItem
 import blanco.restgenerator.valueobject.ResponseMetaInfo
 
 /**
@@ -16,7 +16,7 @@ object DapandaApiRuntimeExceptionFactory {
      * @param cause この例外が発生した原因となる例外です。
      */
     fun create(
-        errors: ArrayList<ErrorItem>,
+        errors: ArrayList<MessageItem>,
         metaInfo: ResponseMetaInfo,
         logMessage: String,
         cause: Throwable? = null

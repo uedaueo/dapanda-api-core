@@ -1,16 +1,15 @@
 package dapanda.api.emulator.application
 
-import blanco.restgenerator.valueobject.CommonRequest
-import blanco.restgenerator.valueobject.CommonResponse
-import blanco.restgenerator.valueobject.HttpCommonRequest
-import blanco.restgenerator.valueobject.RequestHeader
+import blanco.restgenerator.valueobject.*
 import dapanda.api.common.domain.CommonConstants
 import dapanda.api.common.application.ApiBase
 import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
+import dapanda.api.common.domain.model.common.Utilities
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
 import dapanda.api.common.domain.model.hashing.sha256WithSalt
 import dapanda.api.common.domain.model.http.CommonHttpResponseFactory
 import dapanda.api.common.domain.model.http.IApiBase
+import dapanda.api.common.domain.model.http.getStartTime
 import dapanda.api.common.domain.model.locale.LocaleResolver
 import dapanda.api.common.domain.model.logging.LoggerDelegate
 import dapanda.api.common.domain.model.resourcebundle.CommonResourceBundleFactory
@@ -22,6 +21,7 @@ import dapanda.api.emulator.domain.login.ILoginRepository
 import io.micronaut.http.HttpResponse
 import jakarta.inject.Singleton
 import java.util.*
+import java.util.Locale
 import javax.sql.DataSource
 
 /**
@@ -42,7 +42,7 @@ class LoginManagement (
 
     fun doPost(
         httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, LoginPostRequest>>
-    ): HttpResponse<CommonResponse<LoginPostResponse>> {
+    ): HttpResponse<CommonResponse<ResponseHeader, LoginPostResponse>> {
         val locale = localeResolver.resolve(httpRequest)
         val telegram: LoginPostRequest = httpRequest.commonRequest!!.telegram!!
         val password = getPassword(telegram.userId, locale)
@@ -67,8 +67,18 @@ class LoginManagement (
         }
 
         val responseTelegram = LoginPostResponse(token)
+        var responseLocale = blanco.restgenerator.valueobject.Locale()
+            httpRequest.commonRequest?.let {
+                responseLocale = it.info.locale
+            }
+        val responseHeader = ResponseHeader(
+            responseLocale,
+            Utilities.getMeasurementTime(httpRequest.getStartTime()),
+            CommonConstants.ResponseResultCode.SUCCESS.name
+        )
 
         return CommonHttpResponseFactory.create(
+            responseHeader,
             responseTelegram
         )
     }

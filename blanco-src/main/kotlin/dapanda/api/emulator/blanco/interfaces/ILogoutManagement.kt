@@ -7,6 +7,7 @@ import blanco.restgenerator.valueobject.CommonRequest
 import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
+import blanco.restgenerator.valueobject.ResponseHeader
 import dapanda.api.emulator.blanco.LogoutPutRequest
 import dapanda.api.emulator.blanco.LogoutPutResponse
 import io.micronaut.http.HttpResponse
@@ -21,5 +22,5 @@ interface ILogoutManagement {
    */
   fun doPut(
       httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, LogoutPutRequest>>
-  ): HttpResponse<CommonResponse<LogoutPutResponse>>
+  ): HttpResponse<CommonResponse<ResponseHeader, LogoutPutResponse>>
 }

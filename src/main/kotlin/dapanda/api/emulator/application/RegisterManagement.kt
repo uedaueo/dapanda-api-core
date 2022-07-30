@@ -1,9 +1,6 @@
 package dapanda.api.emulator.application
 
-import blanco.restgenerator.valueobject.CommonRequest
-import blanco.restgenerator.valueobject.CommonResponse
-import blanco.restgenerator.valueobject.HttpCommonRequest
-import blanco.restgenerator.valueobject.RequestHeader
+import blanco.restgenerator.valueobject.*
 import dapanda.api.common.domain.CommonConstants
 import dapanda.api.common.application.ApiBase
 import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
@@ -32,7 +29,7 @@ class RegisterManagement (
 ) : IApiBase by apiBase {
     fun doPost(
         httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, RegisterPostRequest>>
-    ): HttpResponse<CommonResponse<RegisterPostResponse>> {
+    ): HttpResponse<CommonResponse<ResponseHeader, RegisterPostResponse>> {
         val telegram: RegisterPostRequest = httpRequest.commonRequest!!.telegram!!
         val locale = localeResolver.resolve(httpRequest)
         runCatching {

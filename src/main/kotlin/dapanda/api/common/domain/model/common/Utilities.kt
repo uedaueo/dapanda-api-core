@@ -29,4 +29,8 @@ object Utilities {
         }
         return metaInfo
     }
+
+    fun getMeasurementTime(startTime: Long): Long {
+        return System.currentTimeMillis() - startTime
+    }
 }

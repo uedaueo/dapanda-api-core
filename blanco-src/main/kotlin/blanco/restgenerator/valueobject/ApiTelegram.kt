@@ -11,4 +11,11 @@ open class ApiTelegram {
    * フィールド: [telegramId]。 デフォルト: [&quot;&quot;]。
    */
   var telegramId: String = ""
+
+  /**
+   * 画面APIの権限を設定します。各電文クラスでオーバーライドされる前提です。
+   *
+   * フィールド: [permissionKind]。 デフォルト: [&quot;&quot;]。
+   */
+  open val permissionKind: String = ""
 }

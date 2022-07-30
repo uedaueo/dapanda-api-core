@@ -8,6 +8,7 @@ import blanco.restgenerator.valueobject.CommonRequest
 import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
+import blanco.restgenerator.valueobject.ResponseHeader
 import dapanda.api.emulator.application.RegisterManagement
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
@@ -33,7 +34,7 @@ constructor(
   fun doPost(
       argHttpRequest: HttpRequest<CommonRequest<RequestHeader, RegisterPostRequest>>,
       @Body argBody: String
-  ): HttpResponse<CommonResponse<RegisterPostResponse>> {
+  ): HttpResponse<CommonResponse<ResponseHeader, RegisterPostResponse>> {
     /* Creates a CommonRequest instance from a JSON string. */
     val deserializer =
         BlancoRestGeneratorKtRequestDeserializer<RequestHeader, RegisterPostRequest>(

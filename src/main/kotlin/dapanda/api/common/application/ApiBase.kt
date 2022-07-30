@@ -6,10 +6,9 @@ import blanco.restgenerator.valueobject.*
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
 import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
-import dapanda.api.common.domain.model.common.Utilities
-import dapanda.api.common.domain.model.exceptions.ApiRuntimeException
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
 import dapanda.api.common.domain.model.http.processHeaderInfo
+import dapanda.api.common.domain.model.http.setStartTime
 import dapanda.api.common.domain.model.locale.LocaleResolver
 import dapanda.api.common.domain.model.logging.LoggerDelegate
 import dapanda.api.common.domain.model.resourcebundle.CommonResourceBundleFactory
@@ -31,6 +30,12 @@ class ApiBase(
     }
 
     override fun <S : RequestHeader, T : ApiTelegram> prepare(httpRequest: HttpCommonRequest<CommonRequest<S, T>>) {
+        /*
+         * 計測開始
+         */
+        httpRequest.setStartTime()
+        log.debug("ApiBase#prepare: START!")
+
         // ロケールを取得
         val locale = localeResolver.resolve(httpRequest)
 
@@ -56,9 +61,9 @@ class ApiBase(
         tokenAuthenticate.authenticate(httpRequest)
     }
 
-    override fun <S : RequestHeader, T1 : ApiTelegram, T2 : ApiTelegram> finish(
-        httpResponse: HttpResponse<CommonResponse<T1>>,
-        httpRequest: HttpCommonRequest<CommonRequest<S, T2>>
+    override fun <S1 : ResponseHeader, S2 : RequestHeader, T1 : ApiTelegram, T2 : ApiTelegram> finish(
+        httpResponse: HttpResponse<CommonResponse<S1, T1>>,
+        httpRequest: HttpCommonRequest<CommonRequest<S2, T2>>
     ) {
     }
 
@@ -86,10 +91,10 @@ class ApiBase(
         @Suppress("UNCHECKED_CAST")
         val telegram = co.telegram as T?
 
-        return CommonRequest<S, T>(info, telegram)
+        return CommonRequest(info, telegram)
     }
 
-    override fun <T : ApiTelegram> createCommonResponse(telegram: T): CommonResponse<T> {
+    override fun <S : ResponseHeader, T : ApiTelegram> createCommonResponse(header: S, telegram: T): CommonResponse<S, T> {
         TODO("Not yet implemented")
     }
 

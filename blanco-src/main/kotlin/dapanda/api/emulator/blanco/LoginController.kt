@@ -8,7 +8,11 @@ import blanco.restgenerator.valueobject.CommonRequest
 import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
+import blanco.restgenerator.valueobject.ResponseHeader
+import com.oracle.svm.core.annotate.Inject
+import dapanda.api.common.application.TokenAuthenticate
 import dapanda.api.emulator.application.LoginManagement
+import io.micronaut.context.annotation.Replaces
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Body
@@ -33,7 +37,7 @@ constructor(
   fun doPost(
       argHttpRequest: HttpRequest<CommonRequest<RequestHeader, LoginPostRequest>>,
       @Body argBody: String
-  ): HttpResponse<CommonResponse<LoginPostResponse>> {
+  ): HttpResponse<CommonResponse<ResponseHeader, LoginPostResponse>> {
     /* Creates a CommonRequest instance from a JSON string. */
     val deserializer =
         BlancoRestGeneratorKtRequestDeserializer<RequestHeader, LoginPostRequest>(

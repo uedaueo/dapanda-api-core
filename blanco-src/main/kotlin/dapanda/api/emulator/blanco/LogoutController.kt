@@ -8,6 +8,7 @@ import blanco.restgenerator.valueobject.CommonRequest
 import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
+import blanco.restgenerator.valueobject.ResponseHeader
 import dapanda.api.emulator.application.LogoutManagement
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
@@ -33,7 +34,7 @@ constructor(
   fun doPut(
       argHttpRequest: HttpRequest<CommonRequest<RequestHeader, LogoutPutRequest>>,
       @Body argBody: String
-  ): HttpResponse<CommonResponse<LogoutPutResponse>> {
+  ): HttpResponse<CommonResponse<ResponseHeader, LogoutPutResponse>> {
     /* Creates a CommonRequest instance from a JSON string. */
     val deserializer =
         BlancoRestGeneratorKtRequestDeserializer<RequestHeader, LogoutPutRequest>(

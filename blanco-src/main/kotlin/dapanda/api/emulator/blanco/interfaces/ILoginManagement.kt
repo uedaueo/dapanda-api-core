@@ -7,6 +7,7 @@ import blanco.restgenerator.valueobject.CommonRequest
 import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
+import blanco.restgenerator.valueobject.ResponseHeader
 import dapanda.api.emulator.blanco.LoginPostRequest
 import dapanda.api.emulator.blanco.LoginPostResponse
 import io.micronaut.http.HttpResponse
@@ -21,5 +22,5 @@ interface ILoginManagement {
    */
   fun doPost(
       httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, LoginPostRequest>>
-  ): HttpResponse<CommonResponse<LoginPostResponse>>
+  ): HttpResponse<CommonResponse<ResponseHeader, LoginPostResponse>>
 }

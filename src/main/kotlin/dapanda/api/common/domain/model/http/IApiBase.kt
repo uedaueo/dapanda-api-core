@@ -18,9 +18,9 @@ interface IApiBase {
     /**
      * APIのリクエストパラメータの後処理を行います。
      */
-    fun <S : RequestHeader, T1 : ApiTelegram, T2 : ApiTelegram> finish(
-        httpResponse: HttpResponse<CommonResponse<T1>>,
-        httpRequest: HttpCommonRequest<CommonRequest<S, T2>>
+    fun <S1 : ResponseHeader, S2 : RequestHeader, T1 : ApiTelegram, T2 : ApiTelegram> finish(
+        httpResponse: HttpResponse<CommonResponse<S1, T1>>,
+        httpRequest: HttpCommonRequest<CommonRequest<S2, T2>>
     )
 
     /**
@@ -35,7 +35,7 @@ interface IApiBase {
     /**
      * HttpResponse に渡す為の CommonResponse を生成します。
      */
-    fun <T : ApiTelegram> createCommonResponse(telegram: T): CommonResponse<T>
+    fun <S : ResponseHeader, T : ApiTelegram> createCommonResponse(header: S, telegram: T): CommonResponse<S, T>
 
     /**
      * 型を確定した CommonRequest を生成します。

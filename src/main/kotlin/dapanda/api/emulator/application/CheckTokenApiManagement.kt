@@ -1,14 +1,11 @@
 package dapanda.api.emulator.application
 
+import blanco.restgenerator.valueobject.*
 import dapanda.api.emulator.blanco.CheckTokenApiGetRequest
 import dapanda.api.emulator.blanco.CheckTokenApiGetResponse
 import dapanda.api.emulator.domain.Const
 import dapanda.api.common.application.ApiBase
 import dapanda.api.common.domain.model.http.IApiBase
-import blanco.restgenerator.valueobject.CommonRequest
-import blanco.restgenerator.valueobject.CommonResponse
-import blanco.restgenerator.valueobject.HttpCommonRequest
-import blanco.restgenerator.valueobject.RequestHeader
 import dapanda.api.common.domain.model.logging.LoggerDelegate
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
@@ -27,7 +24,7 @@ class CheckTokenApiManagement(
 
     fun doGet(
         httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, CheckTokenApiGetRequest>>
-    ): HttpResponse<CommonResponse<CheckTokenApiGetResponse>> {
+    ): HttpResponse<CommonResponse<ResponseHeader, CheckTokenApiGetResponse>> {
         val telegram: CheckTokenApiGetRequest = httpRequest.commonRequest?.telegram ?: return HttpResponse.serverError()
         if (telegram.token == Const.OK_TOKEN) {
             return HttpResponse.ok()

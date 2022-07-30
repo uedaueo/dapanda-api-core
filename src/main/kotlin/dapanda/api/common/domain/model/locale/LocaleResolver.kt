@@ -45,8 +45,8 @@ class LocaleResolver(
                     // POST または PUT の場合
                     val body = request.commonRequest
                     if (body != null) {
-                        body.info.lang
-                        body.info.lang?.let {
+                        body.info.locale.lang
+                        body.info.locale.lang.let {
                             localeString = it
                         }
                     }

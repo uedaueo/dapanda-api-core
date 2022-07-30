@@ -7,13 +7,16 @@ import blanco.restgenerator.valueobject.CommonRequest
 import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
+import blanco.restgenerator.valueobject.ResponseHeader
 import dapanda.api.emulator.application.CheckTokenApiManagement
+import io.micronaut.core.annotation.Creator
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.RequestBean
 
+/*
 /** アプリケーションサーバから認証シーケンスサーバに対して要求する認可トークン確認用APIです。 */
 @Controller("/check_token_api")
 class CheckTokenApiController
@@ -32,7 +35,7 @@ constructor(
   fun doGet(
       argHttpRequest: HttpRequest<CommonRequest<RequestHeader, CheckTokenApiGetRequest>>,
       @RequestBean bean: CheckTokenApiGetRequest
-  ): HttpResponse<CommonResponse<CheckTokenApiGetResponse>> {
+  ): HttpResponse<CommonResponse<ResponseHeader, CheckTokenApiGetResponse>> {
     /* Creates HttpCommonRequest with httpRequest as delegator. */
     /* At this stage, commonRequest is tentative.*/
     val httpCommonRequest =
@@ -44,7 +47,7 @@ constructor(
         CommonRequest(info, bean)
 
     /* Stores the commonRequest with its type determined */
-    httpCommonRequest.commonRequest = commonRequest
+      httpCommonRequest.commonRequest = commonRequest
 
     /* Performs preprocessing (validation, etc.) */
     checkTokenApiManagement.prepare(httpCommonRequest)
@@ -58,3 +61,5 @@ constructor(
     return httpResponse
   }
 }
+
+ */

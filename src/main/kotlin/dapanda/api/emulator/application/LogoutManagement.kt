@@ -1,9 +1,6 @@
 package dapanda.api.emulator.application
 
-import blanco.restgenerator.valueobject.CommonRequest
-import blanco.restgenerator.valueobject.CommonResponse
-import blanco.restgenerator.valueobject.HttpCommonRequest
-import blanco.restgenerator.valueobject.RequestHeader
+import blanco.restgenerator.valueobject.*
 import dapanda.api.common.application.ApiBase
 import dapanda.api.common.domain.model.http.IApiBase
 import dapanda.api.emulator.blanco.LogoutPutRequest
@@ -22,7 +19,7 @@ class LogoutManagement (
 ) : IApiBase by apiBase {
     fun doPut(
         httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, LogoutPutRequest>>
-    ): HttpResponse<CommonResponse<LogoutPutResponse>> {
+    ): HttpResponse<CommonResponse<ResponseHeader, LogoutPutResponse>> {
         val telegram: LogoutPutRequest = httpRequest.commonRequest!!.telegram!!
 
         loginRepository.deleteToken(telegram.userId)

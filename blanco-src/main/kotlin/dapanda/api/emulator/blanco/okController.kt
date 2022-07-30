@@ -3,10 +3,12 @@
  */
 package dapanda.api.emulator.blanco
 
+/*
 import blanco.restgenerator.valueobject.CommonRequest
 import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
+import blanco.restgenerator.valueobject.ResponseHeader
 import dapanda.api.emulator.application.OkManagement
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
@@ -32,7 +34,7 @@ constructor(
   fun doGet(
       argHttpRequest: HttpRequest<CommonRequest<RequestHeader, OkGetRequest>>,
       @RequestBean bean: OkGetRequest
-  ): HttpResponse<CommonResponse<OkGetResponse>> {
+  ): HttpResponse<CommonResponse<ResponseHeader, OkGetResponse>> {
     /* Creates HttpCommonRequest with httpRequest as delegator. */
     /* At this stage, commonRequest is tentative.*/
     val httpCommonRequest =
@@ -57,3 +59,6 @@ constructor(
     return httpResponse
   }
 }
+
+
+ */
