@@ -2,6 +2,7 @@ package dapanda.api.common.domain.model.http
 
 import blanco.restgenerator.util.BlancoRestGeneratorKtRequestDeserializer
 import blanco.restgenerator.valueobject.*
+import dapanda.api.common.domain.model.authenticate.IAuthenticate
 import io.micronaut.http.HttpResponse
 
 /**
@@ -12,7 +13,8 @@ interface IApiBase {
      * APIのリクエストパラメータの初期処理を行います。
      */
     fun <S : RequestHeader, T : ApiTelegram> prepare(
-        httpRequest: HttpCommonRequest<CommonRequest<S, T>>
+        httpRequest: HttpCommonRequest<CommonRequest<S, T>>,
+        authenticate: IAuthenticate
     )
 
     /**

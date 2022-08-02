@@ -6,6 +6,7 @@ import blanco.restgenerator.valueobject.*
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
 import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
+import dapanda.api.common.domain.model.authenticate.IAuthenticate
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
 import dapanda.api.common.domain.model.http.processHeaderInfo
 import dapanda.api.common.domain.model.http.setStartTime
@@ -21,7 +22,6 @@ import javax.validation.Validation
  */
 @Singleton
 class ApiBase(
-    private val tokenAuthenticate: TokenAuthenticate,
     private val bundleFactory: CommonResourceBundleFactory,
     private val localeResolver: LocaleResolver,
 ) : IApiBase {
@@ -29,7 +29,10 @@ class ApiBase(
         private val log by LoggerDelegate()
     }
 
-    override fun <S : RequestHeader, T : ApiTelegram> prepare(httpRequest: HttpCommonRequest<CommonRequest<S, T>>) {
+    override fun <S : RequestHeader, T : ApiTelegram> prepare(
+        httpRequest: HttpCommonRequest<CommonRequest<S, T>>,
+        authenticate: IAuthenticate
+    ) {
         /*
          * 計測開始
          */
@@ -58,7 +61,8 @@ class ApiBase(
         httpRequest.processHeaderInfo(info)
 
         // 認証処理
-        tokenAuthenticate.authenticate(httpRequest)
+        // tokenAuthenticate.authenticate(httpRequest)
+        authenticate.authenticate(httpRequest)
     }
 
     override fun <S1 : ResponseHeader, S2 : RequestHeader, T1 : ApiTelegram, T2 : ApiTelegram> finish(
