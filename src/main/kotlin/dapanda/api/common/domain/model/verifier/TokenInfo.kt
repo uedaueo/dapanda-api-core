@@ -1,4 +1,4 @@
-package dapanda.api.sample.domain.verifier
+package dapanda.api.common.domain.model.verifier
 
 import io.micronaut.core.annotation.Introspected
 
@@ -9,7 +9,7 @@ import io.micronaut.core.annotation.Introspected
  * @property userId かっこユーザID
  */
 @Introspected
-data class SampleTokenInfo(
+data class TokenInfo(
     val token: String,
     val nowDateTime: Long,
     val expiredDateTime: Long

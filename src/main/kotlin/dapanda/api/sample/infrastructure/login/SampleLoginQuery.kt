@@ -22,11 +22,8 @@ class SampleLoginQuery(
                     userId
                 )
                 // 検索実行
-                // iterator.executeQuery()
-                // iterator.takeIf { iterator.next() }?.row
-                val row = SampleUserSelectRow()
-                row.password = "5a4794b699e08fe473849cca9e6ea14badd944522abdea1dd289419275368c7b"
-                row
+                iterator.executeQuery()
+                iterator.takeIf { iterator.next() }?.row
             }
                 .also {
                     // 検索処理を閉じる

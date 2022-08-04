@@ -1,13 +1,13 @@
-package dapanda.api.sample.blanco.db.row;
+package dapanda.api.common.blanco.db.row;
 
 /**
  * A row class created from SQL definition (blancoDb).
  *
- * 'SampleValidTokenSelectRow' row is represented.
+ * 'ValidTokenSelectRow' row is represented.
  * (1) 'user_id' column type:java.lang.String
  */
 @io.micronaut.core.annotation.Introspected
-public class SampleValidTokenSelectRow {
+public class ValidTokenSelectRow {
     /**
      * Field [user_id].
      *
@@ -51,7 +51,7 @@ public class SampleValidTokenSelectRow {
     @Override
     public String toString() {
         final StringBuffer buf = new StringBuffer();
-        buf.append("dapanda.api.sample.blanco.db.row.SampleValidTokenSelectRow[");
+        buf.append("dapanda.api.common.blanco.db.row.ValidTokenSelectRow[");
         buf.append("user_id=" + fUserId);
         buf.append("]");
         return buf.toString();
@@ -68,9 +68,9 @@ public class SampleValidTokenSelectRow {
      *
      * @param target target value object.
      */
-    public void copyTo(final SampleValidTokenSelectRow target) {
+    public void copyTo(final ValidTokenSelectRow target) {
         if (target == null) {
-            throw new IllegalArgumentException("Bug: SampleValidTokenSelectRow#copyTo(target): argument 'target' is null");
+            throw new IllegalArgumentException("Bug: ValidTokenSelectRow#copyTo(target): argument 'target' is null");
         }
 
         // No needs to copy parent class.

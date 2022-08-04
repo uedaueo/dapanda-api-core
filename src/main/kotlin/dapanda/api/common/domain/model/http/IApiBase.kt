@@ -13,8 +13,7 @@ interface IApiBase {
      * APIのリクエストパラメータの初期処理を行います。
      */
     fun <S : RequestHeader, T : ApiTelegram> prepare(
-        httpRequest: HttpCommonRequest<CommonRequest<S, T>>,
-        authenticate: IAuthenticate
+        httpRequest: HttpCommonRequest<CommonRequest<S, T>>
     )
 
     /**

@@ -1,4 +1,4 @@
-package dapanda.api.sample.application.authenticate
+package dapanda.api.common.application.authenticate
 
 import blanco.restgenerator.valueobject.ApiTelegram
 import blanco.restgenerator.valueobject.CommonRequest
@@ -12,9 +12,13 @@ import dapanda.api.common.domain.model.http.getToken
 import dapanda.api.common.domain.model.locale.LocaleResolver
 import dapanda.api.common.domain.model.logging.LoggerDelegate
 import dapanda.api.common.domain.model.resourcebundle.CommonResourceBundleFactory
-import dapanda.api.sample.domain.verifier.ISampleTokenInfoQuery
-import dapanda.api.sample.domain.verifier.ISampleTokenInfoRepository
-import dapanda.api.sample.domain.verifier.SampleTokenInfo
+import dapanda.api.common.domain.model.verifier.ITokenInfoQuery
+import dapanda.api.common.domain.model.verifier.ITokenInfoRepository
+import dapanda.api.common.domain.model.verifier.TokenInfo
+import io.micronaut.cache.DynamicCacheManager
+import io.micronaut.context.annotation.Requirements
+import io.micronaut.context.annotation.Requires
+import io.micronaut.core.util.StringUtils
 import jakarta.inject.Singleton
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -23,10 +27,13 @@ import java.util.*
 /**
  * トークン認証を行います。
  */
+@Requirements(
+    Requires(property = "keypair-authenticate.enabled", value = StringUtils.FALSE),
+)
 @Singleton
-class SampleTokenAuthenticate(
-    private val tokenInfoQuery: ISampleTokenInfoQuery,
-    private val tokenInfoRepository: ISampleTokenInfoRepository,
+class TokenAuthenticate(
+    private val tokenInfoQuery: ITokenInfoQuery,
+    private val tokenInfoRepository: ITokenInfoRepository,
     private val localeResolver: LocaleResolver,
     private val resourceBundle: CommonResourceBundleFactory
 ): IAuthenticate {
@@ -45,7 +52,7 @@ class SampleTokenAuthenticate(
 
         // トークン情報
         val now = nowDateTime()
-        val tokenInfo = SampleTokenInfo(
+        val tokenInfo = TokenInfo(
             request.getToken(),
             now,
             now + CommonConstants.LOGIN_TOKEN_VALID_TERM
@@ -73,7 +80,7 @@ class SampleTokenAuthenticate(
      * @param tokenInfo トークン情報
      * return 認証結果を返す
      */
-    private fun validToken(tokenInfo: SampleTokenInfo): Boolean {
+    private fun validToken(tokenInfo: TokenInfo): Boolean {
         return runCatching {
             var result  = false
             val row = tokenInfoQuery.getValidTokenInfo(tokenInfo.token, tokenInfo.nowDateTime)
@@ -93,7 +100,7 @@ class SampleTokenAuthenticate(
      *
      * @param tokenInfo トークン情報
      */
-    private fun updateDBToken(tokenInfo: SampleTokenInfo) {
+    private fun updateDBToken(tokenInfo: TokenInfo) {
         runCatching {
             tokenInfoRepository.updateTokenExpired(tokenInfo.token, tokenInfo.expiredDateTime)
         }

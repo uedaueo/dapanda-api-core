@@ -18,7 +18,7 @@ class SampleLoginRepository(
             val iterator = SampleTokenDeleteInvoker(connection)
             runCatching {
                 iterator.setInputParameter(userId)
-                // iterator.executeUpdate()
+                iterator.executeUpdate()
             }
                 .also {
                     iterator.close()

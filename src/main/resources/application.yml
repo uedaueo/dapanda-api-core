@@ -82,3 +82,7 @@ datasources:
       logSlowQueries: false
       # 'logSlowQueries' が有効な場合、クエリが 'slow' と記録されるまでの長さ
       slowQueryThresholdMillis: 1000
+keypair-authenticate:
+  enabled: false
+authenticate:
+  required: true

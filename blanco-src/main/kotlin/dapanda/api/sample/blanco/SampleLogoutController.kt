@@ -9,22 +9,19 @@ import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
 import blanco.restgenerator.valueobject.ResponseHeader
-import dapanda.api.common.domain.model.authenticate.IAuthenticate
 import dapanda.api.sample.application.SampleLogoutManagement
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Put
-import jakarta.inject.Named
 
 /** ログアウトAPI&lt;br&gt; */
 @Controller("/sample_logout")
 class SampleLogoutController
 constructor(
     /** The implementation class to be called by SampleLogoutController. */
-    var sampleLogoutManagement: SampleLogoutManagement,
-    @param:Named("SampleTokenAuthenticate")private val authenticate: IAuthenticate
+    var sampleLogoutManagement: SampleLogoutManagement
 ) {
   /**
    * APIベースクラスから呼ばれる実行メソッドです
@@ -58,7 +55,7 @@ constructor(
     httpCommonRequest.commonRequest = commonRequest
 
     /* Performs preprocessing (validation, etc.) */
-    sampleLogoutManagement.prepare(httpCommonRequest, authenticate)
+    sampleLogoutManagement.prepare(httpCommonRequest)
 
     /* Passes HttpCommonRequest */
     val httpResponse = sampleLogoutManagement.doPut(httpCommonRequest)

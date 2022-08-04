@@ -9,22 +9,19 @@ import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
 import blanco.restgenerator.valueobject.ResponseHeader
-import dapanda.api.common.domain.model.authenticate.IAuthenticate
 import dapanda.api.sample.application.SampleRegisterManagement
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Post
-import jakarta.inject.Named
 
 /** ユーザー登録API&lt;br&gt; */
 @Controller("/sample_register")
 class SampleRegisterController
 constructor(
     /** The implementation class to be called by SampleRegisterController. */
-    var sampleRegisterManagement: SampleRegisterManagement,
-    @param:Named("SampleTokenAuthenticate")private val authenticate: IAuthenticate
+    var sampleRegisterManagement: SampleRegisterManagement
 ) {
   /**
    * APIベースクラスから呼ばれる実行メソッドです
@@ -59,7 +56,7 @@ constructor(
     httpCommonRequest.commonRequest = commonRequest
 
     /* Performs preprocessing (validation, etc.) */
-    sampleRegisterManagement.prepare(httpCommonRequest, authenticate)
+    sampleRegisterManagement.prepare(httpCommonRequest)
 
     /* Passes HttpCommonRequest */
     val httpResponse = sampleRegisterManagement.doPost(httpCommonRequest)

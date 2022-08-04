@@ -523,8 +523,7 @@ task blancoResponseMetaInfo {
 task meta(type: GradleBuild) {
     group "blanco"
     startParameter.projectProperties = gradle.startParameter.projectProperties
-    // tasks = ["blancoDb", "blancoValueObjectKt", "generateTelegrams","blancoRestGeneratorKt","blancoResourceBundle","blancoResponseMetaInfo"]
-    tasks = ["blancoValueObjectKt", "generateTelegrams","blancoRestGeneratorKt","blancoResourceBundle","blancoResponseMetaInfo"]
+    tasks = ["blancoDb", "blancoValueObjectKt", "generateTelegrams","blancoRestGeneratorKt","blancoResourceBundle","blancoResponseMetaInfo"]
 }
 
 tasks {

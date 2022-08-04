@@ -23,7 +23,7 @@ class SampleRegisterRepository(
             val iterator = SampleUserInsertInvoker(connection)
             runCatching {
                 iterator.setInputParameter(userId, password)
-                // iterator.executeSingleUpdate()
+                iterator.executeSingleUpdate()
             }
                 .also {
                     iterator.close()

@@ -9,7 +9,15 @@
         </encoder>
     </appender>
 
-    <root level="info">
+    <logger name="MySQL">
+        <level value="${LOG_LEVEL_MYSQL:-info}"/>
+    </logger>
+    <logger name="dapanda.api">
+        <level value="${LOG_LEVEL_APPLICATION:-debug}"/>
+    </logger>
+
+    <root level="debug">
         <appender-ref ref="STDOUT" />
+        <level value="${LOG_LEVEL_ROOT:-warn}"/>
     </root>
 </configuration>

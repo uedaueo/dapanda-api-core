@@ -1,8 +1,8 @@
-package dapanda.api.sample.infrastructure.verifier
+package dapanda.api.common.infrastructure.verifier
 
-import dapanda.api.sample.blanco.db.query.SampleValidTokenSelectIterator
-import dapanda.api.sample.blanco.db.row.SampleValidTokenSelectRow
-import dapanda.api.sample.domain.verifier.ISampleTokenInfoQuery
+import dapanda.api.common.blanco.db.query.ValidTokenSelectIterator
+import dapanda.api.common.blanco.db.row.ValidTokenSelectRow
+import dapanda.api.common.domain.model.verifier.ITokenInfoQuery
 import jakarta.inject.Singleton
 import javax.sql.DataSource
 
@@ -10,12 +10,12 @@ import javax.sql.DataSource
  * トークン情報を取得するクエリ
  */
 @Singleton
-class SampleTokenInfoQuery(
+class TokenInfoQuery(
     private val dataSource: DataSource
-) : ISampleTokenInfoQuery {
-    override fun getValidTokenInfo(token: String, expiredDateTime: Long): SampleValidTokenSelectRow? {
+) : ITokenInfoQuery {
+    override fun getValidTokenInfo(token: String, expiredDateTime: Long): ValidTokenSelectRow? {
         return dataSource.connection.use { connection ->
-            val iterator = SampleValidTokenSelectIterator(connection)
+            val iterator = ValidTokenSelectIterator(connection)
             runCatching {
                 // 検索条件を設定
                 iterator.setInputParameter(
@@ -23,11 +23,8 @@ class SampleTokenInfoQuery(
                     expiredDateTime
                 )
                 // 検索実行
-                // iterator.executeQuery()
-                // iterator.takeIf { iterator.next() }?.row
-                val row = SampleValidTokenSelectRow()
-                row.userId = "yest0001"
-                row
+                iterator.executeQuery()
+                iterator.takeIf { iterator.next() }?.row
             }
                 .also {
                     // 検索処理を閉じる

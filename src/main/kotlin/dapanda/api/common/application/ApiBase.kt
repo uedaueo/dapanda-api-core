@@ -5,6 +5,7 @@ import blanco.restgenerator.util.BlancoRestGeneratorKtRequestDeserializer
 import blanco.restgenerator.valueobject.*
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
+import dapanda.api.common.application.authenticate.TokenAuthenticate
 import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
 import dapanda.api.common.domain.model.authenticate.IAuthenticate
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
@@ -13,7 +14,9 @@ import dapanda.api.common.domain.model.http.setStartTime
 import dapanda.api.common.domain.model.locale.LocaleResolver
 import dapanda.api.common.domain.model.logging.LoggerDelegate
 import dapanda.api.common.domain.model.resourcebundle.CommonResourceBundleFactory
+import io.micronaut.context.annotation.Value
 import io.micronaut.http.HttpResponse
+import jakarta.inject.Named
 import jakarta.inject.Singleton
 import javax.validation.Validation
 
@@ -24,14 +27,16 @@ import javax.validation.Validation
 class ApiBase(
     private val bundleFactory: CommonResourceBundleFactory,
     private val localeResolver: LocaleResolver,
+    private val authenticate: IAuthenticate,
+    @Value("\${authenticate.required}")
+    private val isAuthenticate: Boolean
 ) : IApiBase {
     companion object {
         private val log by LoggerDelegate()
     }
 
     override fun <S : RequestHeader, T : ApiTelegram> prepare(
-        httpRequest: HttpCommonRequest<CommonRequest<S, T>>,
-        authenticate: IAuthenticate
+        httpRequest: HttpCommonRequest<CommonRequest<S, T>>
     ) {
         /*
          * 計測開始
@@ -61,8 +66,11 @@ class ApiBase(
         httpRequest.processHeaderInfo(info)
 
         // 認証処理
-        // tokenAuthenticate.authenticate(httpRequest)
-        authenticate.authenticate(httpRequest)
+        if (isAuthenticate) {
+            authenticate.authenticate(httpRequest)
+        } else {
+            log.debug("認証処理は無効です")
+        }
     }
 
     override fun <S1 : ResponseHeader, S2 : RequestHeader, T1 : ApiTelegram, T2 : ApiTelegram> finish(
