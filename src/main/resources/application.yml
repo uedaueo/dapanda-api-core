@@ -84,5 +84,9 @@ datasources:
       slowQueryThresholdMillis: 1000
 keypair-authenticate:
   enabled: false
+token-authenticate:
+  # トークン有効期間(分)
+  token-valid-term: 60
+  salt: salt
 authenticate:
   required: true

@@ -75,21 +75,21 @@ public class ApiResultMessageResourceBundle {
     }
 
     /**
-     * bundle[ApiResultMessage], key[ARM001]
+     * bundle[ApiResultMessage], key[ARM90001]
      *
      * [リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}] (ja)<br>
      * [Invalid value set for request parameter. Item: {0}, value: {1}] (en)<br>
      *
      * @param arg0 置換文字列{0}を置換する値。java.lang.String型を与えてください。
      * @param arg1 置換文字列{1}を置換する値。java.lang.String型を与えてください。
-     * @return key[ARM001]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     * @return key[ARM90001]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
-    public String getArm001(final String arg0, final String arg1) {
+    public String getArm90001(final String arg0, final String arg1) {
         // 初期値として定義書の値を利用します。
         String strFormat = "リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}";
         try {
             if (fResourceBundle != null) {
-                strFormat = fResourceBundle.getString("ARM001");
+                strFormat = fResourceBundle.getString("ARM90001");
             }
         } catch (MissingResourceException ex) {
         }
@@ -101,19 +101,19 @@ public class ApiResultMessageResourceBundle {
     }
 
     /**
-     * bundle[ApiResultMessage], key[ARM002]
+     * bundle[ApiResultMessage], key[ARM90002]
      *
      * [そのユーザーIDはすでに登録されています。] (ja)<br>
      * [User ID is already registered.] (en)<br>
      *
-     * @return key[ARM002]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     * @return key[ARM90002]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
-    public String getArm002() {
+    public String getArm90002() {
         // 初期値として定義書の値を利用します。
         String strFormat = "そのユーザーIDはすでに登録されています。";
         try {
             if (fResourceBundle != null) {
-                strFormat = fResourceBundle.getString("ARM002");
+                strFormat = fResourceBundle.getString("ARM90002");
             }
         } catch (MissingResourceException ex) {
         }
@@ -122,19 +122,19 @@ public class ApiResultMessageResourceBundle {
     }
 
     /**
-     * bundle[ApiResultMessage], key[ARM003]
+     * bundle[ApiResultMessage], key[ARM90003]
      *
      * [そのユーザーIDは登録されていません。] (ja)<br>
      * [User ID is not registered.] (en)<br>
      *
-     * @return key[ARM003]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     * @return key[ARM90003]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
-    public String getArm003() {
+    public String getArm90003() {
         // 初期値として定義書の値を利用します。
         String strFormat = "そのユーザーIDは登録されていません。";
         try {
             if (fResourceBundle != null) {
-                strFormat = fResourceBundle.getString("ARM003");
+                strFormat = fResourceBundle.getString("ARM90003");
             }
         } catch (MissingResourceException ex) {
         }
@@ -143,19 +143,19 @@ public class ApiResultMessageResourceBundle {
     }
 
     /**
-     * bundle[ApiResultMessage], key[ARM004]
+     * bundle[ApiResultMessage], key[ARM90004]
      *
      * [パスワードが間違っています。] (ja)<br>
      * [Incorrect password.] (en)<br>
      *
-     * @return key[ARM004]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     * @return key[ARM90004]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
-    public String getArm004() {
+    public String getArm90004() {
         // 初期値として定義書の値を利用します。
         String strFormat = "パスワードが間違っています。";
         try {
             if (fResourceBundle != null) {
-                strFormat = fResourceBundle.getString("ARM004");
+                strFormat = fResourceBundle.getString("ARM90004");
             }
         } catch (MissingResourceException ex) {
         }
@@ -164,19 +164,19 @@ public class ApiResultMessageResourceBundle {
     }
 
     /**
-     * bundle[ApiResultMessage], key[ARM005]
+     * bundle[ApiResultMessage], key[ARM90005]
      *
      * [トークン認証に失敗しました。] (ja)<br>
      * [Incorrect token.] (en)<br>
      *
-     * @return key[ARM005]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     * @return key[ARM90005]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
-    public String getArm005() {
+    public String getArm90005() {
         // 初期値として定義書の値を利用します。
         String strFormat = "トークン認証に失敗しました。";
         try {
             if (fResourceBundle != null) {
-                strFormat = fResourceBundle.getString("ARM005");
+                strFormat = fResourceBundle.getString("ARM90005");
             }
         } catch (MissingResourceException ex) {
         }
@@ -185,19 +185,19 @@ public class ApiResultMessageResourceBundle {
     }
 
     /**
-     * bundle[ApiResultMessage], key[ARM006]
+     * bundle[ApiResultMessage], key[ARM99999]
      *
      * [システムエラー。システム管理者にお問い合わせください。] (ja)<br>
      * [System error. Contact your system administrator.] (en)<br>
      *
-     * @return key[ARM006]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     * @return key[ARM99999]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
-    public String getArm006() {
+    public String getArm99999() {
         // 初期値として定義書の値を利用します。
         String strFormat = "システムエラー。システム管理者にお問い合わせください。";
         try {
             if (fResourceBundle != null) {
-                strFormat = fResourceBundle.getString("ARM006");
+                strFormat = fResourceBundle.getString("ARM99999");
             }
         } catch (MissingResourceException ex) {
         }

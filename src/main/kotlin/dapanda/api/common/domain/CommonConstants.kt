@@ -9,8 +9,6 @@ import com.fasterxml.jackson.databind.jsontype.TypeSerializer
  * 共通で使用する定数定義
  */
 object CommonConstants {
-    const val PASSWORD_SALT = "salt"
-    const val LOGIN_TOKEN_VALID_TERM = 60
     /**
      * 時間関係共通：ミリ秒と秒との間の変換倍率
      */

@@ -18,6 +18,7 @@ import dapanda.api.sample.blanco.SampleLoginPostRequest
 import dapanda.api.sample.blanco.SampleLoginPostResponse
 import dapanda.api.sample.domain.login.ISampleLoginQuery
 import dapanda.api.sample.domain.login.ISampleLoginRepository
+import io.micronaut.context.annotation.Value
 import io.micronaut.http.HttpResponse
 import jakarta.inject.Singleton
 import java.util.*
@@ -34,8 +35,12 @@ class SampleLoginManagement (
     private val loginQuery: ISampleLoginQuery,
     private val loginRepository: ISampleLoginRepository,
     private val localeResolver: LocaleResolver,
-    private val resourceBundle: CommonResourceBundleFactory
-) : IApiBase by apiBase {
+    private val resourceBundle: CommonResourceBundleFactory,
+    @Value("\${token-authenticate.token-valid-term}")
+    private val tokenValidTerm: Int,
+    @Value("\${token-authenticate.salt}")
+    private val salt: String
+    ) : IApiBase by apiBase {
     companion object {
         private val log by LoggerDelegate()
     }
@@ -50,10 +55,10 @@ class SampleLoginManagement (
             var logMessage = ""
 
             if (password == null) {
-                logMessage = resourceBundle.getApiLogMessage(locale).alm004
+                logMessage = resourceBundle.getApiLogMessage(locale).alm90004
             }
-            val metaInfo = ApiResponseMetaInfoConstants.META004
-            metaInfo.message = resourceBundle.getApiResultMessage(locale).arm004
+            val metaInfo = ApiResponseMetaInfoConstants.META90004
+            metaInfo.message = resourceBundle.getApiResultMessage(locale).arm90004
             throw ApiRuntimeExceptionFactory.create(metaInfo, logMessage)
         }
 
@@ -84,7 +89,7 @@ class SampleLoginManagement (
     }
 
     private fun verifyPassword(tablePassword: String, requestPassword: String): Boolean {
-        return requestPassword.sha256WithSalt(CommonConstants.PASSWORD_SALT) == tablePassword
+        return requestPassword.sha256WithSalt(salt) == tablePassword
     }
 
     /**
@@ -94,7 +99,7 @@ class SampleLoginManagement (
      */
     private fun validTokenTime(): Long {
         return Calendar.getInstance().run {
-            add(Calendar.MINUTE, CommonConstants.LOGIN_TOKEN_VALID_TERM)
+            add(Calendar.MINUTE, tokenValidTerm)
             timeInMillis/ CommonConstants.RATIO_MILLISECOND_TO_SECOND
         }
     }
@@ -105,9 +110,9 @@ class SampleLoginManagement (
         }
             .onFailure {
                 if (it is NoRowFoundException) {
-                    val metaInfo = ApiResponseMetaInfoConstants.META003
-                    metaInfo.message = resourceBundle.getApiResultMessage(locale).arm003
-                    val logMessage = resourceBundle.getApiLogMessage(locale).alm003
+                    val metaInfo = ApiResponseMetaInfoConstants.META90003
+                    metaInfo.message = resourceBundle.getApiResultMessage(locale).arm90003
+                    val logMessage = resourceBundle.getApiLogMessage(locale).alm90003
                     throw ApiRuntimeExceptionFactory.create(metaInfo, logMessage)
                 } else {
                     throw it

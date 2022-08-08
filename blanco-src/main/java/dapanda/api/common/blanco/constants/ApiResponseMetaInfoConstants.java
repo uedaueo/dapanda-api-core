@@ -16,7 +16,7 @@ public class ApiResponseMetaInfoConstants {
      * 可変文字: <BR>
      * 用途、使う箇所: パラメータに不正な値（存在しない選択肢など）が設定されていた場合
      */
-    public static final ResponseMetaInfo META001 = new ResponseMetaInfo(HttpStatus.BAD_REQUEST, ResponseResultCode.ERROR, "InvalidParam.InvalidValue", "", "");
+    public static final ResponseMetaInfo META90001 = new ResponseMetaInfo(HttpStatus.BAD_REQUEST, ResponseResultCode.ERROR, "InvalidParam.InvalidValue", "", "");
 
     /**
      * 項目番号:2<br>
@@ -25,7 +25,7 @@ public class ApiResponseMetaInfoConstants {
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー登録エラー
      */
-    public static final ResponseMetaInfo META002 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "AuthorizeError", "", "");
+    public static final ResponseMetaInfo META90002 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "AuthorizeError", "", "");
 
     /**
      * 項目番号:3<br>
@@ -34,7 +34,7 @@ public class ApiResponseMetaInfoConstants {
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー認証エラー
      */
-    public static final ResponseMetaInfo META003 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "AuthorizeError", "", "");
+    public static final ResponseMetaInfo META90003 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "AuthorizeError", "", "");
 
     /**
      * 項目番号:4<br>
@@ -43,7 +43,7 @@ public class ApiResponseMetaInfoConstants {
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー認証エラー
      */
-    public static final ResponseMetaInfo META004 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "AuthorizeError", "", "");
+    public static final ResponseMetaInfo META90004 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "AuthorizeError", "", "");
 
     /**
      * 項目番号:5<br>
@@ -52,7 +52,7 @@ public class ApiResponseMetaInfoConstants {
      * 可変文字: <BR>
      * 用途、使う箇所: トークン認証エラー
      */
-    public static final ResponseMetaInfo META005 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "AuthorizeError", "", "");
+    public static final ResponseMetaInfo META90005 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "AuthorizeError", "", "");
 
     /**
      * 項目番号:6<br>
@@ -61,5 +61,5 @@ public class ApiResponseMetaInfoConstants {
      * 可変文字: <BR>
      * 用途、使う箇所: 上記に定義できないエラーが発生した場合に返却
      */
-    public static final ResponseMetaInfo META006 = new ResponseMetaInfo(HttpStatus.INTERNAL_SERVER_ERROR, ResponseResultCode.ERROR, "ServerError.InternalFailure", "", "");
+    public static final ResponseMetaInfo META99999 = new ResponseMetaInfo(HttpStatus.INTERNAL_SERVER_ERROR, ResponseResultCode.ERROR, "ServerError.InternalFailure", "", "");
 }

@@ -13,10 +13,10 @@ public class ApiErrorCode {
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: パラメータに不正な値（存在しない選択肢など）が設定されていた場合
-     * フィールド: [ARM001]。
+     * フィールド: [ARM90001]。
      * デフォルト: [&quot;InvalidParam.InvalidValue&quot;]。
      */
-    private String fARM001 = "InvalidParam.InvalidValue";
+    private String fARM90001 = "InvalidParam.InvalidValue";
 
     /**
      * そのユーザーIDはすでに登録されています。&lt;BR&gt;
@@ -24,10 +24,10 @@ public class ApiErrorCode {
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー登録エラー
-     * フィールド: [ARM002]。
+     * フィールド: [ARM90002]。
      * デフォルト: [&quot;AuthorizeError&quot;]。
      */
-    private String fARM002 = "AuthorizeError";
+    private String fARM90002 = "AuthorizeError";
 
     /**
      * そのユーザーIDは登録されていません。&lt;BR&gt;
@@ -35,10 +35,10 @@ public class ApiErrorCode {
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー認証エラー
-     * フィールド: [ARM003]。
+     * フィールド: [ARM90003]。
      * デフォルト: [&quot;AuthorizeError&quot;]。
      */
-    private String fARM003 = "AuthorizeError";
+    private String fARM90003 = "AuthorizeError";
 
     /**
      * パスワードが間違っています。&lt;BR&gt;
@@ -46,10 +46,10 @@ public class ApiErrorCode {
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー認証エラー
-     * フィールド: [ARM004]。
+     * フィールド: [ARM90004]。
      * デフォルト: [&quot;AuthorizeError&quot;]。
      */
-    private String fARM004 = "AuthorizeError";
+    private String fARM90004 = "AuthorizeError";
 
     /**
      * トークン認証に失敗しました。&lt;BR&gt;
@@ -57,10 +57,10 @@ public class ApiErrorCode {
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: トークン認証エラー
-     * フィールド: [ARM005]。
+     * フィールド: [ARM90005]。
      * デフォルト: [&quot;AuthorizeError&quot;]。
      */
-    private String fARM005 = "AuthorizeError";
+    private String fARM90005 = "AuthorizeError";
 
     /**
      * システムエラー。システム管理者にお問い合わせください。&lt;BR&gt;
@@ -68,27 +68,27 @@ public class ApiErrorCode {
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: 上記に定義できないエラーが発生した場合に返却
-     * フィールド: [ARM006]。
+     * フィールド: [ARM99999]。
      * デフォルト: [&quot;ServerError.InternalFailure&quot;]。
      */
-    private String fARM006 = "ServerError.InternalFailure";
+    private String fARM99999 = "ServerError.InternalFailure";
 
     /**
-     * フィールド [ARM001] の値を設定します。
+     * フィールド [ARM90001] の値を設定します。
      *
      * フィールドの説明: [リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}<BR>]。
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: パラメータに不正な値（存在しない選択肢など）が設定されていた場合
      *
-     * @param argARM001 フィールド[ARM001]に設定する値。
+     * @param argARM90001 フィールド[ARM90001]に設定する値。
      */
-    public void setARM001(final String argARM001) {
-        fARM001 = argARM001;
+    public void setARM90001(final String argARM90001) {
+        fARM90001 = argARM90001;
     }
 
     /**
-     * フィールド [ARM001] の値を取得します。
+     * フィールド [ARM90001] の値を取得します。
      *
      * フィールドの説明: [リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}<BR>]。
      * <BR>
@@ -96,28 +96,28 @@ public class ApiErrorCode {
      * 用途、使う箇所: パラメータに不正な値（存在しない選択肢など）が設定されていた場合
      * デフォルト: [&quot;InvalidParam.InvalidValue&quot;]。
      *
-     * @return フィールド[ARM001]から取得した値。
+     * @return フィールド[ARM90001]から取得した値。
      */
-    public String getARM001() {
-        return fARM001;
+    public String getARM90001() {
+        return fARM90001;
     }
 
     /**
-     * フィールド [ARM002] の値を設定します。
+     * フィールド [ARM90002] の値を設定します。
      *
      * フィールドの説明: [そのユーザーIDはすでに登録されています。<BR>]。
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー登録エラー
      *
-     * @param argARM002 フィールド[ARM002]に設定する値。
+     * @param argARM90002 フィールド[ARM90002]に設定する値。
      */
-    public void setARM002(final String argARM002) {
-        fARM002 = argARM002;
+    public void setARM90002(final String argARM90002) {
+        fARM90002 = argARM90002;
     }
 
     /**
-     * フィールド [ARM002] の値を取得します。
+     * フィールド [ARM90002] の値を取得します。
      *
      * フィールドの説明: [そのユーザーIDはすでに登録されています。<BR>]。
      * <BR>
@@ -125,28 +125,28 @@ public class ApiErrorCode {
      * 用途、使う箇所: ユーザー登録エラー
      * デフォルト: [&quot;AuthorizeError&quot;]。
      *
-     * @return フィールド[ARM002]から取得した値。
+     * @return フィールド[ARM90002]から取得した値。
      */
-    public String getARM002() {
-        return fARM002;
+    public String getARM90002() {
+        return fARM90002;
     }
 
     /**
-     * フィールド [ARM003] の値を設定します。
+     * フィールド [ARM90003] の値を設定します。
      *
      * フィールドの説明: [そのユーザーIDは登録されていません。<BR>]。
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー認証エラー
      *
-     * @param argARM003 フィールド[ARM003]に設定する値。
+     * @param argARM90003 フィールド[ARM90003]に設定する値。
      */
-    public void setARM003(final String argARM003) {
-        fARM003 = argARM003;
+    public void setARM90003(final String argARM90003) {
+        fARM90003 = argARM90003;
     }
 
     /**
-     * フィールド [ARM003] の値を取得します。
+     * フィールド [ARM90003] の値を取得します。
      *
      * フィールドの説明: [そのユーザーIDは登録されていません。<BR>]。
      * <BR>
@@ -154,28 +154,28 @@ public class ApiErrorCode {
      * 用途、使う箇所: ユーザー認証エラー
      * デフォルト: [&quot;AuthorizeError&quot;]。
      *
-     * @return フィールド[ARM003]から取得した値。
+     * @return フィールド[ARM90003]から取得した値。
      */
-    public String getARM003() {
-        return fARM003;
+    public String getARM90003() {
+        return fARM90003;
     }
 
     /**
-     * フィールド [ARM004] の値を設定します。
+     * フィールド [ARM90004] の値を設定します。
      *
      * フィールドの説明: [パスワードが間違っています。<BR>]。
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー認証エラー
      *
-     * @param argARM004 フィールド[ARM004]に設定する値。
+     * @param argARM90004 フィールド[ARM90004]に設定する値。
      */
-    public void setARM004(final String argARM004) {
-        fARM004 = argARM004;
+    public void setARM90004(final String argARM90004) {
+        fARM90004 = argARM90004;
     }
 
     /**
-     * フィールド [ARM004] の値を取得します。
+     * フィールド [ARM90004] の値を取得します。
      *
      * フィールドの説明: [パスワードが間違っています。<BR>]。
      * <BR>
@@ -183,28 +183,28 @@ public class ApiErrorCode {
      * 用途、使う箇所: ユーザー認証エラー
      * デフォルト: [&quot;AuthorizeError&quot;]。
      *
-     * @return フィールド[ARM004]から取得した値。
+     * @return フィールド[ARM90004]から取得した値。
      */
-    public String getARM004() {
-        return fARM004;
+    public String getARM90004() {
+        return fARM90004;
     }
 
     /**
-     * フィールド [ARM005] の値を設定します。
+     * フィールド [ARM90005] の値を設定します。
      *
      * フィールドの説明: [トークン認証に失敗しました。<BR>]。
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: トークン認証エラー
      *
-     * @param argARM005 フィールド[ARM005]に設定する値。
+     * @param argARM90005 フィールド[ARM90005]に設定する値。
      */
-    public void setARM005(final String argARM005) {
-        fARM005 = argARM005;
+    public void setARM90005(final String argARM90005) {
+        fARM90005 = argARM90005;
     }
 
     /**
-     * フィールド [ARM005] の値を取得します。
+     * フィールド [ARM90005] の値を取得します。
      *
      * フィールドの説明: [トークン認証に失敗しました。<BR>]。
      * <BR>
@@ -212,28 +212,28 @@ public class ApiErrorCode {
      * 用途、使う箇所: トークン認証エラー
      * デフォルト: [&quot;AuthorizeError&quot;]。
      *
-     * @return フィールド[ARM005]から取得した値。
+     * @return フィールド[ARM90005]から取得した値。
      */
-    public String getARM005() {
-        return fARM005;
+    public String getARM90005() {
+        return fARM90005;
     }
 
     /**
-     * フィールド [ARM006] の値を設定します。
+     * フィールド [ARM99999] の値を設定します。
      *
      * フィールドの説明: [システムエラー。システム管理者にお問い合わせください。<BR>]。
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: 上記に定義できないエラーが発生した場合に返却
      *
-     * @param argARM006 フィールド[ARM006]に設定する値。
+     * @param argARM99999 フィールド[ARM99999]に設定する値。
      */
-    public void setARM006(final String argARM006) {
-        fARM006 = argARM006;
+    public void setARM99999(final String argARM99999) {
+        fARM99999 = argARM99999;
     }
 
     /**
-     * フィールド [ARM006] の値を取得します。
+     * フィールド [ARM99999] の値を取得します。
      *
      * フィールドの説明: [システムエラー。システム管理者にお問い合わせください。<BR>]。
      * <BR>
@@ -241,10 +241,10 @@ public class ApiErrorCode {
      * 用途、使う箇所: 上記に定義できないエラーが発生した場合に返却
      * デフォルト: [&quot;ServerError.InternalFailure&quot;]。
      *
-     * @return フィールド[ARM006]から取得した値。
+     * @return フィールド[ARM99999]から取得した値。
      */
-    public String getARM006() {
-        return fARM006;
+    public String getARM99999() {
+        return fARM99999;
     }
 
     /**
@@ -265,23 +265,23 @@ public class ApiErrorCode {
 
         // No needs to copy parent class.
 
-        // Name: fARM001
+        // Name: fARM90001
         // Type: java.lang.String
-        target.fARM001 = this.fARM001;
-        // Name: fARM002
+        target.fARM90001 = this.fARM90001;
+        // Name: fARM90002
         // Type: java.lang.String
-        target.fARM002 = this.fARM002;
-        // Name: fARM003
+        target.fARM90002 = this.fARM90002;
+        // Name: fARM90003
         // Type: java.lang.String
-        target.fARM003 = this.fARM003;
-        // Name: fARM004
+        target.fARM90003 = this.fARM90003;
+        // Name: fARM90004
         // Type: java.lang.String
-        target.fARM004 = this.fARM004;
-        // Name: fARM005
+        target.fARM90004 = this.fARM90004;
+        // Name: fARM90005
         // Type: java.lang.String
-        target.fARM005 = this.fARM005;
-        // Name: fARM006
+        target.fARM90005 = this.fARM90005;
+        // Name: fARM99999
         // Type: java.lang.String
-        target.fARM006 = this.fARM006;
+        target.fARM99999 = this.fARM99999;
     }
 }

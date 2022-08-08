@@ -13,7 +13,7 @@ public class ApiLogMessageNumberConstants {
      * メッセージ種別: 不正値エラー
      * 用途、使う箇所: リクエストパラメータに不正な値が設定されている場合
      */
-    public static final String ALM001 = "0001";
+    public static final String ALM90001 = "90001";
 
     /**
      * 項目番号:2<br>
@@ -24,7 +24,7 @@ public class ApiLogMessageNumberConstants {
      * メッセージ種別: ユーザー登録エラー
      * 用途、使う箇所: ユーザー登録に失敗した場合
      */
-    public static final String ALM002 = "0002";
+    public static final String ALM90002 = "90002";
 
     /**
      * 項目番号:3<br>
@@ -35,7 +35,7 @@ public class ApiLogMessageNumberConstants {
      * メッセージ種別: ユーザー認証エラー
      * 用途、使う箇所: ユーザー認証に失敗した場合
      */
-    public static final String ALM003 = "0003";
+    public static final String ALM90003 = "90003";
 
     /**
      * 項目番号:4<br>
@@ -46,7 +46,7 @@ public class ApiLogMessageNumberConstants {
      * メッセージ種別: ユーザー認証エラー
      * 用途、使う箇所: ユーザー認証に失敗した場合
      */
-    public static final String ALM004 = "0004";
+    public static final String ALM90004 = "90004";
 
     /**
      * 項目番号:5<br>
@@ -57,16 +57,27 @@ public class ApiLogMessageNumberConstants {
      * メッセージ種別: トークン認証エラー
      * 用途、使う箇所: トークン認証に失敗した場合
      */
-    public static final String ALM005 = "0005";
+    public static final String ALM90005 = "90005";
 
     /**
      * 項目番号:6<br>
-     * トークン 認証不要は不要です。<BR>
+     * トークン 認証は不要です。<BR>
      * <BR>
      * API名: トークン認証<BR>
      * メッセージ区分: INFO<BR>
      * メッセージ種別: トークン認証情報
      * 用途、使う箇所: トークン認証必要可否
      */
-    public static final String ALM006 = "0006";
+    public static final String ALM90006 = "90006";
+
+    /**
+     * 項目番号:7<br>
+     * HttpHeaderにtokenが設定されていません。<BR>
+     * <BR>
+     * API名: トークン認証<BR>
+     * メッセージ区分: ERROR<BR>
+     * メッセージ種別: トークン認証エラー
+     * 用途、使う箇所: トークン認証に失敗した場合
+     */
+    public static final String ALM90007 = "90007";
 }

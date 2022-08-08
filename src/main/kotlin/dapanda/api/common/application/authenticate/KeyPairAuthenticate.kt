@@ -27,6 +27,6 @@ class KeyPairAuthenticate: IAuthenticate {
     override fun <S : RequestHeader, T : ApiTelegram> authenticate(
         request: HttpCommonRequest<CommonRequest<S, T>>,
     ) {
-        println("KeyPairAuthenticate:::KeyPairAuthenticate!!!!!!!")
+        log.info("KeyPairAuthenticate!!!!!!!")
     }
 }

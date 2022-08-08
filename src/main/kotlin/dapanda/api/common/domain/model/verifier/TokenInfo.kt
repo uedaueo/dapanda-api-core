@@ -6,7 +6,7 @@ import io.micronaut.core.annotation.Introspected
  * トークン情報
  *
  * @property token 認証用トークン
- * @property userId かっこユーザID
+ * @property userId ユーザID
  */
 @Introspected
 data class TokenInfo(

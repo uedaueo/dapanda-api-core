@@ -75,21 +75,21 @@ public class ApiLogMessageResourceBundle {
     }
 
     /**
-     * bundle[ApiLogMessage], key[ALM001]
+     * bundle[ApiLogMessage], key[ALM90001]
      *
-     * [0001 リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}] (ja)<br>
-     * [0001 Invalid value set for request parameter. Item: {0}, value: {1}] (en)<br>
+     * [90001 リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}] (ja)<br>
+     * [90001 Invalid value set for request parameter. Item: {0}, value: {1}] (en)<br>
      *
      * @param arg0 置換文字列{0}を置換する値。java.lang.String型を与えてください。
      * @param arg1 置換文字列{1}を置換する値。java.lang.String型を与えてください。
-     * @return key[ALM001]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     * @return key[ALM90001]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
-    public String getAlm001(final String arg0, final String arg1) {
+    public String getAlm90001(final String arg0, final String arg1) {
         // 初期値として定義書の値を利用します。
-        String strFormat = "0001 リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}";
+        String strFormat = "90001 リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}";
         try {
             if (fResourceBundle != null) {
-                strFormat = fResourceBundle.getString("ALM001");
+                strFormat = fResourceBundle.getString("ALM90001");
             }
         } catch (MissingResourceException ex) {
         }
@@ -101,19 +101,19 @@ public class ApiLogMessageResourceBundle {
     }
 
     /**
-     * bundle[ApiLogMessage], key[ALM002]
+     * bundle[ApiLogMessage], key[ALM90002]
      *
-     * [0002 そのユーザーIDはすでに登録されています。] (ja)<br>
-     * [0002 User ID is already registered.] (en)<br>
+     * [90002 そのユーザーIDはすでに登録されています。] (ja)<br>
+     * [90002 User ID is already registered.] (en)<br>
      *
-     * @return key[ALM002]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     * @return key[ALM90002]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
-    public String getAlm002() {
+    public String getAlm90002() {
         // 初期値として定義書の値を利用します。
-        String strFormat = "0002 そのユーザーIDはすでに登録されています。";
+        String strFormat = "90002 そのユーザーIDはすでに登録されています。";
         try {
             if (fResourceBundle != null) {
-                strFormat = fResourceBundle.getString("ALM002");
+                strFormat = fResourceBundle.getString("ALM90002");
             }
         } catch (MissingResourceException ex) {
         }
@@ -122,19 +122,19 @@ public class ApiLogMessageResourceBundle {
     }
 
     /**
-     * bundle[ApiLogMessage], key[ALM003]
+     * bundle[ApiLogMessage], key[ALM90003]
      *
-     * [0003 そのユーザーIDは登録されていません。] (ja)<br>
-     * [0003 User ID is not registered.] (en)<br>
+     * [90003 そのユーザーIDは登録されていません。] (ja)<br>
+     * [90003 User ID is not registered.] (en)<br>
      *
-     * @return key[ALM003]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     * @return key[ALM90003]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
-    public String getAlm003() {
+    public String getAlm90003() {
         // 初期値として定義書の値を利用します。
-        String strFormat = "0003 そのユーザーIDは登録されていません。";
+        String strFormat = "90003 そのユーザーIDは登録されていません。";
         try {
             if (fResourceBundle != null) {
-                strFormat = fResourceBundle.getString("ALM003");
+                strFormat = fResourceBundle.getString("ALM90003");
             }
         } catch (MissingResourceException ex) {
         }
@@ -143,19 +143,19 @@ public class ApiLogMessageResourceBundle {
     }
 
     /**
-     * bundle[ApiLogMessage], key[ALM004]
+     * bundle[ApiLogMessage], key[ALM90004]
      *
-     * [0004 データベースから取得した値がNULLです。] (ja)<br>
-     * [0004 The value from the database is NULL.] (en)<br>
+     * [90004 データベースから取得した値がNULLです。] (ja)<br>
+     * [90004 The value from the database is NULL.] (en)<br>
      *
-     * @return key[ALM004]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     * @return key[ALM90004]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
-    public String getAlm004() {
+    public String getAlm90004() {
         // 初期値として定義書の値を利用します。
-        String strFormat = "0004 データベースから取得した値がNULLです。";
+        String strFormat = "90004 データベースから取得した値がNULLです。";
         try {
             if (fResourceBundle != null) {
-                strFormat = fResourceBundle.getString("ALM004");
+                strFormat = fResourceBundle.getString("ALM90004");
             }
         } catch (MissingResourceException ex) {
         }
@@ -164,19 +164,19 @@ public class ApiLogMessageResourceBundle {
     }
 
     /**
-     * bundle[ApiLogMessage], key[ALM005]
+     * bundle[ApiLogMessage], key[ALM90005]
      *
-     * [0005 トークン認証に失敗しました。] (ja)<br>
-     * [0005 Incorrect token.] (en)<br>
+     * [90005 トークン認証に失敗しました。] (ja)<br>
+     * [90005 Incorrect token.] (en)<br>
      *
-     * @return key[ALM005]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     * @return key[ALM90005]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
-    public String getAlm005() {
+    public String getAlm90005() {
         // 初期値として定義書の値を利用します。
-        String strFormat = "0005 トークン認証に失敗しました。";
+        String strFormat = "90005 トークン認証に失敗しました。";
         try {
             if (fResourceBundle != null) {
-                strFormat = fResourceBundle.getString("ALM005");
+                strFormat = fResourceBundle.getString("ALM90005");
             }
         } catch (MissingResourceException ex) {
         }
@@ -185,19 +185,40 @@ public class ApiLogMessageResourceBundle {
     }
 
     /**
-     * bundle[ApiLogMessage], key[ALM006]
+     * bundle[ApiLogMessage], key[ALM90006]
      *
-     * [0006 トークン 認証不要は不要です。] (ja)<br>
-     * [0006 Token authentication is not required.] (en)<br>
+     * [90006 トークン 認証は不要です。] (ja)<br>
+     * [90006 Token authentication is not required.] (en)<br>
      *
-     * @return key[ALM006]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     * @return key[ALM90006]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
-    public String getAlm006() {
+    public String getAlm90006() {
         // 初期値として定義書の値を利用します。
-        String strFormat = "0006 トークン 認証不要は不要です。";
+        String strFormat = "90006 トークン 認証は不要です。";
         try {
             if (fResourceBundle != null) {
-                strFormat = fResourceBundle.getString("ALM006");
+                strFormat = fResourceBundle.getString("ALM90006");
+            }
+        } catch (MissingResourceException ex) {
+        }
+        // 置換文字列はひとつもありません。
+        return strFormat;
+    }
+
+    /**
+     * bundle[ApiLogMessage], key[ALM90007]
+     *
+     * [90007 HttpHeaderにtokenが設定されていません。] (ja)<br>
+     * [90007 HttpHeaderにtokenが設定されていません。] (en)<br>
+     *
+     * @return key[ALM90007]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     */
+    public String getAlm90007() {
+        // 初期値として定義書の値を利用します。
+        String strFormat = "90007 HttpHeaderにtokenが設定されていません。";
+        try {
+            if (fResourceBundle != null) {
+                strFormat = fResourceBundle.getString("ALM90007");
             }
         } catch (MissingResourceException ex) {
         }

@@ -12,6 +12,7 @@ import dapanda.api.common.domain.model.resourcebundle.CommonResourceBundleFactor
 import dapanda.api.sample.blanco.SampleRegisterPostRequest
 import dapanda.api.sample.blanco.SampleRegisterPostResponse
 import dapanda.api.sample.domain.register.ISampleRegisterRepository
+import io.micronaut.context.annotation.Value
 import io.micronaut.http.HttpResponse
 import jakarta.inject.Singleton
 import java.sql.SQLIntegrityConstraintViolationException
@@ -24,7 +25,9 @@ class SampleRegisterManagement (
     private val apiBase: ApiBase,
     private val registerRepository: ISampleRegisterRepository,
     private val localeResolver: LocaleResolver,
-    private val resourceBundle: CommonResourceBundleFactory
+    private val resourceBundle: CommonResourceBundleFactory,
+    @Value("\${token-authenticate.salt}")
+    private val salt: String
 ) : IApiBase by apiBase {
     fun doPost(
         httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, SampleRegisterPostRequest>>
@@ -32,12 +35,12 @@ class SampleRegisterManagement (
         val telegram = httpRequest.commonRequest!!.telegram!!
         val locale = localeResolver.resolve(httpRequest)
         runCatching {
-            registerRepository.add(telegram.userId, telegram.password.sha256WithSalt(CommonConstants.PASSWORD_SALT))
+            registerRepository.add(telegram.userId, telegram.password.sha256WithSalt(salt))
         }.onFailure {
             if(it.cause is SQLIntegrityConstraintViolationException) {
-                val metaInfo = ApiResponseMetaInfoConstants.META002
-                metaInfo.message = resourceBundle.getApiResultMessage(locale).arm002
-                val logMessage = resourceBundle.getApiLogMessage(locale).alm002
+                val metaInfo = ApiResponseMetaInfoConstants.META90002
+                metaInfo.message = resourceBundle.getApiResultMessage(locale).arm90002
+                val logMessage = resourceBundle.getApiLogMessage(locale).alm90002
                 throw ApiRuntimeExceptionFactory.create(metaInfo, logMessage)
             }
         }

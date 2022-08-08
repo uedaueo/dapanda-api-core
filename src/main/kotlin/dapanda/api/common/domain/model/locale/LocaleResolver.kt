@@ -58,7 +58,7 @@ class LocaleResolver(
                 .onFailure {
                     log.info(
                         // リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}
-                        bundleFactory.getApiLogMessage().getAlm001("info.lang", localeString)
+                        bundleFactory.getApiLogMessage().getAlm90001("info.lang", localeString)
                     )
                 }
                 .getOrDefault(getHeaderLocale(request))

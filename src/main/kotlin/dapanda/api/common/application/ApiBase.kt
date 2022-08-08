@@ -5,18 +5,15 @@ import blanco.restgenerator.util.BlancoRestGeneratorKtRequestDeserializer
 import blanco.restgenerator.valueobject.*
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
-import dapanda.api.common.application.authenticate.TokenAuthenticate
 import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
 import dapanda.api.common.domain.model.authenticate.IAuthenticate
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
-import dapanda.api.common.domain.model.http.processHeaderInfo
 import dapanda.api.common.domain.model.http.setStartTime
 import dapanda.api.common.domain.model.locale.LocaleResolver
 import dapanda.api.common.domain.model.logging.LoggerDelegate
 import dapanda.api.common.domain.model.resourcebundle.CommonResourceBundleFactory
 import io.micronaut.context.annotation.Value
 import io.micronaut.http.HttpResponse
-import jakarta.inject.Named
 import jakarta.inject.Singleton
 import javax.validation.Validation
 
@@ -50,8 +47,8 @@ class ApiBase(
         // バリデーション
         val violations = Validation.buildDefaultValidatorFactory().validator.validate(httpRequest)
         if (violations.isNotEmpty()) {
-            val metaInfo = ApiResponseMetaInfoConstants.META006
-            metaInfo.message = bundleFactory.getApiResultMessage(locale = locale).arm006
+            val metaInfo = ApiResponseMetaInfoConstants.META99999
+            metaInfo.message = bundleFactory.getApiResultMessage(locale = locale).arm99999
             log.debug("バリデーションエラーは「システムエラー」で返却されます。")
             log.debug("message : " + metaInfo.message)
             log.debug("messageNumber : " + metaInfo.messageNumber)
@@ -60,10 +57,6 @@ class ApiBase(
                 logMessage = violations.joinToString(", ")
             )
         }
-
-        // httpRequestにヘッダー情報を設定
-        val info = httpRequest.commonRequest!!.info
-        httpRequest.processHeaderInfo(info)
 
         // 認証処理
         if (isAuthenticate) {

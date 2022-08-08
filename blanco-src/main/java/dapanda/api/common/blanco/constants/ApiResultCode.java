@@ -14,10 +14,10 @@ public class ApiResultCode {
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: パラメータに不正な値（存在しない選択肢など）が設定されていた場合
-     * フィールド: [ARM001]。
+     * フィールド: [ARM90001]。
      * デフォルト: [ResponseResultCode.ERROR]。
      */
-    private ResponseResultCode fARM001 = ResponseResultCode.ERROR;
+    private ResponseResultCode fARM90001 = ResponseResultCode.ERROR;
 
     /**
      * そのユーザーIDはすでに登録されています。&lt;BR&gt;
@@ -25,10 +25,10 @@ public class ApiResultCode {
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー登録エラー
-     * フィールド: [ARM002]。
+     * フィールド: [ARM90002]。
      * デフォルト: [ResponseResultCode.ERROR]。
      */
-    private ResponseResultCode fARM002 = ResponseResultCode.ERROR;
+    private ResponseResultCode fARM90002 = ResponseResultCode.ERROR;
 
     /**
      * そのユーザーIDは登録されていません。&lt;BR&gt;
@@ -36,10 +36,10 @@ public class ApiResultCode {
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー認証エラー
-     * フィールド: [ARM003]。
+     * フィールド: [ARM90003]。
      * デフォルト: [ResponseResultCode.ERROR]。
      */
-    private ResponseResultCode fARM003 = ResponseResultCode.ERROR;
+    private ResponseResultCode fARM90003 = ResponseResultCode.ERROR;
 
     /**
      * パスワードが間違っています。&lt;BR&gt;
@@ -47,10 +47,10 @@ public class ApiResultCode {
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー認証エラー
-     * フィールド: [ARM004]。
+     * フィールド: [ARM90004]。
      * デフォルト: [ResponseResultCode.ERROR]。
      */
-    private ResponseResultCode fARM004 = ResponseResultCode.ERROR;
+    private ResponseResultCode fARM90004 = ResponseResultCode.ERROR;
 
     /**
      * トークン認証に失敗しました。&lt;BR&gt;
@@ -58,10 +58,10 @@ public class ApiResultCode {
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: トークン認証エラー
-     * フィールド: [ARM005]。
+     * フィールド: [ARM90005]。
      * デフォルト: [ResponseResultCode.ERROR]。
      */
-    private ResponseResultCode fARM005 = ResponseResultCode.ERROR;
+    private ResponseResultCode fARM90005 = ResponseResultCode.ERROR;
 
     /**
      * システムエラー。システム管理者にお問い合わせください。&lt;BR&gt;
@@ -69,27 +69,27 @@ public class ApiResultCode {
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: 上記に定義できないエラーが発生した場合に返却
-     * フィールド: [ARM006]。
+     * フィールド: [ARM99999]。
      * デフォルト: [ResponseResultCode.ERROR]。
      */
-    private ResponseResultCode fARM006 = ResponseResultCode.ERROR;
+    private ResponseResultCode fARM99999 = ResponseResultCode.ERROR;
 
     /**
-     * フィールド [ARM001] の値を設定します。
+     * フィールド [ARM90001] の値を設定します。
      *
      * フィールドの説明: [リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}<BR>]。
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: パラメータに不正な値（存在しない選択肢など）が設定されていた場合
      *
-     * @param argARM001 フィールド[ARM001]に設定する値。
+     * @param argARM90001 フィールド[ARM90001]に設定する値。
      */
-    public void setARM001(final ResponseResultCode argARM001) {
-        fARM001 = argARM001;
+    public void setARM90001(final ResponseResultCode argARM90001) {
+        fARM90001 = argARM90001;
     }
 
     /**
-     * フィールド [ARM001] の値を取得します。
+     * フィールド [ARM90001] の値を取得します。
      *
      * フィールドの説明: [リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}<BR>]。
      * <BR>
@@ -97,28 +97,28 @@ public class ApiResultCode {
      * 用途、使う箇所: パラメータに不正な値（存在しない選択肢など）が設定されていた場合
      * デフォルト: [ResponseResultCode.ERROR]。
      *
-     * @return フィールド[ARM001]から取得した値。
+     * @return フィールド[ARM90001]から取得した値。
      */
-    public ResponseResultCode getARM001() {
-        return fARM001;
+    public ResponseResultCode getARM90001() {
+        return fARM90001;
     }
 
     /**
-     * フィールド [ARM002] の値を設定します。
+     * フィールド [ARM90002] の値を設定します。
      *
      * フィールドの説明: [そのユーザーIDはすでに登録されています。<BR>]。
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー登録エラー
      *
-     * @param argARM002 フィールド[ARM002]に設定する値。
+     * @param argARM90002 フィールド[ARM90002]に設定する値。
      */
-    public void setARM002(final ResponseResultCode argARM002) {
-        fARM002 = argARM002;
+    public void setARM90002(final ResponseResultCode argARM90002) {
+        fARM90002 = argARM90002;
     }
 
     /**
-     * フィールド [ARM002] の値を取得します。
+     * フィールド [ARM90002] の値を取得します。
      *
      * フィールドの説明: [そのユーザーIDはすでに登録されています。<BR>]。
      * <BR>
@@ -126,28 +126,28 @@ public class ApiResultCode {
      * 用途、使う箇所: ユーザー登録エラー
      * デフォルト: [ResponseResultCode.ERROR]。
      *
-     * @return フィールド[ARM002]から取得した値。
+     * @return フィールド[ARM90002]から取得した値。
      */
-    public ResponseResultCode getARM002() {
-        return fARM002;
+    public ResponseResultCode getARM90002() {
+        return fARM90002;
     }
 
     /**
-     * フィールド [ARM003] の値を設定します。
+     * フィールド [ARM90003] の値を設定します。
      *
      * フィールドの説明: [そのユーザーIDは登録されていません。<BR>]。
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー認証エラー
      *
-     * @param argARM003 フィールド[ARM003]に設定する値。
+     * @param argARM90003 フィールド[ARM90003]に設定する値。
      */
-    public void setARM003(final ResponseResultCode argARM003) {
-        fARM003 = argARM003;
+    public void setARM90003(final ResponseResultCode argARM90003) {
+        fARM90003 = argARM90003;
     }
 
     /**
-     * フィールド [ARM003] の値を取得します。
+     * フィールド [ARM90003] の値を取得します。
      *
      * フィールドの説明: [そのユーザーIDは登録されていません。<BR>]。
      * <BR>
@@ -155,28 +155,28 @@ public class ApiResultCode {
      * 用途、使う箇所: ユーザー認証エラー
      * デフォルト: [ResponseResultCode.ERROR]。
      *
-     * @return フィールド[ARM003]から取得した値。
+     * @return フィールド[ARM90003]から取得した値。
      */
-    public ResponseResultCode getARM003() {
-        return fARM003;
+    public ResponseResultCode getARM90003() {
+        return fARM90003;
     }
 
     /**
-     * フィールド [ARM004] の値を設定します。
+     * フィールド [ARM90004] の値を設定します。
      *
      * フィールドの説明: [パスワードが間違っています。<BR>]。
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー認証エラー
      *
-     * @param argARM004 フィールド[ARM004]に設定する値。
+     * @param argARM90004 フィールド[ARM90004]に設定する値。
      */
-    public void setARM004(final ResponseResultCode argARM004) {
-        fARM004 = argARM004;
+    public void setARM90004(final ResponseResultCode argARM90004) {
+        fARM90004 = argARM90004;
     }
 
     /**
-     * フィールド [ARM004] の値を取得します。
+     * フィールド [ARM90004] の値を取得します。
      *
      * フィールドの説明: [パスワードが間違っています。<BR>]。
      * <BR>
@@ -184,28 +184,28 @@ public class ApiResultCode {
      * 用途、使う箇所: ユーザー認証エラー
      * デフォルト: [ResponseResultCode.ERROR]。
      *
-     * @return フィールド[ARM004]から取得した値。
+     * @return フィールド[ARM90004]から取得した値。
      */
-    public ResponseResultCode getARM004() {
-        return fARM004;
+    public ResponseResultCode getARM90004() {
+        return fARM90004;
     }
 
     /**
-     * フィールド [ARM005] の値を設定します。
+     * フィールド [ARM90005] の値を設定します。
      *
      * フィールドの説明: [トークン認証に失敗しました。<BR>]。
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: トークン認証エラー
      *
-     * @param argARM005 フィールド[ARM005]に設定する値。
+     * @param argARM90005 フィールド[ARM90005]に設定する値。
      */
-    public void setARM005(final ResponseResultCode argARM005) {
-        fARM005 = argARM005;
+    public void setARM90005(final ResponseResultCode argARM90005) {
+        fARM90005 = argARM90005;
     }
 
     /**
-     * フィールド [ARM005] の値を取得します。
+     * フィールド [ARM90005] の値を取得します。
      *
      * フィールドの説明: [トークン認証に失敗しました。<BR>]。
      * <BR>
@@ -213,28 +213,28 @@ public class ApiResultCode {
      * 用途、使う箇所: トークン認証エラー
      * デフォルト: [ResponseResultCode.ERROR]。
      *
-     * @return フィールド[ARM005]から取得した値。
+     * @return フィールド[ARM90005]から取得した値。
      */
-    public ResponseResultCode getARM005() {
-        return fARM005;
+    public ResponseResultCode getARM90005() {
+        return fARM90005;
     }
 
     /**
-     * フィールド [ARM006] の値を設定します。
+     * フィールド [ARM99999] の値を設定します。
      *
      * フィールドの説明: [システムエラー。システム管理者にお問い合わせください。<BR>]。
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: 上記に定義できないエラーが発生した場合に返却
      *
-     * @param argARM006 フィールド[ARM006]に設定する値。
+     * @param argARM99999 フィールド[ARM99999]に設定する値。
      */
-    public void setARM006(final ResponseResultCode argARM006) {
-        fARM006 = argARM006;
+    public void setARM99999(final ResponseResultCode argARM99999) {
+        fARM99999 = argARM99999;
     }
 
     /**
-     * フィールド [ARM006] の値を取得します。
+     * フィールド [ARM99999] の値を取得します。
      *
      * フィールドの説明: [システムエラー。システム管理者にお問い合わせください。<BR>]。
      * <BR>
@@ -242,10 +242,10 @@ public class ApiResultCode {
      * 用途、使う箇所: 上記に定義できないエラーが発生した場合に返却
      * デフォルト: [ResponseResultCode.ERROR]。
      *
-     * @return フィールド[ARM006]から取得した値。
+     * @return フィールド[ARM99999]から取得した値。
      */
-    public ResponseResultCode getARM006() {
-        return fARM006;
+    public ResponseResultCode getARM99999() {
+        return fARM99999;
     }
 
     /**
@@ -266,23 +266,23 @@ public class ApiResultCode {
 
         // No needs to copy parent class.
 
-        // Name: fARM001
+        // Name: fARM90001
         // Type: dapanda.api.common.domain.CommonConstants.ResponseResultCode
-        // Field[fARM001] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
-        // Name: fARM002
+        // Field[fARM90001] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
+        // Name: fARM90002
         // Type: dapanda.api.common.domain.CommonConstants.ResponseResultCode
-        // Field[fARM002] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
-        // Name: fARM003
+        // Field[fARM90002] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
+        // Name: fARM90003
         // Type: dapanda.api.common.domain.CommonConstants.ResponseResultCode
-        // Field[fARM003] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
-        // Name: fARM004
+        // Field[fARM90003] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
+        // Name: fARM90004
         // Type: dapanda.api.common.domain.CommonConstants.ResponseResultCode
-        // Field[fARM004] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
-        // Name: fARM005
+        // Field[fARM90004] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
+        // Name: fARM90005
         // Type: dapanda.api.common.domain.CommonConstants.ResponseResultCode
-        // Field[fARM005] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
-        // Name: fARM006
+        // Field[fARM90005] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
+        // Name: fARM99999
         // Type: dapanda.api.common.domain.CommonConstants.ResponseResultCode
-        // Field[fARM006] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
+        // Field[fARM99999] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
     }
 }
