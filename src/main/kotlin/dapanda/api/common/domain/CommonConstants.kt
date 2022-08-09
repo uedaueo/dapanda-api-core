@@ -15,6 +15,11 @@ object CommonConstants {
     const val RATIO_MILLISECOND_TO_SECOND: Int = 1000
 
     /**
+     * 時間関係共通：秒と分との間の変換倍率
+     */
+    const val RATIO_SECOND_TO_MINUTE: Int = 60
+
+    /**
      * 成功 HTTP レスポンス処理結果コード
      */
     private const val RESPONSE_RESULT_CODE_SUCCESS = 10
