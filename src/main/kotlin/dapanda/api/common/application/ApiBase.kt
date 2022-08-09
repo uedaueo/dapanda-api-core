@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule
 import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
 import dapanda.api.common.domain.model.authenticate.IAuthenticate
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
+import dapanda.api.common.domain.model.http.setRequestHeaderLocale
 import dapanda.api.common.domain.model.http.setStartTime
 import dapanda.api.common.domain.model.locale.LocaleResolver
 import dapanda.api.common.domain.model.logging.LoggerDelegate
@@ -40,6 +41,11 @@ class ApiBase(
          */
         httpRequest.setStartTime()
         log.debug("ApiBase#prepare: START!")
+
+        // requestに設定されているLocaleを取得
+        httpRequest.commonRequest?.let {
+            httpRequest.setRequestHeaderLocale(it.info.locale)
+        }
 
         // ロケールを取得
         val locale = localeResolver.resolve(httpRequest)

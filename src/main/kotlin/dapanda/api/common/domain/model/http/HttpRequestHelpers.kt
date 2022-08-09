@@ -1,12 +1,13 @@
 package dapanda.api.common.domain.model.http
 
-import blanco.restgenerator.valueobject.RequestHeader
+import blanco.restgenerator.valueobject.Locale
 import io.micronaut.http.HttpRequest
 
 /**
  * 開始日時をリクエスト属性に格納するキー
  */
 private const val START_TIME_KEY = "####COMMON_START_TIME_KEY####"
+private const val REQUEST_HEADER_LOCALE_KEY = "####COMMON_REQUEST_HEADER_LOCALE_KEY####"
 
 /**
  * トークン文字列を取得します。
@@ -39,3 +40,20 @@ fun <T> HttpRequest<T>.setStartTime(): HttpRequest<T> {
  */
 fun HttpRequest<*>.getStartTime(): Long =
     this.attributes.get(START_TIME_KEY, Long::class.java, 0)
+
+/**
+ * RequestHeaderのLocaleを設定する
+ *
+ */
+fun <T> HttpRequest<T>.setRequestHeaderLocale(locale: Locale): HttpRequest<T> {
+    this.attributes.put(REQUEST_HEADER_LOCALE_KEY, locale)
+    return this
+}
+
+/**
+ * RequestHeaderのLocaleを取得する
+ *
+ * @return Locale
+ */
+fun HttpRequest<*>.getRequestHeaderLocale(): Locale =
+    this.attributes.get(REQUEST_HEADER_LOCALE_KEY, Locale::class.java, Locale())

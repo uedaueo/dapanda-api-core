@@ -1,13 +1,14 @@
 package dapanda.api.common.application
 
-import blanco.restgenerator.valueobject.Locale
-import blanco.restgenerator.valueobject.ResponseHeader
+import blanco.restgenerator.valueobject.*
 import dapanda.api.common.domain.model.common.Utilities
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeException
 import dapanda.api.common.domain.model.exceptions.DapandaApiRuntimeException
 import dapanda.api.common.domain.model.http.CommonHttpResponseFactory
+import dapanda.api.common.domain.model.http.getRequestHeaderLocale
 import dapanda.api.common.domain.model.http.getStartTime
 import dapanda.api.common.domain.model.logging.LoggerDelegate
+import dapanda.api.sample.blanco.SampleLoginPostRequest
 import io.micronaut.context.annotation.Requires
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
@@ -33,7 +34,9 @@ class GlobalErrorHandleController {
      * @return HTTP レスポンスを返す。
      */
     @Error(global = true)
-    fun globalErrorHandler(locale: Locale, request: HttpRequest<*>, e: Throwable): HttpResponse<*> {
+    fun globalErrorHandler(request: HttpRequest<*>, e: Throwable): HttpResponse<*> {
+        var locale = request.getRequestHeaderLocale()
+
         return if (e is ApiRuntimeException) {
             // API 例外
             if (request.headers.accept().isEmpty()) {
@@ -73,8 +76,7 @@ class GlobalErrorHandleController {
                 errors = e.errors,
                 httpStatus = e.httpStatus
             )
-        }
-        else {
+        } else {
             // 想定外の例外の場合
             throw e
         }
