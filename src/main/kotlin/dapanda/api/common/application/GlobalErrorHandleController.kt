@@ -39,6 +39,10 @@ class GlobalErrorHandleController {
 
         return if (e is ApiRuntimeException) {
             // API 例外
+            log.error(e.message, e)
+            if (log.isDebugEnabled) {
+                log.debug("accept: ${request.headers.accept()}")
+            }
             if (request.headers.accept().isEmpty()) {
                 log.info("Accept ヘッダが設定されていません。$request")
             }
