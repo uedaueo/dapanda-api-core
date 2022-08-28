@@ -1,6 +1,8 @@
 micronaut:
   application:
     name: dapanda-api-core
+  server:
+    port: 8088
 globalErrorHandler:
   enabled: true
 datasources:

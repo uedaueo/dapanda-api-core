@@ -13,4 +13,6 @@ out/
 .classpath
 .factorypath
 
+local.gradle
+
 ~$*.xlsx

@@ -6,9 +6,9 @@ plugins {
     // ライブラリ化用
     id "java-library"
     id "maven-publish"
-    id("org.jetbrains.kotlin.jvm") version "1.6.20"
-    id("org.jetbrains.kotlin.kapt") version "1.6.20"
-    id("org.jetbrains.kotlin.plugin.allopen") version "1.6.10"
+    id("org.jetbrains.kotlin.jvm") version "${kotlinVersion}"
+    id("org.jetbrains.kotlin.kapt") version "${kotlinVersion}"
+    id("org.jetbrains.kotlin.plugin.allopen") version "${kotlinVersion}"
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("io.micronaut.application") version "3.3.2"
     // IntelliJ IDEA の設定用
@@ -19,6 +19,8 @@ version = "0.0.1"
 // プロジェクトグループ
 group project.name.replace("-", ".")
 // group = "emulator"
+
+apply from: "local.gradle"
 
 repositories {
     mavenLocal()
@@ -40,6 +42,10 @@ sourceSets {
             srcDirs += "blanco-src/main/java"
         }
     }
+}
+
+test {
+    useJUnitPlatform()
 }
 
 micronaut {
@@ -86,6 +92,14 @@ dependencies {
     blancoFramework "blanco.resourcebundle:blanco-resourcebundle:[2.0,3.0)"
 
     implementation "mysql:mysql-connector-java:${mysqlJdbcVersion}"
+
+// https://mvnrepository.com/artifact/io.ktor/ktor-client-core
+    runtimeOnly group: 'io.ktor', name: 'ktor-client-core', version: '2.1.0'
+// https://mvnrepository.com/artifact/io.ktor/ktor-client-cio
+    implementation group: 'io.ktor', name: 'ktor-client-cio', version: '2.1.0'
+
+// https://mvnrepository.com/artifact/io.kotest/kotest-runner-junit5-jvm
+    testImplementation group: 'io.kotest', name: 'kotest-runner-junit5-jvm', version: '5.4.2'
 }
 
 
@@ -352,6 +366,40 @@ task generateTelegrams {
         )
         // サブディレクトリも処理する
         file("${projectDir}/" + getProperty("telegramsMetaDir")).traverse(
+                // ディレクトリを対象とする
+                type: FileType.DIRECTORIES,
+                // 指定したディレクトリも対象に含める
+                visitRoot: true
+        ) { metaDir ->
+            println("metaDir: $metaDir")
+            ant.blancoValueObjectKt(
+                    // ValueObject定義ファイル格納ディレクトリ（ファイル名はマルチバイトでも問題なし）
+                    metadir: metaDir,
+                    // 自動生成ファイル格納先ベースディレクトリ
+                    targetdir: file("blanco-src"),
+                    // 作業用ディレクトリ
+                    tmpdir: file("build/tmp/blanco/telegrams"),
+                    // 自動生成ソースコードのエンコーディング指定
+                    encoding: "UTF-8",
+                    // XML ルート要素のアノテーションを出力するフラグ
+                    xmlrootelement: false,
+                    // meta 定義書が期待しているプログラミング言語を指定
+                    sheetType: "php",
+                    // 出力先フォルダの書式を指定
+                    // blanco: [targetdir]/main<br>
+                    // maven: [targetdir]/main/java<br>
+                    // free: [targetdir](targetdirが無指定の場合はblanco/main)
+                    targetStyle: "maven",
+                    // 自動生成ソースコードの改行文字を指定する
+                    lineSeparator: "LF",
+                    // パッケージ名の末尾に追加する名称
+                    packageSuffix: "",
+                    // 詳細ログを出力する
+                    verbose: true
+            )
+        }
+        // サブディレクトリも処理する
+        file("${projectDir}/" + getProperty("telegramsKtMetaDir")).traverse(
                 // ディレクトリを対象とする
                 type: FileType.DIRECTORIES,
                 // 指定したディレクトリも対象に含める
