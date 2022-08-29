@@ -5,7 +5,9 @@
 * dapanda-api-coreには現状トークン認証のサンプルがあるのでDBの設定が必要。
 mysqlを使えるようにしdapanda-api-coreにあるsampleTable.sqlを使ってデータベースの作成を行う。
 * application.ymlのデータベースの設定をしている箇所(datasources.default)を環境に合わせて修正する。
-* gradle.propertiesのデータベースの設定をしている箇所を環境に合わせて修正する。(blancoDbJdbcUrl, blancoDbJdbcUser, blancoDbJdbcPasswordを修正する)
+* gradle.propertiesのデータベースの設定をしている箇所を環境に合わせて修正する。~~(blancoDbJdbcUrl, blancoDbJdbcUser, blancoDbJdbcPasswordを修正する)~~
+  * gradle.properties を直接修正せずに、local.gradle に設定する
+  * local.gradle は .gitignore に入れているので、設定変更をしない場合でも必ず空ファイルを作成すること
 * 下記コマンドを実行。
 ```
 ./gradlew meta -- blanco-meta配下のエクセルを修正、追加等を行なった場合実行
