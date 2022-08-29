@@ -38,7 +38,7 @@ constructor(
     /* Creates a CommonRequest instance from a JSON string. */
     val deserializer =
         BlancoRestGeneratorKtRequestDeserializer<RequestHeader, SampleLogoutPutRequest>(
-            argHttpRequest.javaClass)
+            CommonRequest::class.java)
     deserializer.infoClazz = RequestHeader::class.java
     deserializer.telegramClazz = SampleLogoutPutRequest::class.java
 

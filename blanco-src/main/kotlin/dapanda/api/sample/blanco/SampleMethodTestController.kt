@@ -42,7 +42,7 @@ constructor(
     /* Creates a CommonRequest instance from a JSON string. */
     val deserializer =
         BlancoRestGeneratorKtRequestDeserializer<RequestHeader, SampleMethodTestGetRequest>(
-            argHttpRequest.javaClass)
+            CommonRequest::class.java)
     deserializer.infoClazz = RequestHeader::class.java
     deserializer.telegramClazz = SampleMethodTestGetRequest::class.java
 
@@ -86,7 +86,7 @@ constructor(
     /* Creates a CommonRequest instance from a JSON string. */
     val deserializer =
         BlancoRestGeneratorKtRequestDeserializer<RequestHeader, SampleMethodTestPostRequest>(
-            argHttpRequest.javaClass)
+            CommonRequest::class.java)
     deserializer.infoClazz = RequestHeader::class.java
     deserializer.telegramClazz = SampleMethodTestPostRequest::class.java
 
@@ -130,7 +130,7 @@ constructor(
     /* Creates a CommonRequest instance from a JSON string. */
     val deserializer =
         BlancoRestGeneratorKtRequestDeserializer<RequestHeader, SampleMethodTestPutRequest>(
-            argHttpRequest.javaClass)
+            CommonRequest::class.java)
     deserializer.infoClazz = RequestHeader::class.java
     deserializer.telegramClazz = SampleMethodTestPutRequest::class.java
 
@@ -168,21 +168,26 @@ constructor(
    */
   @Delete
   fun doDelete(
-      argHttpRequest: HttpRequest<CommonRequest<RequestHeader, SampleMethodTestDeleteRequest>>,
+      argHttpRequest: HttpRequest<*>,
       @QueryValue request: String
   ): HttpResponse<CommonResponse<ResponseHeader, SampleMethodTestDeleteResponse>> {
     /* Creates a CommonRequest instance from a JSON string. */
     val deserializer =
         BlancoRestGeneratorKtRequestDeserializer<RequestHeader, SampleMethodTestDeleteRequest>(
-            argHttpRequest.javaClass)
+            CommonRequest::class.java)
     deserializer.infoClazz = RequestHeader::class.java
     deserializer.telegramClazz = SampleMethodTestDeleteRequest::class.java
 
     /* Creates HttpCommonRequest with httpRequest as delegator. */
     /* At this stage, commonRequest is tentative.*/
+    @Suppress("UNCHECKED_CAST")
     val httpCommonRequest =
         HttpCommonRequest<CommonRequest<RequestHeader, SampleMethodTestDeleteRequest>>(
-            argHttpRequest, true, listOf(), null)
+            argHttpRequest
+                as HttpRequest<CommonRequest<RequestHeader, SampleMethodTestDeleteRequest>>,
+            true,
+            listOf(),
+            null)
 
     val commonRequest: CommonRequest<RequestHeader, SampleMethodTestDeleteRequest> =
         sampleMethodTestManagement.convertJsonToCommonRequest(
