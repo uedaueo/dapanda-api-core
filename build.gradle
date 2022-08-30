@@ -15,7 +15,7 @@ plugins {
     id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.4"
 }
 
-version = "0.0.1"
+version = "0.0.3"
 // プロジェクトグループ
 group project.name.replace("-", ".")
 // group = "emulator"
@@ -57,6 +57,32 @@ micronaut {
     }
 }
 
+// アプリケーションのメインクラス
+//mainClassName = "dapanda.api.common.application.Application"
+
+// ローカル実行用設定
+run {
+    classpath += configurations.developmentOnly
+    jvmArgs(
+            "-noverify",
+            "-XX:TieredStopAtLevel=1",
+            "-Dcom.sun.management.jmxremote",
+            // デフォルト言語を設定
+            "-Duser.language=ja",
+            // デフォルトタイムゾーンを設定
+            "-Duser.timezone=Asia/Tokyo",
+            // スレッド名に Coroutine 名を追加するなど、Coroutine に関するログ出力を強化する
+            "-Dkotlinx.coroutines.debug",
+            // assert 関数を有効化（デバッグ支援用。本番環境では無効化する。）
+            "-ea"
+    )
+    if (project.hasProperty("jvmArgs")) {
+        // 以下のように実行すると、実行パラメータをコマンドラインで指定できる。
+        // gradlew run -PjvmArgs="-Ddb.host=192.168.1.1 -Ddb.port=33360"
+        jvmArgs(project.jvmArgs.split(/\s+/))
+    }
+}
+
 configurations {
     blancoDb
     blancoRestGeneratorKt
@@ -71,17 +97,23 @@ dependencies {
     implementation('io.micronaut:micronaut-runtime')
     implementation('io.micronaut.kotlin:micronaut-kotlin-runtime')
     implementation('javax.annotation:javax.annotation-api')
-    runtimeOnly "io.micronaut.sql:micronaut-jdbc-hikari"
+    // Micronaut Validation
+    implementation('io.micronaut:micronaut-validation')
+    // Required on using MessageInterpolator with validation
+    implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator")
+    implementation "io.micronaut.sql:micronaut-jdbc-hikari"
+    // Micronaut Micrometer (watch metrics) integration
+    implementation "io.micronaut.micrometer:micronaut-micrometer-core"
     // Micronaut Cache
     implementation "io.micronaut.cache:micronaut-cache-caffeine"
     // Micronaut Cache NoOp
     implementation "io.micronaut.cache:micronaut-cache-noop"
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
-    runtimeOnly('ch.qos.logback:logback-classic')
+    // logging
+    runtimeOnly('ch.qos.logback:logback-classic:1.4.0')
+
     compileOnly('org.graalvm.nativeimage:svm')
-    implementation('io.micronaut:micronaut-validation')
-    implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator")
     runtimeOnly('com.fasterxml.jackson.module:jackson-module-kotlin')
     implementation group: 'commons-logging', name: 'commons-logging', version: '1.2'
 
