@@ -5,8 +5,10 @@ import blanco.restgenerator.util.BlancoRestGeneratorKtRequestDeserializer
 import blanco.restgenerator.valueobject.*
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
+import dapanda.api.common.application.authorization.DefaultAuthorization
 import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
 import dapanda.api.common.domain.model.authenticate.IAuthenticate
+import dapanda.api.common.domain.model.authorization.IAuthorization
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
 import dapanda.api.common.domain.model.http.setRequestHeaderLocale
 import dapanda.api.common.domain.model.http.setStartTime
@@ -27,7 +29,10 @@ class ApiBase(
     private val localeResolver: LocaleResolver,
     private val authenticate: IAuthenticate,
     @Value("\${authenticate.required}")
-    private val isAuthenticate: Boolean
+    private val isAuthenticate: Boolean,
+    private val authorization: IAuthorization,
+    @Value("\${authorization.required}")
+    private val isAuthorization: Boolean
 ) : IApiBase {
     companion object {
         private val log by LoggerDelegate()
@@ -69,6 +74,13 @@ class ApiBase(
             authenticate.authenticate(httpRequest)
         } else {
             log.debug("認証処理は無効です")
+        }
+
+        // 認可処理
+        if (isAuthorization) {
+            authorization.authorization(httpRequest)
+        } else {
+            log.debug("認可処理は無効です")
         }
     }
 
