@@ -92,3 +92,5 @@ token-authenticate:
   salt: salt
 authenticate:
   required: true
+authorization:
+  required: false
