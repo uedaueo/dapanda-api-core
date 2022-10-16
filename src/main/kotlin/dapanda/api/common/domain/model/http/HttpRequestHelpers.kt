@@ -17,8 +17,8 @@ private const val REQUEST_HEADER_LOCALE_KEY = "####COMMON_REQUEST_HEADER_LOCALE_
 fun HttpRequest<*>.getToken(): String? {
     var result: String? = null
     val authorizationInfos = this.headers.authorization.get().split(" ")
-    if (authorizationInfos[1] == "Bearer") {
-        result = authorizationInfos[2]
+    if (authorizationInfos[0] == "Bearer") {
+        result = authorizationInfos[1]
     }
 
     return result
