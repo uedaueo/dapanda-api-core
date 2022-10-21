@@ -74,6 +74,17 @@ public class ApiErrorCode {
     private String fARM99999 = "ServerError.InternalFailure";
 
     /**
+     * バリデーションエラーです。（{0}）&lt;BR&gt;
+     *
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: バリデーションエラーが発生した場合
+     * フィールド: [ARM90006]。
+     * デフォルト: [&quot;InvalidParam.InvalidValue&quot;]。
+     */
+    private String fARM90006 = "InvalidParam.InvalidValue";
+
+    /**
      * フィールド [ARM90001] の値を設定します。
      *
      * フィールドの説明: [リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}<BR>]。
@@ -248,6 +259,35 @@ public class ApiErrorCode {
     }
 
     /**
+     * フィールド [ARM90006] の値を設定します。
+     *
+     * フィールドの説明: [バリデーションエラーです。（{0}）<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: バリデーションエラーが発生した場合
+     *
+     * @param argARM90006 フィールド[ARM90006]に設定する値。
+     */
+    public void setARM90006(final String argARM90006) {
+        fARM90006 = argARM90006;
+    }
+
+    /**
+     * フィールド [ARM90006] の値を取得します。
+     *
+     * フィールドの説明: [バリデーションエラーです。（{0}）<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: バリデーションエラーが発生した場合
+     * デフォルト: [&quot;InvalidParam.InvalidValue&quot;]。
+     *
+     * @return フィールド[ARM90006]から取得した値。
+     */
+    public String getARM90006() {
+        return fARM90006;
+    }
+
+    /**
      * Copies this value object to the specified target.
      *
      * <P>Cautions for use</P>
@@ -283,5 +323,8 @@ public class ApiErrorCode {
         // Name: fARM99999
         // Type: java.lang.String
         target.fARM99999 = this.fARM99999;
+        // Name: fARM90006
+        // Type: java.lang.String
+        target.fARM90006 = this.fARM90006;
     }
 }

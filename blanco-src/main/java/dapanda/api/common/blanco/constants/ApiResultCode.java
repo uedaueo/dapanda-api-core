@@ -75,6 +75,17 @@ public class ApiResultCode {
     private ResponseResultCode fARM99999 = ResponseResultCode.ERROR;
 
     /**
+     * バリデーションエラーです。（{0}）&lt;BR&gt;
+     *
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: バリデーションエラーが発生した場合
+     * フィールド: [ARM90006]。
+     * デフォルト: [ResponseResultCode.ERROR]。
+     */
+    private ResponseResultCode fARM90006 = ResponseResultCode.ERROR;
+
+    /**
      * フィールド [ARM90001] の値を設定します。
      *
      * フィールドの説明: [リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}<BR>]。
@@ -249,6 +260,35 @@ public class ApiResultCode {
     }
 
     /**
+     * フィールド [ARM90006] の値を設定します。
+     *
+     * フィールドの説明: [バリデーションエラーです。（{0}）<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: バリデーションエラーが発生した場合
+     *
+     * @param argARM90006 フィールド[ARM90006]に設定する値。
+     */
+    public void setARM90006(final ResponseResultCode argARM90006) {
+        fARM90006 = argARM90006;
+    }
+
+    /**
+     * フィールド [ARM90006] の値を取得します。
+     *
+     * フィールドの説明: [バリデーションエラーです。（{0}）<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: バリデーションエラーが発生した場合
+     * デフォルト: [ResponseResultCode.ERROR]。
+     *
+     * @return フィールド[ARM90006]から取得した値。
+     */
+    public ResponseResultCode getARM90006() {
+        return fARM90006;
+    }
+
+    /**
      * Copies this value object to the specified target.
      *
      * <P>Cautions for use</P>
@@ -284,5 +324,8 @@ public class ApiResultCode {
         // Name: fARM99999
         // Type: dapanda.api.common.domain.CommonConstants.ResponseResultCode
         // Field[fARM99999] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
+        // Name: fARM90006
+        // Type: dapanda.api.common.domain.CommonConstants.ResponseResultCode
+        // Field[fARM90006] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
     }
 }

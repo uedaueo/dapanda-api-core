@@ -204,4 +204,29 @@ public class ApiResultMessageResourceBundle {
         // 置換文字列はひとつもありません。
         return strFormat;
     }
+
+    /**
+     * bundle[ApiResultMessage], key[ARM90006]
+     *
+     * [バリデーションエラーです。（{0}）] (ja)<br>
+     * [バリデーションエラーです。（{0}）] (en)<br>
+     *
+     * @param arg0 置換文字列{0}を置換する値。java.lang.String型を与えてください。
+     * @return key[ARM90006]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     */
+    public String getArm90006(final String arg0) {
+        // 初期値として定義書の値を利用します。
+        String strFormat = "バリデーションエラーです。（{0}）";
+        try {
+            if (fResourceBundle != null) {
+                strFormat = fResourceBundle.getString("ARM90006");
+            }
+        } catch (MissingResourceException ex) {
+        }
+        final MessageFormat messageFormat = new MessageFormat(strFormat);
+        final StringBuffer strbuf = new StringBuffer();
+        // 与えられた引数を元に置換文字列を置き換えます。
+        messageFormat.format(new Object[] {arg0}, strbuf, null);
+        return strbuf.toString();
+    }
 }

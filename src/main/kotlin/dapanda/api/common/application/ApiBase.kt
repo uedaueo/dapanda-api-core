@@ -58,11 +58,15 @@ class ApiBase(
         // バリデーション
         val violations = Validation.buildDefaultValidatorFactory().validator.validate(httpRequest)
         if (violations.isNotEmpty()) {
-            val metaInfo = ApiResponseMetaInfoConstants.META99999
-            metaInfo.message = bundleFactory.getApiResultMessage(locale = locale).arm99999
-            log.debug("バリデーションエラーは「システムエラー」で返却されます。")
+            var msg = ""
+            val ite = violations.iterator()
+            while (ite.hasNext()) {
+                msg += "[ " + ite.next().message + " ] "
+            }
+            val metaInfo = ApiResponseMetaInfoConstants.META90006
+            metaInfo.message = bundleFactory.getApiResultMessage(locale = locale).getArm90006(msg)
             log.debug("message : " + metaInfo.message)
-            log.debug("messageNumber : " + metaInfo.messageNumber)
+//            log.debug("messageNumber : " + metaInfo.messageNumber)
             throw ApiRuntimeExceptionFactory.create(
                 metaInfo = metaInfo,
                 logMessage = violations.joinToString(", ")

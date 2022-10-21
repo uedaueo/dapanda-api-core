@@ -62,4 +62,13 @@ public class ApiResponseMetaInfoConstants {
      * 用途、使う箇所: 上記に定義できないエラーが発生した場合に返却
      */
     public static final ResponseMetaInfo META99999 = new ResponseMetaInfo(HttpStatus.INTERNAL_SERVER_ERROR, ResponseResultCode.ERROR, "ServerError.InternalFailure", "", "");
+
+    /**
+     * 項目番号:7<br>
+     * バリデーションエラーです。（{0}）<BR>
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: バリデーションエラーが発生した場合
+     */
+    public static final ResponseMetaInfo META90006 = new ResponseMetaInfo(HttpStatus.BAD_REQUEST, ResponseResultCode.ERROR, "InvalidParam.InvalidValue", "", "");
 }

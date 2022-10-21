@@ -10,7 +10,6 @@ import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
 import blanco.restgenerator.valueobject.ResponseHeader
 import dapanda.api.sample.application.SampleGetNoQueryManagement
-import io.micronaut.core.annotation.Nullable
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
@@ -34,7 +33,7 @@ constructor(
   @Get
   fun doGet(
       argHttpRequest: HttpRequest<CommonRequest<RequestHeader, SampleGetNoQueryGetRequest>>,
-      @Nullable @QueryValue request: String?
+      @QueryValue request: String
   ): HttpResponse<CommonResponse<ResponseHeader, SampleGetNoQueryGetResponse>> {
     /* Creates a CommonRequest instance from a JSON string. */
     val deserializer =
@@ -48,16 +47,10 @@ constructor(
     val httpCommonRequest =
         HttpCommonRequest<CommonRequest<RequestHeader, SampleGetNoQueryGetRequest>>(
             argHttpRequest, true, listOf(), null)
-    var myRequest = ""
-    if (request == null) {
-        myRequest = "{}"
-    } else {
-        myRequest = request
-    }
 
     val commonRequest: CommonRequest<RequestHeader, SampleGetNoQueryGetRequest> =
         sampleGetNoQueryManagement.convertJsonToCommonRequest(
-            myRequest, deserializer, httpCommonRequest)
+            request, deserializer, httpCommonRequest)
 
     /* Stores the commonRequest with its type determined */
     httpCommonRequest.commonRequest = commonRequest
