@@ -13,9 +13,19 @@ plugins {
     id("io.micronaut.application") version "3.3.2"
     // IntelliJ IDEA の設定用
     id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.4"
+    // Github pages に maven repository を push するために使用
+    id "org.ajoberstar.grgit" version "4.1.1"
+    // version の自動採番に使用
+    id "com.palantir.git-version" version "0.15.0"
 }
 
-version = "0.0.6"
+/*
+ * <最新の tag>-<最新のcommit id> がバージョン番号になります。
+ * 最新のtagが最新のcommitに点いている場合はtag名のみがバージョン番号となります（この状態でリリースする事！）
+ * tag が無い場合は commit id が使用されます。
+ * 未commitの場合は .dirty が付与されます。
+ */
+version = getVersion()
 // プロジェクトグループ
 group project.name.replace("-", ".")
 // group = "emulator"
@@ -634,11 +644,49 @@ java {
 }
 
 // パッケージ公開設定
+def getMavenSettingsCredentials = {
+    String userHome = System.getProperty( "user.home" );
+    File mavenSettings = new File(userHome, ".m2/settings.xml")
+    def xmlSlurper = new XmlSlurper()
+    def output = xmlSlurper.parse(mavenSettings)
+    return output."servers"."server"
+}
+
+def getCredentials = {
+    def entries = getMavenSettingsCredentials()
+    for (entry in entries) {
+        if ( entry."id".text() == "github" ) {
+            return [username: entry.username.text(), password: entry.password.text()]
+        }
+    }
+}
+
 publishing {
     publications {
-        // GitHub Packages Repository
-        gpr(MavenPublication) {
-            from components.java
+        target(MavenPublication) {
+            from(components.java)
         }
+    }
+    repositories {
+        maven {
+            url GHPagesMaven
+        }
+    }
+}
+
+def publishToGhPages() {
+    def grgit = Grgit.open(dir: GHPagesMaven)
+    grgit.add(patterns: ['.'], update: true) // add updated and deleted
+    grgit.add(patterns: ['.']) // add new
+    grgit.commit(message: 'Publish dapanda-api-core version ' + '${version}')
+    grgit.push()
+}
+
+task pubPush {
+    dependsOn "publish"
+    doFirst {
+        def creds = getCredentials()
+        environment 'GRGIT_USER', creds['password']
+        publishToGhPages()
     }
 }
