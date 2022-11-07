@@ -15,8 +15,6 @@ plugins {
     id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.4"
     // Github pages に maven repository を push するために使用
     id "org.ajoberstar.grgit" version "4.1.1"
-    // version の自動採番に使用
-    id "com.palantir.git-version" version "0.15.0"
 }
 
 /*
@@ -25,7 +23,7 @@ plugins {
  * tag が無い場合は commit id が使用されます。
  * 未commitの場合は .dirty が付与されます。
  */
-version = getVersion()
+version = getProjectVersion()
 // プロジェクトグループ
 group project.name.replace("-", ".")
 // group = "emulator"
@@ -643,6 +641,35 @@ java {
     withJavadocJar()
 }
 
+/**
+ * プロジェクトのバージョンを取得
+ *
+ * バージョンは、Git のコミットを元に作成する。
+ * @return プロジェクトバージョン文字列を返す
+ */
+def getProjectVersion() {
+    if (file("./.git/").exists()) {
+        final def tags = grgit.tag.list().collect { it.getName() }
+        def versionStr
+        if (tags.any { it ==~ /v\d.*/ }) {
+            versionStr = grgit.describe(longDescr: false, tags: true, match: ["v[0-9]*"]).replace("v", "")
+        } else {
+            versionStr = grgit.head().abbreviatedId
+        }
+        versionStr + (grgit.status().isClean() ? "" : "-dirty")
+    } else if (System.getenv("CODEBUILD_RESOLVED_SOURCE_VERSION")) {
+        println("AWS CodeBuild environment detected.")
+        System.getenv("CODEBUILD_RESOLVED_SOURCE_VERSION")
+    } else {
+        println(".git directory not exists")
+        "unspecified"
+    }
+}
+
+task printProjectVersion {
+    println "Version = $version"
+}
+
 // パッケージ公開設定
 def getMavenSettingsCredentials = {
     String userHome = System.getProperty( "user.home" );
@@ -669,24 +696,24 @@ publishing {
     }
     repositories {
         maven {
-            url GHPagesMaven
+            url GHPagesMavenUrl
         }
     }
 }
 
 def publishToGhPages() {
-    def grgit = Grgit.open(dir: GHPagesMaven)
-    grgit.add(patterns: ['.'], update: true) // add updated and deleted
-    grgit.add(patterns: ['.']) // add new
-    grgit.commit(message: 'Publish dapanda-api-core version ' + '${version}')
-    grgit.push()
+    def mygit = grgit.open(dir: GHPagesMavenDir)
+    mygit.add(patterns: ['.'], update: true) // add updated and deleted
+    mygit.add(patterns: ['.']) // add new
+    mygit.commit(message: 'Publish dapanda-api-core version ' + '${version}')
+    mygit.push()
 }
 
-task pubPush {
+task pubPush(type: GradleBuild) {
     dependsOn "publish"
     doFirst {
         def creds = getCredentials()
-        environment 'GRGIT_USER', creds['password']
+        System.setProperty("org.ajoberstar.grgit.auth.username", creds['password'])
         publishToGhPages()
     }
 }
