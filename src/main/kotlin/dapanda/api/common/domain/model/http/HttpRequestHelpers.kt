@@ -10,11 +10,11 @@ private const val START_TIME_KEY = "####COMMON_START_TIME_KEY####"
 private const val REQUEST_HEADER_LOCALE_KEY = "####COMMON_REQUEST_HEADER_LOCALE_KEY####"
 
 /**
- * トークン文字列を取得します。
+ * Bearer トークン文字列を取得します。
  *
  * @return String トークン文字列
  */
-fun HttpRequest<*>.getToken(): String? {
+fun HttpRequest<*>.getBearerToken(): String? {
     var result: String? = null
     val authorizationInfos = this.headers.authorization.get().split(" ")
     if (authorizationInfos[0] == "Bearer") {

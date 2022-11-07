@@ -4,19 +4,17 @@ import blanco.restgenerator.valueobject.ApiTelegram
 import blanco.restgenerator.valueobject.CommonRequest
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
-import dapanda.api.common.application.ApiBase
 import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
 import dapanda.api.common.domain.CommonConstants
 import dapanda.api.common.domain.model.authenticate.IAuthenticate
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
-import dapanda.api.common.domain.model.http.getToken
+import dapanda.api.common.domain.model.http.getBearerToken
 import dapanda.api.common.domain.model.locale.LocaleResolver
 import dapanda.api.common.domain.model.logging.LoggerDelegate
 import dapanda.api.common.domain.model.resourcebundle.CommonResourceBundleFactory
 import dapanda.api.common.domain.model.verifier.ITokenInfoQuery
 import dapanda.api.common.domain.model.verifier.ITokenInfoRepository
 import dapanda.api.common.domain.model.verifier.TokenInfo
-import io.micronaut.cache.DynamicCacheManager
 import io.micronaut.context.annotation.Requirements
 import io.micronaut.context.annotation.Requires
 import io.micronaut.context.annotation.Value
@@ -56,7 +54,7 @@ class TokenAuthenticate(
         }
 
         // トークン情報
-        val token = request.getToken()
+        val token = request.getBearerToken()
         if (token.isNullOrBlank()) {
             val metaInfo = ApiResponseMetaInfoConstants.META90005
             metaInfo.message = bundleFactory.getApiResultMessage(locale = locale).arm90005
