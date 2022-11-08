@@ -128,4 +128,8 @@ class ApiBase(
     override fun <S : RequestHeader, T : ApiTelegram> createCommonRequest(info: S, telegram: T?): CommonRequest<S, T> {
         TODO("Not yet implemented")
     }
+
+    override fun isSpoiled(method: String): Boolean {
+        return false
+    }
 }

@@ -42,4 +42,9 @@ interface IApiBase {
      * 型を確定した CommonRequest を生成します。
      */
     fun <S : RequestHeader, T : ApiTelegram> createCommonRequest(info: S, telegram: T?): CommonRequest<S, T>
+
+    /**
+     * APIが呼び出し可能かどうかを返します。
+     */
+    fun isSpoiled(method: String): Boolean
 }

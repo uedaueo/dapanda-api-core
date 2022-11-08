@@ -229,4 +229,25 @@ public class ApiResultMessageResourceBundle {
         messageFormat.format(new Object[] {arg0}, strbuf, null);
         return strbuf.toString();
     }
+
+    /**
+     * bundle[ApiResultMessage], key[ARM90007]
+     *
+     * [このリクエストメソッドを使用することはできません。] (ja)<br>
+     * [このリクエストメソッドを使用することはできません。] (en)<br>
+     *
+     * @return key[ARM90007]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     */
+    public String getArm90007() {
+        // 初期値として定義書の値を利用します。
+        String strFormat = "このリクエストメソッドを使用することはできません。";
+        try {
+            if (fResourceBundle != null) {
+                strFormat = fResourceBundle.getString("ARM90007");
+            }
+        } catch (MissingResourceException ex) {
+        }
+        // 置換文字列はひとつもありません。
+        return strFormat;
+    }
 }

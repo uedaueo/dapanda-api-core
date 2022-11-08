@@ -86,6 +86,17 @@ public class ApiResultCode {
     private ResponseResultCode fARM90006 = ResponseResultCode.ERROR;
 
     /**
+     * このリクエストメソッドを使用することはできません。&lt;BR&gt;
+     *
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: リクエストメソッドが無効になっている場合
+     * フィールド: [ARM90007]。
+     * デフォルト: [ResponseResultCode.ERROR]。
+     */
+    private ResponseResultCode fARM90007 = ResponseResultCode.ERROR;
+
+    /**
      * フィールド [ARM90001] の値を設定します。
      *
      * フィールドの説明: [リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}<BR>]。
@@ -289,6 +300,35 @@ public class ApiResultCode {
     }
 
     /**
+     * フィールド [ARM90007] の値を設定します。
+     *
+     * フィールドの説明: [このリクエストメソッドを使用することはできません。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: リクエストメソッドが無効になっている場合
+     *
+     * @param argARM90007 フィールド[ARM90007]に設定する値。
+     */
+    public void setARM90007(final ResponseResultCode argARM90007) {
+        fARM90007 = argARM90007;
+    }
+
+    /**
+     * フィールド [ARM90007] の値を取得します。
+     *
+     * フィールドの説明: [このリクエストメソッドを使用することはできません。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: リクエストメソッドが無効になっている場合
+     * デフォルト: [ResponseResultCode.ERROR]。
+     *
+     * @return フィールド[ARM90007]から取得した値。
+     */
+    public ResponseResultCode getARM90007() {
+        return fARM90007;
+    }
+
+    /**
      * Copies this value object to the specified target.
      *
      * <P>Cautions for use</P>
@@ -327,5 +367,8 @@ public class ApiResultCode {
         // Name: fARM90006
         // Type: dapanda.api.common.domain.CommonConstants.ResponseResultCode
         // Field[fARM90006] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
+        // Name: fARM90007
+        // Type: dapanda.api.common.domain.CommonConstants.ResponseResultCode
+        // Field[fARM90007] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
     }
 }

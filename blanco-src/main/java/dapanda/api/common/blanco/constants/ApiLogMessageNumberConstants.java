@@ -80,4 +80,15 @@ public class ApiLogMessageNumberConstants {
      * 用途、使う箇所: トークン認証に失敗した場合
      */
     public static final String ALM90007 = "90007";
+
+    /**
+     * 項目番号:8<br>
+     * このリクエストメソッドを使用することはできません。<BR>
+     * <BR>
+     * API名: リクエストメソッド無効<BR>
+     * メッセージ区分: ERROR<BR>
+     * メッセージ種別: リクエストメソッド無効エラー
+     * 用途、使う箇所: リクエストメソッドが無効になっている場合
+     */
+    public static final String ALM90008 = "90008";
 }

@@ -71,4 +71,13 @@ public class ApiResponseMetaInfoConstants {
      * 用途、使う箇所: バリデーションエラーが発生した場合
      */
     public static final ResponseMetaInfo META90006 = new ResponseMetaInfo(HttpStatus.BAD_REQUEST, ResponseResultCode.ERROR, "InvalidParam.InvalidValue", "", "");
+
+    /**
+     * 項目番号:8<br>
+     * このリクエストメソッドを使用することはできません。<BR>
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: リクエストメソッドが無効になっている場合
+     */
+    public static final ResponseMetaInfo META90007 = new ResponseMetaInfo(HttpStatus.METHOD_NOT_ALLOWED, ResponseResultCode.ERROR, "MethodNotAllowedError", "", "");
 }

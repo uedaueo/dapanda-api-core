@@ -94,3 +94,7 @@ authenticate:
   required: true
 authorization:
   required: false
+
+spoil:
+  SampleLogin:
+    POST: true

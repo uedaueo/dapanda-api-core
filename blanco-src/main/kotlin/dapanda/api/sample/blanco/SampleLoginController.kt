@@ -9,7 +9,9 @@ import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
 import blanco.restgenerator.valueobject.ResponseHeader
+import dapanda.api.common.domain.model.exceptions.ApiSpoilException
 import dapanda.api.sample.application.SampleLoginManagement
+import io.micronaut.http.HttpMethod
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Body
@@ -35,6 +37,9 @@ constructor(
       argHttpRequest: HttpRequest<CommonRequest<RequestHeader, SampleLoginPostRequest>>,
       @Body argBody: String
   ): HttpResponse<CommonResponse<ResponseHeader, SampleLoginPostResponse>> {
+    if (sampleLoginManagement.isSpoiled("POST")) {
+        throw ApiSpoilException()
+    }
     /* Creates a CommonRequest instance from a JSON string. */
     val deserializer =
         BlancoRestGeneratorKtRequestDeserializer<RequestHeader, SampleLoginPostRequest>(
