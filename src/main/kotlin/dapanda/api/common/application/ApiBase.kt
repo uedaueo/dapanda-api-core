@@ -5,10 +5,9 @@ import blanco.restgenerator.util.BlancoRestGeneratorKtRequestDeserializer
 import blanco.restgenerator.valueobject.*
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
-import dapanda.api.common.application.authorization.DefaultAuthorization
 import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
 import dapanda.api.common.domain.model.authenticate.IAuthenticate
-import dapanda.api.common.domain.model.authorization.IAuthorization
+import dapanda.api.common.domain.model.privilege.IPrivilege
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
 import dapanda.api.common.domain.model.http.setRequestHeaderLocale
 import dapanda.api.common.domain.model.http.setStartTime
@@ -30,9 +29,9 @@ class ApiBase(
     private val authenticate: IAuthenticate,
     @Value("\${authenticate.required}")
     private val isAuthenticate: Boolean,
-    private val authorization: IAuthorization,
-    @Value("\${authorization.required}")
-    private val isAuthorization: Boolean
+    private val privilege: IPrivilege,
+    @Value("\${privilege.required}")
+    private val isPrivilege: Boolean
 ) : IApiBase {
     companion object {
         private val log by LoggerDelegate()
@@ -75,14 +74,24 @@ class ApiBase(
 
         // 認証処理
         if (isAuthenticate) {
-            authenticate.authenticate(httpRequest)
+            if (!authenticate.isAuthenticated(httpRequest)) {
+                val metaInfo = ApiResponseMetaInfoConstants.META90008
+                metaInfo.message = bundleFactory.getApiResultMessage(locale = locale).arm90008
+                val logMessage = bundleFactory.getApiLogMessage(locale = locale).alm90008
+                throw ApiRuntimeExceptionFactory.create(metaInfo, logMessage)
+            }
         } else {
             log.debug("認証処理は無効です")
         }
 
-        // 認可処理
-        if (isAuthorization) {
-            authorization.authorization(httpRequest)
+        // 権限処理
+        if (isPrivilege) {
+            if (!privilege.isPermitted(httpRequest)) {
+                val metaInfo = ApiResponseMetaInfoConstants.META90009
+                metaInfo.message = bundleFactory.getApiResultMessage(locale = locale).arm90009
+                val logMessage = bundleFactory.getApiLogMessage(locale = locale).alm90009
+                throw ApiRuntimeExceptionFactory.create(metaInfo, logMessage)
+            }
         } else {
             log.debug("認可処理は無効です")
         }

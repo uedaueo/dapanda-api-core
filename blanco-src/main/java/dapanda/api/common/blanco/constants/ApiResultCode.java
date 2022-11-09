@@ -86,6 +86,28 @@ public class ApiResultCode {
     private ResponseResultCode fARM90006 = ResponseResultCode.ERROR;
 
     /**
+     * 認証できませんでした。&lt;BR&gt;
+     *
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 認証エラー
+     * フィールド: [ARM90008]。
+     * デフォルト: [ResponseResultCode.ERROR]。
+     */
+    private ResponseResultCode fARM90008 = ResponseResultCode.ERROR;
+
+    /**
+     * 権限がありません。&lt;BR&gt;
+     *
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 権限エラー
+     * フィールド: [ARM90009]。
+     * デフォルト: [ResponseResultCode.ERROR]。
+     */
+    private ResponseResultCode fARM90009 = ResponseResultCode.ERROR;
+
+    /**
      * フィールド [ARM90001] の値を設定します。
      *
      * フィールドの説明: [リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}<BR>]。
@@ -289,6 +311,64 @@ public class ApiResultCode {
     }
 
     /**
+     * フィールド [ARM90008] の値を設定します。
+     *
+     * フィールドの説明: [認証できませんでした。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 認証エラー
+     *
+     * @param argARM90008 フィールド[ARM90008]に設定する値。
+     */
+    public void setARM90008(final ResponseResultCode argARM90008) {
+        fARM90008 = argARM90008;
+    }
+
+    /**
+     * フィールド [ARM90008] の値を取得します。
+     *
+     * フィールドの説明: [認証できませんでした。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 認証エラー
+     * デフォルト: [ResponseResultCode.ERROR]。
+     *
+     * @return フィールド[ARM90008]から取得した値。
+     */
+    public ResponseResultCode getARM90008() {
+        return fARM90008;
+    }
+
+    /**
+     * フィールド [ARM90009] の値を設定します。
+     *
+     * フィールドの説明: [権限がありません。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 権限エラー
+     *
+     * @param argARM90009 フィールド[ARM90009]に設定する値。
+     */
+    public void setARM90009(final ResponseResultCode argARM90009) {
+        fARM90009 = argARM90009;
+    }
+
+    /**
+     * フィールド [ARM90009] の値を取得します。
+     *
+     * フィールドの説明: [権限がありません。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 権限エラー
+     * デフォルト: [ResponseResultCode.ERROR]。
+     *
+     * @return フィールド[ARM90009]から取得した値。
+     */
+    public ResponseResultCode getARM90009() {
+        return fARM90009;
+    }
+
+    /**
      * Copies this value object to the specified target.
      *
      * <P>Cautions for use</P>
@@ -327,5 +407,11 @@ public class ApiResultCode {
         // Name: fARM90006
         // Type: dapanda.api.common.domain.CommonConstants.ResponseResultCode
         // Field[fARM90006] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
+        // Name: fARM90008
+        // Type: dapanda.api.common.domain.CommonConstants.ResponseResultCode
+        // Field[fARM90008] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
+        // Name: fARM90009
+        // Type: dapanda.api.common.domain.CommonConstants.ResponseResultCode
+        // Field[fARM90009] is an unsupported type[dapanda.api.common.domain.CommonConstants.ResponseResultCode].
     }
 }

@@ -86,6 +86,28 @@ public class ApiHttpStatus {
     private HttpStatus fARM90006 = HttpStatus.BAD_REQUEST;
 
     /**
+     * 認証できませんでした。&lt;BR&gt;
+     *
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 認証エラー
+     * フィールド: [ARM90008]。
+     * デフォルト: [HttpStatus.FORBIDDEN]。
+     */
+    private HttpStatus fARM90008 = HttpStatus.FORBIDDEN;
+
+    /**
+     * 権限がありません。&lt;BR&gt;
+     *
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 権限エラー
+     * フィールド: [ARM90009]。
+     * デフォルト: [HttpStatus.FORBIDDEN]。
+     */
+    private HttpStatus fARM90009 = HttpStatus.FORBIDDEN;
+
+    /**
      * フィールド [ARM90001] の値を設定します。
      *
      * フィールドの説明: [リクエストパラメータに不正な値が設定されています。項目：{0}, 設定値：{1}<BR>]。
@@ -289,6 +311,64 @@ public class ApiHttpStatus {
     }
 
     /**
+     * フィールド [ARM90008] の値を設定します。
+     *
+     * フィールドの説明: [認証できませんでした。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 認証エラー
+     *
+     * @param argARM90008 フィールド[ARM90008]に設定する値。
+     */
+    public void setARM90008(final HttpStatus argARM90008) {
+        fARM90008 = argARM90008;
+    }
+
+    /**
+     * フィールド [ARM90008] の値を取得します。
+     *
+     * フィールドの説明: [認証できませんでした。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 認証エラー
+     * デフォルト: [HttpStatus.FORBIDDEN]。
+     *
+     * @return フィールド[ARM90008]から取得した値。
+     */
+    public HttpStatus getARM90008() {
+        return fARM90008;
+    }
+
+    /**
+     * フィールド [ARM90009] の値を設定します。
+     *
+     * フィールドの説明: [権限がありません。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 権限エラー
+     *
+     * @param argARM90009 フィールド[ARM90009]に設定する値。
+     */
+    public void setARM90009(final HttpStatus argARM90009) {
+        fARM90009 = argARM90009;
+    }
+
+    /**
+     * フィールド [ARM90009] の値を取得します。
+     *
+     * フィールドの説明: [権限がありません。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 権限エラー
+     * デフォルト: [HttpStatus.FORBIDDEN]。
+     *
+     * @return フィールド[ARM90009]から取得した値。
+     */
+    public HttpStatus getARM90009() {
+        return fARM90009;
+    }
+
+    /**
      * Copies this value object to the specified target.
      *
      * <P>Cautions for use</P>
@@ -327,5 +407,11 @@ public class ApiHttpStatus {
         // Name: fARM90006
         // Type: io.micronaut.http.HttpStatus
         // Field[fARM90006] is an unsupported type[io.micronaut.http.HttpStatus].
+        // Name: fARM90008
+        // Type: io.micronaut.http.HttpStatus
+        // Field[fARM90008] is an unsupported type[io.micronaut.http.HttpStatus].
+        // Name: fARM90009
+        // Type: io.micronaut.http.HttpStatus
+        // Field[fARM90009] is an unsupported type[io.micronaut.http.HttpStatus].
     }
 }

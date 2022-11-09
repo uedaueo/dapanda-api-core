@@ -44,13 +44,13 @@ class TokenAuthenticate(
         private val log by LoggerDelegate()
     }
 
-    override fun <S : RequestHeader, T : ApiTelegram> authenticate(
+    override fun <S : RequestHeader, T : ApiTelegram> isAuthenticated(
         request: HttpCommonRequest<CommonRequest<S, T>>,
-    ) {
+    ): Boolean {
         val locale = localeResolver.resolve(request)
         if (request.noAuthentication) {
             log.info(resourceBundle.getApiLogMessage(locale).alm90006)
-            return
+            return true
         }
 
         // トークン情報
@@ -71,19 +71,20 @@ class TokenAuthenticate(
         )
 
         // トークン認証を実施する
-        var isAuthenticate = false
+        var isAuthenticated = false
         if (validToken(tokenInfo)) {
             updateDBToken(tokenInfo)
-            isAuthenticate = true
+            isAuthenticated = true
         }
 
-        if (!isAuthenticate) {
+        if (!isAuthenticated) {
             val metaInfo = ApiResponseMetaInfoConstants.META90005
             metaInfo.message = resourceBundle.getApiResultMessage(locale).arm90005
             val logMessage = resourceBundle.getApiLogMessage(locale).alm90005
             throw ApiRuntimeExceptionFactory.create(metaInfo, logMessage)
         }
         log.debug("TokenAuthenticate#authenticate: トークン 認証に成功")
+        return true
     }
 
     /**

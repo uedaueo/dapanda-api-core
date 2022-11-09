@@ -90,7 +90,9 @@ token-authenticate:
   # トークン有効期間(分)
   token-valid-term: 60
   salt: salt
+# 認証処理を実装する場合はtrue
 authenticate:
   required: true
-authorization:
+# 権限チェック処理を実装する場合はtrue
+privilege:
   required: false

@@ -47,9 +47,9 @@ public class ApiErrorCode {
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー認証エラー
      * フィールド: [ARM90004]。
-     * デフォルト: [&quot;AuthorizeError&quot;]。
+     * デフォルト: [&quot;AuthenticateError&quot;]。
      */
-    private String fARM90004 = "AuthorizeError";
+    private String fARM90004 = "AuthenticateError";
 
     /**
      * トークン認証に失敗しました。&lt;BR&gt;
@@ -58,9 +58,9 @@ public class ApiErrorCode {
      * 可変文字: <BR>
      * 用途、使う箇所: トークン認証エラー
      * フィールド: [ARM90005]。
-     * デフォルト: [&quot;AuthorizeError&quot;]。
+     * デフォルト: [&quot;AuthenticateError&quot;]。
      */
-    private String fARM90005 = "AuthorizeError";
+    private String fARM90005 = "AuthenticateError";
 
     /**
      * システムエラー。システム管理者にお問い合わせください。&lt;BR&gt;
@@ -83,6 +83,28 @@ public class ApiErrorCode {
      * デフォルト: [&quot;InvalidParam.InvalidValue&quot;]。
      */
     private String fARM90006 = "InvalidParam.InvalidValue";
+
+    /**
+     * 認証できませんでした。&lt;BR&gt;
+     *
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 認証エラー
+     * フィールド: [ARM90008]。
+     * デフォルト: [&quot;AuthenticateError&quot;]。
+     */
+    private String fARM90008 = "AuthenticateError";
+
+    /**
+     * 権限がありません。&lt;BR&gt;
+     *
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 権限エラー
+     * フィールド: [ARM90009]。
+     * デフォルト: [&quot;PrivilegeError&quot;]。
+     */
+    private String fARM90009 = "PrivilegeError";
 
     /**
      * フィールド [ARM90001] の値を設定します。
@@ -192,7 +214,7 @@ public class ApiErrorCode {
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー認証エラー
-     * デフォルト: [&quot;AuthorizeError&quot;]。
+     * デフォルト: [&quot;AuthenticateError&quot;]。
      *
      * @return フィールド[ARM90004]から取得した値。
      */
@@ -221,7 +243,7 @@ public class ApiErrorCode {
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: トークン認証エラー
-     * デフォルト: [&quot;AuthorizeError&quot;]。
+     * デフォルト: [&quot;AuthenticateError&quot;]。
      *
      * @return フィールド[ARM90005]から取得した値。
      */
@@ -288,6 +310,64 @@ public class ApiErrorCode {
     }
 
     /**
+     * フィールド [ARM90008] の値を設定します。
+     *
+     * フィールドの説明: [認証できませんでした。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 認証エラー
+     *
+     * @param argARM90008 フィールド[ARM90008]に設定する値。
+     */
+    public void setARM90008(final String argARM90008) {
+        fARM90008 = argARM90008;
+    }
+
+    /**
+     * フィールド [ARM90008] の値を取得します。
+     *
+     * フィールドの説明: [認証できませんでした。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 認証エラー
+     * デフォルト: [&quot;AuthenticateError&quot;]。
+     *
+     * @return フィールド[ARM90008]から取得した値。
+     */
+    public String getARM90008() {
+        return fARM90008;
+    }
+
+    /**
+     * フィールド [ARM90009] の値を設定します。
+     *
+     * フィールドの説明: [権限がありません。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 権限エラー
+     *
+     * @param argARM90009 フィールド[ARM90009]に設定する値。
+     */
+    public void setARM90009(final String argARM90009) {
+        fARM90009 = argARM90009;
+    }
+
+    /**
+     * フィールド [ARM90009] の値を取得します。
+     *
+     * フィールドの説明: [権限がありません。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 権限エラー
+     * デフォルト: [&quot;PrivilegeError&quot;]。
+     *
+     * @return フィールド[ARM90009]から取得した値。
+     */
+    public String getARM90009() {
+        return fARM90009;
+    }
+
+    /**
      * Copies this value object to the specified target.
      *
      * <P>Cautions for use</P>
@@ -326,5 +406,11 @@ public class ApiErrorCode {
         // Name: fARM90006
         // Type: java.lang.String
         target.fARM90006 = this.fARM90006;
+        // Name: fARM90008
+        // Type: java.lang.String
+        target.fARM90008 = this.fARM90008;
+        // Name: fARM90009
+        // Type: java.lang.String
+        target.fARM90009 = this.fARM90009;
     }
 }

@@ -209,7 +209,7 @@ public class ApiResultMessageResourceBundle {
      * bundle[ApiResultMessage], key[ARM90006]
      *
      * [バリデーションエラーです。（{0}）] (ja)<br>
-     * [バリデーションエラーです。（{0}）] (en)<br>
+     * [Validation error: {0}] (en)<br>
      *
      * @param arg0 置換文字列{0}を置換する値。java.lang.String型を与えてください。
      * @return key[ARM90006]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
@@ -228,5 +228,47 @@ public class ApiResultMessageResourceBundle {
         // 与えられた引数を元に置換文字列を置き換えます。
         messageFormat.format(new Object[] {arg0}, strbuf, null);
         return strbuf.toString();
+    }
+
+    /**
+     * bundle[ApiResultMessage], key[ARM90008]
+     *
+     * [認証できませんでした。] (ja)<br>
+     * [Could not be authenticated.] (en)<br>
+     *
+     * @return key[ARM90008]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     */
+    public String getArm90008() {
+        // 初期値として定義書の値を利用します。
+        String strFormat = "認証できませんでした。";
+        try {
+            if (fResourceBundle != null) {
+                strFormat = fResourceBundle.getString("ARM90008");
+            }
+        } catch (MissingResourceException ex) {
+        }
+        // 置換文字列はひとつもありません。
+        return strFormat;
+    }
+
+    /**
+     * bundle[ApiResultMessage], key[ARM90009]
+     *
+     * [権限がありません。] (ja)<br>
+     * [No privilege] (en)<br>
+     *
+     * @return key[ARM90009]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     */
+    public String getArm90009() {
+        // 初期値として定義書の値を利用します。
+        String strFormat = "権限がありません。";
+        try {
+            if (fResourceBundle != null) {
+                strFormat = fResourceBundle.getString("ARM90009");
+            }
+        } catch (MissingResourceException ex) {
+        }
+        // 置換文字列はひとつもありません。
+        return strFormat;
     }
 }

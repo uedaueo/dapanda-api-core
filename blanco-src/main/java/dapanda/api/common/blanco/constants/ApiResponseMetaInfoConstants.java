@@ -43,7 +43,7 @@ public class ApiResponseMetaInfoConstants {
      * 可変文字: <BR>
      * 用途、使う箇所: ユーザー認証エラー
      */
-    public static final ResponseMetaInfo META90004 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "AuthorizeError", "", "");
+    public static final ResponseMetaInfo META90004 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "AuthenticateError", "", "");
 
     /**
      * 項目番号:5<br>
@@ -52,7 +52,7 @@ public class ApiResponseMetaInfoConstants {
      * 可変文字: <BR>
      * 用途、使う箇所: トークン認証エラー
      */
-    public static final ResponseMetaInfo META90005 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "AuthorizeError", "", "");
+    public static final ResponseMetaInfo META90005 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "AuthenticateError", "", "");
 
     /**
      * 項目番号:6<br>
@@ -71,4 +71,22 @@ public class ApiResponseMetaInfoConstants {
      * 用途、使う箇所: バリデーションエラーが発生した場合
      */
     public static final ResponseMetaInfo META90006 = new ResponseMetaInfo(HttpStatus.BAD_REQUEST, ResponseResultCode.ERROR, "InvalidParam.InvalidValue", "", "");
+
+    /**
+     * 項目番号:8<br>
+     * 認証できませんでした。<BR>
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 認証エラー
+     */
+    public static final ResponseMetaInfo META90008 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "AuthenticateError", "", "");
+
+    /**
+     * 項目番号:9<br>
+     * 権限がありません。<BR>
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 権限エラー
+     */
+    public static final ResponseMetaInfo META90009 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "PrivilegeError", "", "");
 }

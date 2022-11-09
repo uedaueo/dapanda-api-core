@@ -57,6 +57,15 @@ test {
     useJUnitPlatform()
 }
 
+kapt {
+    arguments {
+        // Micronaut でインクリメンタルアノテーション処理を有効化
+        arg("micronaut.processing.incremental", true)
+        // アノテーション処理対象クラスを指定する。カンマ区切りで複数指定可能
+        arg("micronaut.processing.annotations", "dapanda.api.*")
+    }
+}
+
 micronaut {
     runtime("netty")
     testRuntime("junit5")
@@ -99,8 +108,12 @@ configurations {
 }
 
 dependencies {
+    // [ Annotation Processor ]
+    // Micronaut BOM （ライブラリバージョンを自動解決する）
+    kapt platform("io.micronaut:micronaut-bom:$micronautVersion")
     kapt('io.micronaut:micronaut-http-validation')
     kapt('io.micronaut:micronaut-inject-java')
+
     implementation('io.micronaut:micronaut-http-server-netty')
     implementation('io.micronaut:micronaut-http-client')
     implementation('io.micronaut:micronaut-runtime')
@@ -119,6 +132,13 @@ dependencies {
     implementation "io.micronaut.cache:micronaut-cache-noop"
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
+
+    // Kotlin Coroutine を利用する場合に追加
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-reactive:$coroutineVersion"
+    // Kotlin Coroutine で SLF4J の Mapped Diagnostic Context(MDC)を利用する場合に追加
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:$coroutineVersion"
+
     // logging
     runtimeOnly('ch.qos.logback:logback-classic:1.4.0')
 
@@ -139,8 +159,24 @@ dependencies {
 // https://mvnrepository.com/artifact/io.ktor/ktor-client-cio
     implementation group: 'io.ktor', name: 'ktor-client-cio', version: '2.1.0'
 
+    // Micronaut BOM （ライブラリバージョンを自動解決する）
+    kaptTest platform("io.micronaut:micronaut-bom:$micronautVersion")
+    // コンパイル時値検証用
+    kaptTest "io.micronaut:micronaut-validation"
+    // テストコードインジェクション処理用
+    kaptTest "io.micronaut:micronaut-inject-java"
+    // Micronaut BOM （ライブラリバージョンを自動解決する）
+    testImplementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    // Micronaut Kotlin Test
+    testImplementation "io.micronaut.test:micronaut-test-kotest"
+    // テスト用モック作成用
+    testImplementation "io.mockk:mockk:1.10.6"
+    // Kotlin Test for JUnit5
+    testImplementation "io.kotest:kotest-runner-junit5-jvm"
+    // Kotlin Coroutine テストユーティリティ
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineVersion"
 // https://mvnrepository.com/artifact/io.kotest/kotest-runner-junit5-jvm
-    testImplementation group: 'io.kotest', name: 'kotest-runner-junit5-jvm', version: '5.4.2'
+//    testImplementation group: 'io.kotest', name: 'kotest-runner-junit5-jvm', version: '5.4.2'
 }
 
 
