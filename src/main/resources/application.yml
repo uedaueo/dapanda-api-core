@@ -96,3 +96,7 @@ authenticate:
 # 権限チェック処理を実装する場合はtrue
 privilege:
   required: false
+
+spoil:
+  SampleLogin:
+    POST: true

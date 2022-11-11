@@ -83,6 +83,17 @@ public class ApiLogMessageNumberConstants {
 
     /**
      * 項目番号:8<br>
+     * このリクエストメソッドを使用することはできません。<BR>
+     * <BR>
+     * API名: リクエストメソッド無効<BR>
+     * メッセージ区分: ERROR<BR>
+     * メッセージ種別: リクエストメソッド無効エラー
+     * 用途、使う箇所: リクエストメソッドが無効になっている場合
+     */
+    public static final String ALM90008 = "90008";
+
+    /**
+     * 項目番号:9<br>
      * 認証できませんでした。<BR>
      * <BR>
      * API名: 認証<BR>
@@ -90,10 +101,10 @@ public class ApiLogMessageNumberConstants {
      * メッセージ種別: 認証エラー
      * 用途、使う箇所: 認証に失敗した場合
      */
-    public static final String ALM90008 = "90008";
+    public static final String ALM90009 = "90009";
 
     /**
-     * 項目番号:9<br>
+     * 項目番号:10<br>
      * 権限がありません。<BR>
      * <BR>
      * API名: 権限<BR>
@@ -101,5 +112,5 @@ public class ApiLogMessageNumberConstants {
      * メッセージ種別: 権限エラー
      * 用途、使う箇所: 権限チェックに失敗した場合
      */
-    public static final String ALM90009 = "90009";
+    public static final String ALM90010 = "90010";
 }

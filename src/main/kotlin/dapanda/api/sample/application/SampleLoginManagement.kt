@@ -39,7 +39,9 @@ class SampleLoginManagement (
     @Value("\${token-authenticate.token-valid-term}")
     private val tokenValidTerm: Int,
     @Value("\${token-authenticate.salt}")
-    private val salt: String
+    private val salt: String,
+    @Value("\${spoil.SampleLogin.POST}")
+    private val spoilSampleLoginPost: Boolean
     ) : IApiBase by apiBase {
     companion object {
         private val log by LoggerDelegate()
@@ -125,5 +127,14 @@ class SampleLoginManagement (
 
     private fun generateToken(): String {
         return UUID.randomUUID().toString().replace("-", "")
+    }
+
+    override fun isSpoiled(method: String): Boolean {
+        var result = false
+        if (method == CommonConstants.HTTP_POST) {
+            result = spoilSampleLoginPost
+        }
+
+        return result
     }
 }

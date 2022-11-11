@@ -74,19 +74,28 @@ public class ApiResponseMetaInfoConstants {
 
     /**
      * 項目番号:8<br>
+     * このリクエストメソッドを使用することはできません。<BR>
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: リクエストメソッドが無効になっている場合
+     */
+    public static final ResponseMetaInfo META90007 = new ResponseMetaInfo(HttpStatus.METHOD_NOT_ALLOWED, ResponseResultCode.ERROR, "MethodNotAllowedError", "", "");
+
+    /**
+     * 項目番号:9<br>
      * 認証できませんでした。<BR>
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: 認証エラー
      */
-    public static final ResponseMetaInfo META90008 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "AuthenticateError", "", "");
+    public static final ResponseMetaInfo META90009 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "AuthenticateError", "", "");
 
     /**
-     * 項目番号:9<br>
+     * 項目番号:10<br>
      * 権限がありません。<BR>
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: 権限エラー
      */
-    public static final ResponseMetaInfo META90009 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "PrivilegeError", "", "");
+    public static final ResponseMetaInfo META90010 = new ResponseMetaInfo(HttpStatus.FORBIDDEN, ResponseResultCode.ERROR, "PrivilegeError", "", "");
 }

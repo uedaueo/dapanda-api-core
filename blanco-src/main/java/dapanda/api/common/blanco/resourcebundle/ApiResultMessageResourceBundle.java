@@ -231,19 +231,19 @@ public class ApiResultMessageResourceBundle {
     }
 
     /**
-     * bundle[ApiResultMessage], key[ARM90008]
+     * bundle[ApiResultMessage], key[ARM90007]
      *
-     * [認証できませんでした。] (ja)<br>
-     * [Could not be authenticated.] (en)<br>
+     * [このリクエストメソッドを使用することはできません。] (ja)<br>
+     * [Request method is not allowed.] (en)<br>
      *
-     * @return key[ARM90008]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     * @return key[ARM90007]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
-    public String getArm90008() {
+    public String getArm90007() {
         // 初期値として定義書の値を利用します。
-        String strFormat = "認証できませんでした。";
+        String strFormat = "このリクエストメソッドを使用することはできません。";
         try {
             if (fResourceBundle != null) {
-                strFormat = fResourceBundle.getString("ARM90008");
+                strFormat = fResourceBundle.getString("ARM90007");
             }
         } catch (MissingResourceException ex) {
         }
@@ -254,17 +254,38 @@ public class ApiResultMessageResourceBundle {
     /**
      * bundle[ApiResultMessage], key[ARM90009]
      *
-     * [権限がありません。] (ja)<br>
-     * [No privilege] (en)<br>
+     * [認証できませんでした。] (ja)<br>
+     * [Could not be authenticated.] (en)<br>
      *
      * @return key[ARM90009]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
      */
     public String getArm90009() {
         // 初期値として定義書の値を利用します。
-        String strFormat = "権限がありません。";
+        String strFormat = "認証できませんでした。";
         try {
             if (fResourceBundle != null) {
                 strFormat = fResourceBundle.getString("ARM90009");
+            }
+        } catch (MissingResourceException ex) {
+        }
+        // 置換文字列はひとつもありません。
+        return strFormat;
+    }
+
+    /**
+     * bundle[ApiResultMessage], key[ARM90010]
+     *
+     * [権限がありません。] (ja)<br>
+     * [No privilege] (en)<br>
+     *
+     * @return key[ARM90010]に対応する値。外部から読み込みができない場合には、定義書の値を戻します。必ずnull以外の値が戻ります。
+     */
+    public String getArm90010() {
+        // 初期値として定義書の値を利用します。
+        String strFormat = "権限がありません。";
+        try {
+            if (fResourceBundle != null) {
+                strFormat = fResourceBundle.getString("ARM90010");
             }
         } catch (MissingResourceException ex) {
         }

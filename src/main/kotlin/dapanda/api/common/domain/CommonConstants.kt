@@ -20,6 +20,14 @@ object CommonConstants {
     const val RATIO_SECOND_TO_MINUTE: Int = 60
 
     /**
+     * HTTPメソッド
+     */
+    const val HTTP_GET = "GET"
+    const val HTTP_POST = "POST"
+    const val HTTP_PUT = "PUT"
+    const val HTTP_DELETE = "DELETE"
+
+    /**
      * 成功 HTTP レスポンス処理結果コード
      */
     private const val RESPONSE_RESULT_CODE_SUCCESS = 10

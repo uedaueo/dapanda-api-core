@@ -86,15 +86,26 @@ public class ApiHttpStatus {
     private HttpStatus fARM90006 = HttpStatus.BAD_REQUEST;
 
     /**
+     * このリクエストメソッドを使用することはできません。&lt;BR&gt;
+     *
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: リクエストメソッドが無効になっている場合
+     * フィールド: [ARM90007]。
+     * デフォルト: [HttpStatus.METHOD_NOT_ALLOWED]。
+     */
+    private HttpStatus fARM90007 = HttpStatus.METHOD_NOT_ALLOWED;
+
+    /**
      * 認証できませんでした。&lt;BR&gt;
      *
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: 認証エラー
-     * フィールド: [ARM90008]。
+     * フィールド: [ARM90009]。
      * デフォルト: [HttpStatus.FORBIDDEN]。
      */
-    private HttpStatus fARM90008 = HttpStatus.FORBIDDEN;
+    private HttpStatus fARM90009 = HttpStatus.FORBIDDEN;
 
     /**
      * 権限がありません。&lt;BR&gt;
@@ -102,10 +113,10 @@ public class ApiHttpStatus {
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: 権限エラー
-     * フィールド: [ARM90009]。
+     * フィールド: [ARM90010]。
      * デフォルト: [HttpStatus.FORBIDDEN]。
      */
-    private HttpStatus fARM90009 = HttpStatus.FORBIDDEN;
+    private HttpStatus fARM90010 = HttpStatus.FORBIDDEN;
 
     /**
      * フィールド [ARM90001] の値を設定します。
@@ -311,41 +322,41 @@ public class ApiHttpStatus {
     }
 
     /**
-     * フィールド [ARM90008] の値を設定します。
+     * フィールド [ARM90007] の値を設定します。
      *
-     * フィールドの説明: [認証できませんでした。<BR>]。
+     * フィールドの説明: [このリクエストメソッドを使用することはできません。<BR>]。
      * <BR>
      * 可変文字: <BR>
-     * 用途、使う箇所: 認証エラー
+     * 用途、使う箇所: リクエストメソッドが無効になっている場合
      *
-     * @param argARM90008 フィールド[ARM90008]に設定する値。
+     * @param argARM90007 フィールド[ARM90007]に設定する値。
      */
-    public void setARM90008(final HttpStatus argARM90008) {
-        fARM90008 = argARM90008;
+    public void setARM90007(final HttpStatus argARM90007) {
+        fARM90007 = argARM90007;
     }
 
     /**
-     * フィールド [ARM90008] の値を取得します。
+     * フィールド [ARM90007] の値を取得します。
      *
-     * フィールドの説明: [認証できませんでした。<BR>]。
+     * フィールドの説明: [このリクエストメソッドを使用することはできません。<BR>]。
      * <BR>
      * 可変文字: <BR>
-     * 用途、使う箇所: 認証エラー
-     * デフォルト: [HttpStatus.FORBIDDEN]。
+     * 用途、使う箇所: リクエストメソッドが無効になっている場合
+     * デフォルト: [HttpStatus.METHOD_NOT_ALLOWED]。
      *
-     * @return フィールド[ARM90008]から取得した値。
+     * @return フィールド[ARM90007]から取得した値。
      */
-    public HttpStatus getARM90008() {
-        return fARM90008;
+    public HttpStatus getARM90007() {
+        return fARM90007;
     }
 
     /**
      * フィールド [ARM90009] の値を設定します。
      *
-     * フィールドの説明: [権限がありません。<BR>]。
+     * フィールドの説明: [認証できませんでした。<BR>]。
      * <BR>
      * 可変文字: <BR>
-     * 用途、使う箇所: 権限エラー
+     * 用途、使う箇所: 認証エラー
      *
      * @param argARM90009 フィールド[ARM90009]に設定する値。
      */
@@ -356,16 +367,45 @@ public class ApiHttpStatus {
     /**
      * フィールド [ARM90009] の値を取得します。
      *
-     * フィールドの説明: [権限がありません。<BR>]。
+     * フィールドの説明: [認証できませんでした。<BR>]。
      * <BR>
      * 可変文字: <BR>
-     * 用途、使う箇所: 権限エラー
+     * 用途、使う箇所: 認証エラー
      * デフォルト: [HttpStatus.FORBIDDEN]。
      *
      * @return フィールド[ARM90009]から取得した値。
      */
     public HttpStatus getARM90009() {
         return fARM90009;
+    }
+
+    /**
+     * フィールド [ARM90010] の値を設定します。
+     *
+     * フィールドの説明: [権限がありません。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 権限エラー
+     *
+     * @param argARM90010 フィールド[ARM90010]に設定する値。
+     */
+    public void setARM90010(final HttpStatus argARM90010) {
+        fARM90010 = argARM90010;
+    }
+
+    /**
+     * フィールド [ARM90010] の値を取得します。
+     *
+     * フィールドの説明: [権限がありません。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 権限エラー
+     * デフォルト: [HttpStatus.FORBIDDEN]。
+     *
+     * @return フィールド[ARM90010]から取得した値。
+     */
+    public HttpStatus getARM90010() {
+        return fARM90010;
     }
 
     /**
@@ -407,11 +447,14 @@ public class ApiHttpStatus {
         // Name: fARM90006
         // Type: io.micronaut.http.HttpStatus
         // Field[fARM90006] is an unsupported type[io.micronaut.http.HttpStatus].
-        // Name: fARM90008
+        // Name: fARM90007
         // Type: io.micronaut.http.HttpStatus
-        // Field[fARM90008] is an unsupported type[io.micronaut.http.HttpStatus].
+        // Field[fARM90007] is an unsupported type[io.micronaut.http.HttpStatus].
         // Name: fARM90009
         // Type: io.micronaut.http.HttpStatus
         // Field[fARM90009] is an unsupported type[io.micronaut.http.HttpStatus].
+        // Name: fARM90010
+        // Type: io.micronaut.http.HttpStatus
+        // Field[fARM90010] is an unsupported type[io.micronaut.http.HttpStatus].
     }
 }

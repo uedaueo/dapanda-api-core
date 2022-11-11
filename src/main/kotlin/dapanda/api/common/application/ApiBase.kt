@@ -75,9 +75,9 @@ class ApiBase(
         // 認証処理
         if (doAuthenticate) {
             if (!authenticate.isAuthenticated(httpRequest)) {
-                val metaInfo = ApiResponseMetaInfoConstants.META90008
-                metaInfo.message = bundleFactory.getApiResultMessage(locale = locale).arm90008
-                val logMessage = bundleFactory.getApiLogMessage(locale = locale).alm90008
+                val metaInfo = ApiResponseMetaInfoConstants.META90009
+                metaInfo.message = bundleFactory.getApiResultMessage(locale = locale).arm90009
+                val logMessage = bundleFactory.getApiLogMessage(locale = locale).alm90009
                 throw ApiRuntimeExceptionFactory.create(metaInfo, logMessage)
             }
         } else {
@@ -87,9 +87,9 @@ class ApiBase(
         // 権限処理
         if (testPrivilege) {
             if (!privilege.isPermitted(httpRequest)) {
-                val metaInfo = ApiResponseMetaInfoConstants.META90009
-                metaInfo.message = bundleFactory.getApiResultMessage(locale = locale).arm90009
-                val logMessage = bundleFactory.getApiLogMessage(locale = locale).alm90009
+                val metaInfo = ApiResponseMetaInfoConstants.META90010
+                metaInfo.message = bundleFactory.getApiResultMessage(locale = locale).arm90010
+                val logMessage = bundleFactory.getApiLogMessage(locale = locale).alm90010
                 throw ApiRuntimeExceptionFactory.create(metaInfo, logMessage)
             }
         } else {
@@ -136,5 +136,9 @@ class ApiBase(
 
     override fun <S : RequestHeader, T : ApiTelegram> createCommonRequest(info: S, telegram: T?): CommonRequest<S, T> {
         TODO("Not yet implemented")
+    }
+
+    override fun isSpoiled(method: String): Boolean {
+        return false
     }
 }

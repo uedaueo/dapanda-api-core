@@ -85,15 +85,26 @@ public class ApiErrorCode {
     private String fARM90006 = "InvalidParam.InvalidValue";
 
     /**
+     * このリクエストメソッドを使用することはできません。&lt;BR&gt;
+     *
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: リクエストメソッドが無効になっている場合
+     * フィールド: [ARM90007]。
+     * デフォルト: [&quot;MethodNotAllowedError&quot;]。
+     */
+    private String fARM90007 = "MethodNotAllowedError";
+
+    /**
      * 認証できませんでした。&lt;BR&gt;
      *
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: 認証エラー
-     * フィールド: [ARM90008]。
+     * フィールド: [ARM90009]。
      * デフォルト: [&quot;AuthenticateError&quot;]。
      */
-    private String fARM90008 = "AuthenticateError";
+    private String fARM90009 = "AuthenticateError";
 
     /**
      * 権限がありません。&lt;BR&gt;
@@ -101,10 +112,10 @@ public class ApiErrorCode {
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: 権限エラー
-     * フィールド: [ARM90009]。
+     * フィールド: [ARM90010]。
      * デフォルト: [&quot;PrivilegeError&quot;]。
      */
-    private String fARM90009 = "PrivilegeError";
+    private String fARM90010 = "PrivilegeError";
 
     /**
      * フィールド [ARM90001] の値を設定します。
@@ -310,41 +321,41 @@ public class ApiErrorCode {
     }
 
     /**
-     * フィールド [ARM90008] の値を設定します。
+     * フィールド [ARM90007] の値を設定します。
      *
-     * フィールドの説明: [認証できませんでした。<BR>]。
+     * フィールドの説明: [このリクエストメソッドを使用することはできません。<BR>]。
      * <BR>
      * 可変文字: <BR>
-     * 用途、使う箇所: 認証エラー
+     * 用途、使う箇所: リクエストメソッドが無効になっている場合
      *
-     * @param argARM90008 フィールド[ARM90008]に設定する値。
+     * @param argARM90007 フィールド[ARM90007]に設定する値。
      */
-    public void setARM90008(final String argARM90008) {
-        fARM90008 = argARM90008;
+    public void setARM90007(final String argARM90007) {
+        fARM90007 = argARM90007;
     }
 
     /**
-     * フィールド [ARM90008] の値を取得します。
+     * フィールド [ARM90007] の値を取得します。
      *
-     * フィールドの説明: [認証できませんでした。<BR>]。
+     * フィールドの説明: [このリクエストメソッドを使用することはできません。<BR>]。
      * <BR>
      * 可変文字: <BR>
-     * 用途、使う箇所: 認証エラー
-     * デフォルト: [&quot;AuthenticateError&quot;]。
+     * 用途、使う箇所: リクエストメソッドが無効になっている場合
+     * デフォルト: [&quot;MethodNotAllowedError&quot;]。
      *
-     * @return フィールド[ARM90008]から取得した値。
+     * @return フィールド[ARM90007]から取得した値。
      */
-    public String getARM90008() {
-        return fARM90008;
+    public String getARM90007() {
+        return fARM90007;
     }
 
     /**
      * フィールド [ARM90009] の値を設定します。
      *
-     * フィールドの説明: [権限がありません。<BR>]。
+     * フィールドの説明: [認証できませんでした。<BR>]。
      * <BR>
      * 可変文字: <BR>
-     * 用途、使う箇所: 権限エラー
+     * 用途、使う箇所: 認証エラー
      *
      * @param argARM90009 フィールド[ARM90009]に設定する値。
      */
@@ -355,16 +366,45 @@ public class ApiErrorCode {
     /**
      * フィールド [ARM90009] の値を取得します。
      *
+     * フィールドの説明: [認証できませんでした。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 認証エラー
+     * デフォルト: [&quot;AuthenticateError&quot;]。
+     *
+     * @return フィールド[ARM90009]から取得した値。
+     */
+    public String getARM90009() {
+        return fARM90009;
+    }
+
+    /**
+     * フィールド [ARM90010] の値を設定します。
+     *
+     * フィールドの説明: [権限がありません。<BR>]。
+     * <BR>
+     * 可変文字: <BR>
+     * 用途、使う箇所: 権限エラー
+     *
+     * @param argARM90010 フィールド[ARM90010]に設定する値。
+     */
+    public void setARM90010(final String argARM90010) {
+        fARM90010 = argARM90010;
+    }
+
+    /**
+     * フィールド [ARM90010] の値を取得します。
+     *
      * フィールドの説明: [権限がありません。<BR>]。
      * <BR>
      * 可変文字: <BR>
      * 用途、使う箇所: 権限エラー
      * デフォルト: [&quot;PrivilegeError&quot;]。
      *
-     * @return フィールド[ARM90009]から取得した値。
+     * @return フィールド[ARM90010]から取得した値。
      */
-    public String getARM90009() {
-        return fARM90009;
+    public String getARM90010() {
+        return fARM90010;
     }
 
     /**
@@ -406,11 +446,14 @@ public class ApiErrorCode {
         // Name: fARM90006
         // Type: java.lang.String
         target.fARM90006 = this.fARM90006;
-        // Name: fARM90008
+        // Name: fARM90007
         // Type: java.lang.String
-        target.fARM90008 = this.fARM90008;
+        target.fARM90007 = this.fARM90007;
         // Name: fARM90009
         // Type: java.lang.String
         target.fARM90009 = this.fARM90009;
+        // Name: fARM90010
+        // Type: java.lang.String
+        target.fARM90010 = this.fARM90010;
     }
 }

@@ -1,13 +1,17 @@
 package dapanda.api.common.application
 
 import blanco.restgenerator.valueobject.*
+import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
+import dapanda.api.common.domain.CommonConstants
 import dapanda.api.common.domain.model.common.Utilities
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeException
+import dapanda.api.common.domain.model.exceptions.ApiSpoilException
 import dapanda.api.common.domain.model.exceptions.DapandaApiRuntimeException
 import dapanda.api.common.domain.model.http.CommonHttpResponseFactory
 import dapanda.api.common.domain.model.http.getRequestHeaderLocale
 import dapanda.api.common.domain.model.http.getStartTime
 import dapanda.api.common.domain.model.logging.LoggerDelegate
+import dapanda.api.common.domain.model.resourcebundle.CommonResourceBundleFactory
 import dapanda.api.sample.blanco.SampleLoginPostRequest
 import io.micronaut.context.annotation.Requires
 import io.micronaut.http.HttpRequest
@@ -20,7 +24,9 @@ import io.micronaut.http.annotation.Error
  */
 @Requires(property = "globalErrorHandler.enabled", value = "true")
 @Controller
-class GlobalErrorHandleController {
+class GlobalErrorHandleController(
+    private val bundleFactory: CommonResourceBundleFactory
+) {
     companion object {
         /** ロガー */
         private val log by LoggerDelegate()
@@ -79,6 +85,19 @@ class GlobalErrorHandleController {
                 info = info,
                 errors = e.errors,
                 httpStatus = e.httpStatus
+            )
+        } else if (e is ApiSpoilException) {
+            // response を生成
+            val metaInfo = ApiResponseMetaInfoConstants.META90007
+            val info = ResponseHeader(
+                locale = locale,
+                result = CommonConstants.ResponseResultCode.ERROR.name
+            )
+            CommonHttpResponseFactory.create(
+                info = info,
+                errorCode = metaInfo.errorCode,
+                message = bundleFactory.getApiResultMessage().arm90007,
+                httpStatus = metaInfo.httpStatus
             )
         } else {
             // 想定外の例外の場合
