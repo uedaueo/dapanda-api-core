@@ -28,10 +28,10 @@ class ApiBase(
     private val localeResolver: LocaleResolver,
     private val authenticate: IAuthenticate,
     @Value("\${authenticate.required}")
-    private val isAuthenticate: Boolean,
+    private val doAuthenticate: Boolean,
     private val privilege: IPrivilege,
     @Value("\${privilege.required}")
-    private val isPrivilege: Boolean
+    private val testPrivilege: Boolean
 ) : IApiBase {
     companion object {
         private val log by LoggerDelegate()
@@ -73,7 +73,7 @@ class ApiBase(
         }
 
         // 認証処理
-        if (isAuthenticate) {
+        if (doAuthenticate) {
             if (!authenticate.isAuthenticated(httpRequest)) {
                 val metaInfo = ApiResponseMetaInfoConstants.META90008
                 metaInfo.message = bundleFactory.getApiResultMessage(locale = locale).arm90008
@@ -85,7 +85,7 @@ class ApiBase(
         }
 
         // 権限処理
-        if (isPrivilege) {
+        if (testPrivilege) {
             if (!privilege.isPermitted(httpRequest)) {
                 val metaInfo = ApiResponseMetaInfoConstants.META90009
                 metaInfo.message = bundleFactory.getApiResultMessage(locale = locale).arm90009
