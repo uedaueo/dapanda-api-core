@@ -3,6 +3,7 @@ package dapanda.api.common.application
 import blanco.restgenerator.valueobject.*
 import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
 import dapanda.api.common.domain.CommonConstants
+import dapanda.api.common.domain.CommonConstants.ResponseResultCode
 import dapanda.api.common.domain.model.common.Utilities
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeException
 import dapanda.api.common.domain.model.exceptions.ApiSpoilException
@@ -16,8 +17,11 @@ import dapanda.api.sample.blanco.SampleLoginPostRequest
 import io.micronaut.context.annotation.Requires
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
+import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Error
+import io.micronaut.http.server.exceptions.InternalServerException
+import java.net.URISyntaxException
 
 /**
  * グローバルエラーハンドラーコントローラー
@@ -41,7 +45,7 @@ class GlobalErrorHandleController(
      */
     @Error(global = true)
     fun globalErrorHandler(request: HttpRequest<*>, e: Throwable): HttpResponse<*> {
-        var locale = request.getRequestHeaderLocale()
+        val locale = request.getRequestHeaderLocale()
 
         return if (e is ApiRuntimeException) {
             // API 例外
@@ -99,7 +103,23 @@ class GlobalErrorHandleController(
                 message = bundleFactory.getApiResultMessage().arm90007,
                 httpStatus = metaInfo.httpStatus
             )
-        } else {
+        } else if (e is RuntimeException || e is URISyntaxException) {
+            log.error(e.message, e)
+            val metaInfo = ApiResponseMetaInfoConstants.META99999
+            // response を生成
+            val info = ResponseHeader(
+                locale = locale,
+                time = Utilities.getMeasurementTime(request.getStartTime()),
+                result = metaInfo.resultCode.name
+            )
+
+            CommonHttpResponseFactory.create(
+                info = info,
+                errorCode = metaInfo.errorCode,
+                message = metaInfo.message,
+                httpStatus = metaInfo.httpStatus
+            )
+        }  else {
             // 想定外の例外の場合
             throw e
         }
