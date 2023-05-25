@@ -18,6 +18,10 @@ mysqlを使えるようにしdapanda-api-coreにあるsampleTable.sqlを使っ�
 ```
 ./gradlew publishToMavenLocal
 ```
+github-pages で用意したオレオレ maven repo に publish する場合は以下のコマンドを実行
+```agsl
+./gradlew pubPush
+```
 
 ## DB 接続情報の設定方法
 DB 接続情報の設定は、環境変数または、コマンドラインで行える。
