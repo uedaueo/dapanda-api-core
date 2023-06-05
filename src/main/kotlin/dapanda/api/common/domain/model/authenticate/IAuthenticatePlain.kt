@@ -11,14 +11,14 @@ import io.micronaut.context.annotation.DefaultImplementation
  * Interface for Authentication issue.
  */
 @DefaultImplementation(TokenAuthenticate::class)
-interface IAuthenticate {
+interface IAuthenticatePlain {
     /**
      * test authentication.
      *
-     * @param request request object as blanco style.
+     * @param request request object as plain style
      * @return true on success
      */
-    fun <S : RequestHeader, T : ApiTelegram> isAuthenticated(
-        request: HttpCommonRequest<CommonRequest<S, T>>
+    fun <T : ApiTelegram> isAuthenticated(
+        request: HttpCommonRequest<T>
     ): Boolean
 }
