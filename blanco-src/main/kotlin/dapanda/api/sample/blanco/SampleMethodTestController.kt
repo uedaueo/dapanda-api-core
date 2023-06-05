@@ -3,12 +3,7 @@
  */
 package dapanda.api.sample.blanco
 
-import blanco.restgenerator.util.BlancoRestGeneratorKtRequestDeserializer
-import blanco.restgenerator.valueobject.CommonRequest
-import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
-import blanco.restgenerator.valueobject.RequestHeader
-import blanco.restgenerator.valueobject.ResponseHeader
 import dapanda.api.sample.application.SampleMethodTestManagement
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
@@ -31,33 +26,26 @@ constructor(
    * APIベースクラスから呼ばれる実行メソッドです
    *
    * @param argHttpRequest validation前のリクエスト情報です
-   * @param request Raw JSON set as queryString.
+   * @param argUserId ユーザーID
+   * @param argPassword パスワード
    * @return validation済みのレスポンス情報です
    */
-  @Get
+  @Get("{?userId,password}")
   fun doGet(
-      argHttpRequest: HttpRequest<CommonRequest<RequestHeader, SampleMethodTestGetRequest>>,
-      @QueryValue request: String
-  ): HttpResponse<CommonResponse<ResponseHeader, SampleMethodTestGetResponse>> {
-    /* Creates a CommonRequest instance from a JSON string. */
-    val deserializer =
-        BlancoRestGeneratorKtRequestDeserializer<RequestHeader, SampleMethodTestGetRequest>(
-            CommonRequest::class.java)
-    deserializer.infoClazz = RequestHeader::class.java
-    deserializer.telegramClazz = SampleMethodTestGetRequest::class.java
+      argHttpRequest: HttpRequest<SampleMethodTestGetRequest>,
+      @QueryValue argUserId: String,
+      @QueryValue argPassword: String
+  ): HttpResponse<SampleMethodTestGetResponse> {
+    val requestBean =
+        dapanda.api.sample.blanco.SampleMethodTestGetRequest(
+            userId = argUserId, password = argPassword)
 
-    /* Creates HttpCommonRequest with httpRequest as delegator. */
-    /* At this stage, commonRequest is tentative.*/
     val httpCommonRequest =
-        HttpCommonRequest<CommonRequest<RequestHeader, SampleMethodTestGetRequest>>(
+        HttpCommonRequest<dapanda.api.sample.blanco.SampleMethodTestGetRequest>(
             argHttpRequest, true, listOf(), null)
 
-    val commonRequest: CommonRequest<RequestHeader, SampleMethodTestGetRequest> =
-        sampleMethodTestManagement.convertJsonToCommonRequest(
-            request, deserializer, httpCommonRequest)
-
-    /* Stores the commonRequest with its type determined */
-    httpCommonRequest.commonRequest = commonRequest
+    /* Stores the RequestBean with its type determined */
+    httpCommonRequest.commonRequest = requestBean
 
     /* Performs preprocessing (validation, etc.) */
     sampleMethodTestManagement.prepare(httpCommonRequest)
@@ -75,33 +63,20 @@ constructor(
    * APIベースクラスから呼ばれる実行メソッドです
    *
    * @param argHttpRequest validation前のリクエスト情報です
-   * @param argBody Raw JSON body.
+   * @param argRequestBean bean that body json is binded to
    * @return validation済みのレスポンス情報です
    */
   @Post
   fun doPost(
-      argHttpRequest: HttpRequest<CommonRequest<RequestHeader, SampleMethodTestPostRequest>>,
-      @Body argBody: String
-  ): HttpResponse<CommonResponse<ResponseHeader, SampleMethodTestPostResponse>> {
-    /* Creates a CommonRequest instance from a JSON string. */
-    val deserializer =
-        BlancoRestGeneratorKtRequestDeserializer<RequestHeader, SampleMethodTestPostRequest>(
-            CommonRequest::class.java)
-    deserializer.infoClazz = RequestHeader::class.java
-    deserializer.telegramClazz = SampleMethodTestPostRequest::class.java
-
-    /* Creates HttpCommonRequest with httpRequest as delegator. */
-    /* At this stage, commonRequest is tentative.*/
+      argHttpRequest: HttpRequest<SampleMethodTestPostRequest>,
+      @Body argRequestBean: SampleMethodTestPostRequest
+  ): HttpResponse<SampleMethodTestPostResponse> {
     val httpCommonRequest =
-        HttpCommonRequest<CommonRequest<RequestHeader, SampleMethodTestPostRequest>>(
+        HttpCommonRequest<dapanda.api.sample.blanco.SampleMethodTestPostRequest>(
             argHttpRequest, true, listOf(), null)
 
-    val commonRequest: CommonRequest<RequestHeader, SampleMethodTestPostRequest> =
-        sampleMethodTestManagement.convertJsonToCommonRequest(
-            argBody, deserializer, httpCommonRequest)
-
-    /* Stores the commonRequest with its type determined */
-    httpCommonRequest.commonRequest = commonRequest
+    /* Stores the RequestBean with its type determined */
+    httpCommonRequest.commonRequest = argRequestBean
 
     /* Performs preprocessing (validation, etc.) */
     sampleMethodTestManagement.prepare(httpCommonRequest)
@@ -119,33 +94,20 @@ constructor(
    * APIベースクラスから呼ばれる実行メソッドです
    *
    * @param argHttpRequest validation前のリクエスト情報です
-   * @param argBody Raw JSON body.
+   * @param argRequestBean bean that body json is binded to
    * @return validation済みのレスポンス情報です
    */
   @Put
   fun doPut(
-      argHttpRequest: HttpRequest<CommonRequest<RequestHeader, SampleMethodTestPutRequest>>,
-      @Body argBody: String
-  ): HttpResponse<CommonResponse<ResponseHeader, SampleMethodTestPutResponse>> {
-    /* Creates a CommonRequest instance from a JSON string. */
-    val deserializer =
-        BlancoRestGeneratorKtRequestDeserializer<RequestHeader, SampleMethodTestPutRequest>(
-            CommonRequest::class.java)
-    deserializer.infoClazz = RequestHeader::class.java
-    deserializer.telegramClazz = SampleMethodTestPutRequest::class.java
-
-    /* Creates HttpCommonRequest with httpRequest as delegator. */
-    /* At this stage, commonRequest is tentative.*/
+      argHttpRequest: HttpRequest<SampleMethodTestPutRequest>,
+      @Body argRequestBean: SampleMethodTestPutRequest
+  ): HttpResponse<SampleMethodTestPutResponse> {
     val httpCommonRequest =
-        HttpCommonRequest<CommonRequest<RequestHeader, SampleMethodTestPutRequest>>(
+        HttpCommonRequest<dapanda.api.sample.blanco.SampleMethodTestPutRequest>(
             argHttpRequest, true, listOf(), null)
 
-    val commonRequest: CommonRequest<RequestHeader, SampleMethodTestPutRequest> =
-        sampleMethodTestManagement.convertJsonToCommonRequest(
-            argBody, deserializer, httpCommonRequest)
-
-    /* Stores the commonRequest with its type determined */
-    httpCommonRequest.commonRequest = commonRequest
+    /* Stores the RequestBean with its type determined */
+    httpCommonRequest.commonRequest = argRequestBean
 
     /* Performs preprocessing (validation, etc.) */
     sampleMethodTestManagement.prepare(httpCommonRequest)
@@ -163,38 +125,26 @@ constructor(
    * APIベースクラスから呼ばれる実行メソッドです
    *
    * @param argHttpRequest validation前のリクエスト情報です
-   * @param request Raw JSON set as queryString.
+   * @param argUserId ユーザーID
+   * @param argPassword パスワード
    * @return validation済みのレスポンス情報です
    */
-  @Delete
+  @Delete("{?userId,password}")
   fun doDelete(
-      argHttpRequest: HttpRequest<*>,
-      @QueryValue request: String
-  ): HttpResponse<CommonResponse<ResponseHeader, SampleMethodTestDeleteResponse>> {
-    /* Creates a CommonRequest instance from a JSON string. */
-    val deserializer =
-        BlancoRestGeneratorKtRequestDeserializer<RequestHeader, SampleMethodTestDeleteRequest>(
-            CommonRequest::class.java)
-    deserializer.infoClazz = RequestHeader::class.java
-    deserializer.telegramClazz = SampleMethodTestDeleteRequest::class.java
+      argHttpRequest: HttpRequest<SampleMethodTestDeleteRequest>,
+      @QueryValue argUserId: String,
+      @QueryValue argPassword: String
+  ): HttpResponse<SampleMethodTestDeleteResponse> {
+    val requestBean =
+        dapanda.api.sample.blanco.SampleMethodTestDeleteRequest(
+            userId = argUserId, password = argPassword)
 
-    /* Creates HttpCommonRequest with httpRequest as delegator. */
-    /* At this stage, commonRequest is tentative.*/
-    @Suppress("UNCHECKED_CAST")
     val httpCommonRequest =
-        HttpCommonRequest<CommonRequest<RequestHeader, SampleMethodTestDeleteRequest>>(
-            argHttpRequest
-                as HttpRequest<CommonRequest<RequestHeader, SampleMethodTestDeleteRequest>>,
-            true,
-            listOf(),
-            null)
+        HttpCommonRequest<dapanda.api.sample.blanco.SampleMethodTestDeleteRequest>(
+            argHttpRequest, true, listOf(), null)
 
-    val commonRequest: CommonRequest<RequestHeader, SampleMethodTestDeleteRequest> =
-        sampleMethodTestManagement.convertJsonToCommonRequest(
-            request, deserializer, httpCommonRequest)
-
-    /* Stores the commonRequest with its type determined */
-    httpCommonRequest.commonRequest = commonRequest
+    /* Stores the RequestBean with its type determined */
+    httpCommonRequest.commonRequest = requestBean
 
     /* Performs preprocessing (validation, etc.) */
     sampleMethodTestManagement.prepare(httpCommonRequest)

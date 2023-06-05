@@ -3,12 +3,7 @@
  */
 package dapanda.api.sample.blanco
 
-import blanco.restgenerator.util.BlancoRestGeneratorKtRequestDeserializer
-import blanco.restgenerator.valueobject.CommonRequest
-import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
-import blanco.restgenerator.valueobject.RequestHeader
-import blanco.restgenerator.valueobject.ResponseHeader
 import dapanda.api.sample.application.SampleLoginManagement
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
@@ -27,32 +22,20 @@ constructor(
    * APIベースクラスから呼ばれる実行メソッドです
    *
    * @param argHttpRequest validation前のリクエスト情報です
-   * @param argBody Raw JSON body.
+   * @param argRequestBean bean that body json is binded to
    * @return validation済みのレスポンス情報です
    */
   @Post
   fun doPost(
-      argHttpRequest: HttpRequest<CommonRequest<RequestHeader, SampleLoginPostRequest>>,
-      @Body argBody: String
-  ): HttpResponse<CommonResponse<ResponseHeader, SampleLoginPostResponse>> {
-    /* Creates a CommonRequest instance from a JSON string. */
-    val deserializer =
-        BlancoRestGeneratorKtRequestDeserializer<RequestHeader, SampleLoginPostRequest>(
-            CommonRequest::class.java)
-    deserializer.infoClazz = RequestHeader::class.java
-    deserializer.telegramClazz = SampleLoginPostRequest::class.java
-
-    /* Creates HttpCommonRequest with httpRequest as delegator. */
-    /* At this stage, commonRequest is tentative.*/
+      argHttpRequest: HttpRequest<SampleLoginPostRequest>,
+      @Body argRequestBean: SampleLoginPostRequest
+  ): HttpResponse<SampleLoginPostResponse> {
     val httpCommonRequest =
-        HttpCommonRequest<CommonRequest<RequestHeader, SampleLoginPostRequest>>(
+        HttpCommonRequest<dapanda.api.sample.blanco.SampleLoginPostRequest>(
             argHttpRequest, true, listOf(), null)
 
-    val commonRequest: CommonRequest<RequestHeader, SampleLoginPostRequest> =
-        sampleLoginManagement.convertJsonToCommonRequest(argBody, deserializer, httpCommonRequest)
-
-    /* Stores the commonRequest with its type determined */
-    httpCommonRequest.commonRequest = commonRequest
+    /* Stores the RequestBean with its type determined */
+    httpCommonRequest.commonRequest = argRequestBean
 
     /* Performs preprocessing (validation, etc.) */
     sampleLoginManagement.prepare(httpCommonRequest)

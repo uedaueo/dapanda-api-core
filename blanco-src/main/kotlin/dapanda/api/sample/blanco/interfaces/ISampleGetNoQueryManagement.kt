@@ -3,11 +3,7 @@
  */
 package dapanda.api.sample.blanco.interfaces
 
-import blanco.restgenerator.valueobject.CommonRequest
-import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
-import blanco.restgenerator.valueobject.RequestHeader
-import blanco.restgenerator.valueobject.ResponseHeader
 import dapanda.api.sample.blanco.SampleGetNoQueryGetRequest
 import dapanda.api.sample.blanco.SampleGetNoQueryGetResponse
 import io.micronaut.http.HttpResponse
@@ -21,6 +17,6 @@ interface ISampleGetNoQueryManagement {
    * @return validation済みのレスポンス情報です
    */
   fun doGet(
-      httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, SampleGetNoQueryGetRequest>>
-  ): HttpResponse<CommonResponse<ResponseHeader, SampleGetNoQueryGetResponse>>
+      httpRequest: HttpCommonRequest<SampleGetNoQueryGetRequest>
+  ): HttpResponse<SampleGetNoQueryGetResponse>
 }

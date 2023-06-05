@@ -16,77 +16,40 @@ class SampleMethodTestManagement(
     private val apiBase: ApiBase,
     ) : IApiBase by apiBase {
 
-    fun doGet(httpCommonRequest: HttpCommonRequest<CommonRequest<RequestHeader, SampleMethodTestGetRequest>>): HttpResponse<CommonResponse<ResponseHeader, SampleMethodTestGetResponse>> {
+    fun doGet(httpCommonRequest: HttpCommonRequest<SampleMethodTestGetRequest>): HttpResponse<SampleMethodTestGetResponse> {
 
         var responseLocale = blanco.restgenerator.valueobject.Locale()
-        httpCommonRequest.commonRequest?.let {
-            responseLocale = it.info.locale
-        }
-        val responseHeader = ResponseHeader(
-            responseLocale,
-            Utilities.getMeasurementTime(httpCommonRequest.getStartTime()),
-            CommonConstants.ResponseResultCode.SUCCESS.name
-        )
         val responseTelegram = SampleMethodTestGetResponse()
 
         return CommonHttpResponseFactory.create(
-            responseHeader,
             responseTelegram
         )
     }
 
-    fun doPost(httpCommonRequest: HttpCommonRequest<CommonRequest<RequestHeader, SampleMethodTestPostRequest>>): HttpResponse<CommonResponse<ResponseHeader, SampleMethodTestPostResponse>> {
+    fun doPost(httpCommonRequest: HttpCommonRequest<SampleMethodTestPostRequest>): HttpResponse<SampleMethodTestPostResponse> {
         var responseLocale = blanco.restgenerator.valueobject.Locale()
-        httpCommonRequest.commonRequest?.let {
-            responseLocale = it.info.locale
-        }
-        val responseHeader = ResponseHeader(
-            responseLocale,
-            Utilities.getMeasurementTime(httpCommonRequest.getStartTime()),
-            CommonConstants.ResponseResultCode.SUCCESS.name
-        )
         val responseTelegram = SampleMethodTestPostResponse()
 
         return CommonHttpResponseFactory.create(
-            responseHeader,
             responseTelegram
         )
     }
 
-    fun doPut(httpCommonRequest: HttpCommonRequest<CommonRequest<RequestHeader, SampleMethodTestPutRequest>>): HttpResponse<CommonResponse<ResponseHeader, SampleMethodTestPutResponse>> {
+    fun doPut(httpCommonRequest: HttpCommonRequest<SampleMethodTestPutRequest>): HttpResponse<SampleMethodTestPutResponse> {
 
-        var responseLocale = blanco.restgenerator.valueobject.Locale()
-        httpCommonRequest.commonRequest?.let {
-            responseLocale = it.info.locale
-        }
-        val responseHeader = ResponseHeader(
-            responseLocale,
-            Utilities.getMeasurementTime(httpCommonRequest.getStartTime()),
-            CommonConstants.ResponseResultCode.SUCCESS.name
-        )
         val responseTelegram = SampleMethodTestPutResponse()
 
         return CommonHttpResponseFactory.create(
-            responseHeader,
             responseTelegram
         )
     }
 
-    fun doDelete(httpCommonRequest: HttpCommonRequest<CommonRequest<RequestHeader, SampleMethodTestDeleteRequest>>): HttpResponse<CommonResponse<ResponseHeader, SampleMethodTestDeleteResponse>> {
+    fun doDelete(httpCommonRequest: HttpCommonRequest<SampleMethodTestDeleteRequest>): HttpResponse<SampleMethodTestDeleteResponse> {
 
         var responseLocale = blanco.restgenerator.valueobject.Locale()
-        httpCommonRequest.commonRequest?.let {
-            responseLocale = it.info.locale
-        }
-        val responseHeader = ResponseHeader(
-            responseLocale,
-            Utilities.getMeasurementTime(httpCommonRequest.getStartTime()),
-            CommonConstants.ResponseResultCode.SUCCESS.name
-        )
         val responseTelegram = SampleMethodTestDeleteResponse()
 
         return CommonHttpResponseFactory.create(
-            responseHeader,
             responseTelegram
         )
     }

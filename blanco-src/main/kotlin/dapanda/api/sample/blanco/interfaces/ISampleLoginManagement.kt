@@ -3,11 +3,7 @@
  */
 package dapanda.api.sample.blanco.interfaces
 
-import blanco.restgenerator.valueobject.CommonRequest
-import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
-import blanco.restgenerator.valueobject.RequestHeader
-import blanco.restgenerator.valueobject.ResponseHeader
 import dapanda.api.sample.blanco.SampleLoginPostRequest
 import dapanda.api.sample.blanco.SampleLoginPostResponse
 import io.micronaut.http.HttpResponse
@@ -21,6 +17,6 @@ interface ISampleLoginManagement {
    * @return validation済みのレスポンス情報です
    */
   fun doPost(
-      httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, SampleLoginPostRequest>>
-  ): HttpResponse<CommonResponse<ResponseHeader, SampleLoginPostResponse>>
+      httpRequest: HttpCommonRequest<SampleLoginPostRequest>
+  ): HttpResponse<SampleLoginPostResponse>
 }

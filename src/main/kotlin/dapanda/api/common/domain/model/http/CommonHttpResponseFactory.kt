@@ -24,6 +24,18 @@ object CommonHttpResponseFactory {
     }
 
     /**
+     * アプリケーションからは電文以外に返す物がない場合（正常終了時）
+     * plain 電文スタイル時。
+     * 
+     * @param telegram 返却予定電文
+     */
+    fun <T : ApiTelegram> create(telegram: T): MutableHttpResponse<T> {
+        return HttpResponse.ok(
+            telegram
+        )
+    }
+
+    /**
      * エラー時のHttpResponse を生成します。
      * エラーなので電文はありません。
      *

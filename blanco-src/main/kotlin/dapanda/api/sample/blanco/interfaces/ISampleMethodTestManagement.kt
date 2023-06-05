@@ -3,11 +3,7 @@
  */
 package dapanda.api.sample.blanco.interfaces
 
-import blanco.restgenerator.valueobject.CommonRequest
-import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
-import blanco.restgenerator.valueobject.RequestHeader
-import blanco.restgenerator.valueobject.ResponseHeader
 import dapanda.api.sample.blanco.SampleMethodTestDeleteRequest
 import dapanda.api.sample.blanco.SampleMethodTestDeleteResponse
 import dapanda.api.sample.blanco.SampleMethodTestGetRequest
@@ -27,8 +23,8 @@ interface ISampleMethodTestManagement {
    * @return validation済みのレスポンス情報です
    */
   fun doGet(
-      httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, SampleMethodTestGetRequest>>
-  ): HttpResponse<CommonResponse<ResponseHeader, SampleMethodTestGetResponse>>
+      httpRequest: HttpCommonRequest<SampleMethodTestGetRequest>
+  ): HttpResponse<SampleMethodTestGetResponse>
 
   /**
    * APIベースクラスから呼ばれる実行メソッドです
@@ -37,8 +33,8 @@ interface ISampleMethodTestManagement {
    * @return validation済みのレスポンス情報です
    */
   fun doPost(
-      httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, SampleMethodTestPostRequest>>
-  ): HttpResponse<CommonResponse<ResponseHeader, SampleMethodTestPostResponse>>
+      httpRequest: HttpCommonRequest<SampleMethodTestPostRequest>
+  ): HttpResponse<SampleMethodTestPostResponse>
 
   /**
    * APIベースクラスから呼ばれる実行メソッドです
@@ -47,8 +43,8 @@ interface ISampleMethodTestManagement {
    * @return validation済みのレスポンス情報です
    */
   fun doPut(
-      httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, SampleMethodTestPutRequest>>
-  ): HttpResponse<CommonResponse<ResponseHeader, SampleMethodTestPutResponse>>
+      httpRequest: HttpCommonRequest<SampleMethodTestPutRequest>
+  ): HttpResponse<SampleMethodTestPutResponse>
 
   /**
    * APIベースクラスから呼ばれる実行メソッドです
@@ -57,6 +53,6 @@ interface ISampleMethodTestManagement {
    * @return validation済みのレスポンス情報です
    */
   fun doDelete(
-      httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, SampleMethodTestDeleteRequest>>
-  ): HttpResponse<CommonResponse<ResponseHeader, SampleMethodTestDeleteResponse>>
+      httpRequest: HttpCommonRequest<SampleMethodTestDeleteRequest>
+  ): HttpResponse<SampleMethodTestDeleteResponse>
 }

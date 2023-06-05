@@ -3,12 +3,7 @@
  */
 package dapanda.api.sample.blanco
 
-import blanco.restgenerator.util.BlancoRestGeneratorKtRequestDeserializer
-import blanco.restgenerator.valueobject.CommonRequest
-import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
-import blanco.restgenerator.valueobject.RequestHeader
-import blanco.restgenerator.valueobject.ResponseHeader
 import dapanda.api.sample.application.SampleRegisterManagement
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
@@ -27,33 +22,20 @@ constructor(
    * APIベースクラスから呼ばれる実行メソッドです
    *
    * @param argHttpRequest validation前のリクエスト情報です
-   * @param argBody Raw JSON body.
+   * @param argRequestBean bean that body json is binded to
    * @return validation済みのレスポンス情報です
    */
   @Post
   fun doPost(
-      argHttpRequest: HttpRequest<CommonRequest<RequestHeader, SampleRegisterPostRequest>>,
-      @Body argBody: String
-  ): HttpResponse<CommonResponse<ResponseHeader, SampleRegisterPostResponse>> {
-    /* Creates a CommonRequest instance from a JSON string. */
-    val deserializer =
-        BlancoRestGeneratorKtRequestDeserializer<RequestHeader, SampleRegisterPostRequest>(
-            CommonRequest::class.java)
-    deserializer.infoClazz = RequestHeader::class.java
-    deserializer.telegramClazz = SampleRegisterPostRequest::class.java
-
-    /* Creates HttpCommonRequest with httpRequest as delegator. */
-    /* At this stage, commonRequest is tentative.*/
+      argHttpRequest: HttpRequest<SampleRegisterPostRequest>,
+      @Body argRequestBean: SampleRegisterPostRequest
+  ): HttpResponse<SampleRegisterPostResponse> {
     val httpCommonRequest =
-        HttpCommonRequest<CommonRequest<RequestHeader, SampleRegisterPostRequest>>(
+        HttpCommonRequest<dapanda.api.sample.blanco.SampleRegisterPostRequest>(
             argHttpRequest, true, listOf(), null)
 
-    val commonRequest: CommonRequest<RequestHeader, SampleRegisterPostRequest> =
-        sampleRegisterManagement.convertJsonToCommonRequest(
-            argBody, deserializer, httpCommonRequest)
-
-    /* Stores the commonRequest with its type determined */
-    httpCommonRequest.commonRequest = commonRequest
+    /* Stores the RequestBean with its type determined */
+    httpCommonRequest.commonRequest = argRequestBean
 
     /* Performs preprocessing (validation, etc.) */
     sampleRegisterManagement.prepare(httpCommonRequest)

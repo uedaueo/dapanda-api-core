@@ -3,11 +3,7 @@
  */
 package dapanda.api.sample.blanco.interfaces
 
-import blanco.restgenerator.valueobject.CommonRequest
-import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
-import blanco.restgenerator.valueobject.RequestHeader
-import blanco.restgenerator.valueobject.ResponseHeader
 import dapanda.api.sample.blanco.SampleLogoutPutRequest
 import dapanda.api.sample.blanco.SampleLogoutPutResponse
 import io.micronaut.http.HttpResponse
@@ -21,6 +17,6 @@ interface ISampleLogoutManagement {
    * @return validation済みのレスポンス情報です
    */
   fun doPut(
-      httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, SampleLogoutPutRequest>>
-  ): HttpResponse<CommonResponse<ResponseHeader, SampleLogoutPutResponse>>
+      httpRequest: HttpCommonRequest<SampleLogoutPutRequest>
+  ): HttpResponse<SampleLogoutPutResponse>
 }

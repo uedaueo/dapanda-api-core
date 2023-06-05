@@ -3,18 +3,12 @@
  */
 package dapanda.api.sample.blanco
 
-import blanco.restgenerator.util.BlancoRestGeneratorKtRequestDeserializer
-import blanco.restgenerator.valueobject.CommonRequest
-import blanco.restgenerator.valueobject.CommonResponse
 import blanco.restgenerator.valueobject.HttpCommonRequest
-import blanco.restgenerator.valueobject.RequestHeader
-import blanco.restgenerator.valueobject.ResponseHeader
 import dapanda.api.sample.application.SampleGetNoQueryManagement
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
-import io.micronaut.http.annotation.QueryValue
 
 /** パラメータなしGET API&lt;br&gt; */
 @Controller("/sample_query")
@@ -27,33 +21,20 @@ constructor(
    * APIベースクラスから呼ばれる実行メソッドです
    *
    * @param argHttpRequest validation前のリクエスト情報です
-   * @param request Raw JSON set as queryString.
    * @return validation済みのレスポンス情報です
    */
   @Get
   fun doGet(
-      argHttpRequest: HttpRequest<CommonRequest<RequestHeader, SampleGetNoQueryGetRequest>>,
-      @QueryValue request: String
-  ): HttpResponse<CommonResponse<ResponseHeader, SampleGetNoQueryGetResponse>> {
-    /* Creates a CommonRequest instance from a JSON string. */
-    val deserializer =
-        BlancoRestGeneratorKtRequestDeserializer<RequestHeader, SampleGetNoQueryGetRequest>(
-            CommonRequest::class.java)
-    deserializer.infoClazz = RequestHeader::class.java
-    deserializer.telegramClazz = SampleGetNoQueryGetRequest::class.java
+      argHttpRequest: HttpRequest<SampleGetNoQueryGetRequest>
+  ): HttpResponse<SampleGetNoQueryGetResponse> {
+    val requestBean = dapanda.api.sample.blanco.SampleGetNoQueryGetRequest()
 
-    /* Creates HttpCommonRequest with httpRequest as delegator. */
-    /* At this stage, commonRequest is tentative.*/
     val httpCommonRequest =
-        HttpCommonRequest<CommonRequest<RequestHeader, SampleGetNoQueryGetRequest>>(
+        HttpCommonRequest<dapanda.api.sample.blanco.SampleGetNoQueryGetRequest>(
             argHttpRequest, true, listOf(), null)
 
-    val commonRequest: CommonRequest<RequestHeader, SampleGetNoQueryGetRequest> =
-        sampleGetNoQueryManagement.convertJsonToCommonRequest(
-            request, deserializer, httpCommonRequest)
-
-    /* Stores the commonRequest with its type determined */
-    httpCommonRequest.commonRequest = commonRequest
+    /* Stores the RequestBean with its type determined */
+    httpCommonRequest.commonRequest = requestBean
 
     /* Performs preprocessing (validation, etc.) */
     sampleGetNoQueryManagement.prepare(httpCommonRequest)

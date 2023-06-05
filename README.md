@@ -1,7 +1,7 @@
 # dapanda-api-core project
 
 ## build手順
-* Java11, mysqlが必要なのでインストール。
+* Java11以上（17推奨）, mysqlが必要なのでインストール。
 * dapanda-api-coreには現状トークン認証のサンプルがあるのでDBの設定が必要。
 mysqlを使えるようにしdapanda-api-coreにあるsampleTable.sqlを使ってデータベースの作成を行う。
 * ~~application.ymlのデータベースの設定をしている箇所(datasources.default)を環境に合わせて修正する。~~
@@ -79,3 +79,11 @@ gradlew --no-build-cache --no-daemon clean build
 
 IntelliJ の場合は、`Run/Debug Configurations` の `VM options` に
 `-Dorg.gradle.caching=false -Dorg.gradle.daemon=false` を設定する。
+
+## gradle version について
+
+以下のコマンドでgradleのバージョンを上げる事ができる。dapanda-api-core 1.0.x では gradle 8.1.1 以上を推奨する。
+
+```
+./gradlew wrapper --gradle-version=8.1.1
+```

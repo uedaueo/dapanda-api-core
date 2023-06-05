@@ -15,10 +15,20 @@ interface IAuthenticate {
     /**
      * test authentication.
      *
-     * @param request request object.
+     * @param request request object as blanco style.
      * @return true on success
      */
     fun <S : RequestHeader, T : ApiTelegram> isAuthenticated(
-        request: HttpCommonRequest<CommonRequest<S, T>>,
+        request: HttpCommonRequest<CommonRequest<S, T>>
+    ): Boolean
+
+    /**
+     * test authentication.
+     *
+     * @param request request object as plain style
+     * @return true on success
+     */
+    fun <T : ApiTelegram> isAuthenticated(
+        request: HttpCommonRequest<T>
     ): Boolean
 }
