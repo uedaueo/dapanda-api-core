@@ -2,7 +2,9 @@ package dapanda.api.sample.application
 
 import blanco.restgenerator.valueobject.*
 import dapanda.api.common.application.ApiBase
+import dapanda.api.common.application.ApiBasePlain
 import dapanda.api.common.domain.model.http.IApiBase
+import dapanda.api.common.domain.model.http.IApiBasePlain
 import dapanda.api.sample.blanco.SampleLogoutPutRequest
 import dapanda.api.sample.blanco.SampleLogoutPutResponse
 import dapanda.api.sample.domain.login.ISampleLoginRepository
@@ -14,13 +16,13 @@ import jakarta.inject.Singleton
  */
 @Singleton
 class SampleLogoutManagement (
-    private val apiBase: ApiBase,
+    private val apiBasePlain: ApiBasePlain,
     private val loginRepository: ISampleLoginRepository
-) : IApiBase by apiBase {
+) : IApiBasePlain by apiBasePlain {
     fun doPut(
-        httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, SampleLogoutPutRequest>>
-    ): HttpResponse<CommonResponse<ResponseHeader, SampleLogoutPutResponse>> {
-        val telegram = httpRequest.commonRequest!!.telegram!!
+        httpRequest: HttpCommonRequest<SampleLogoutPutRequest>
+    ): HttpResponse<SampleLogoutPutResponse> {
+        val telegram = httpRequest.commonRequest!!
 
         loginRepository.deleteToken(telegram.userId)
 

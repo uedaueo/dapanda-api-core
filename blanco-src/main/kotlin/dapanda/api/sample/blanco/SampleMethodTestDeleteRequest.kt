@@ -19,7 +19,7 @@ constructor(
      *
      * 規定値 [&quot;&quot;]
      */
-    @field:Size(max = 254) @field:NotBlank @field:NotNull var userId: String = "",
+    @field:Size(max = 254) @field:NotBlank @field:NotNull var userId: String? = "",
     /**
      * パスワード
      *
@@ -31,5 +31,5 @@ constructor(
         regexp =
             "^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])|(?=.*[a-z])(?=.*[A-Z])(?=.*[@%\\+\\/\\\'!#\\$\\^\\?:\\.\\(\\)\\{\\}\\[\\]~\\-_])|(?=.*[a-z])(?=.*[0-9])(?=.*[@%\\+\\/\\\'!#\\$\\^\\?:\\.\\(\\)\\{\\}\\[\\]~\\-_])|(?=.*[A-Z])(?=.*[0-9])(?=.*[@%\\+\\/\\\'!#\\$\\^\\?:\\.\\(\\)\\{\\}\\[\\]~\\-_]))[a-zA-Z0-9@%\\+\\/\\\'!#\\$\\^\\?:\\.\\(\\)\\{\\}\\[\\]~\\-_]{8,20}$")
     @field:NotNull
-    var password: String = ""
+    var password: String? = ""
 ) : ApiDeleteTelegram()

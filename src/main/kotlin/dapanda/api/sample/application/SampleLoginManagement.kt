@@ -3,14 +3,17 @@ package dapanda.api.sample.application
 import blanco.restgenerator.valueobject.*
 import dapanda.api.common.domain.CommonConstants
 import dapanda.api.common.application.ApiBase
+import dapanda.api.common.application.ApiBasePlain
 import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
 import dapanda.api.common.domain.model.common.Utilities
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
 import dapanda.api.common.domain.model.hashing.sha256WithSalt
 import dapanda.api.common.domain.model.http.CommonHttpResponseFactory
 import dapanda.api.common.domain.model.http.IApiBase
+import dapanda.api.common.domain.model.http.IApiBasePlain
 import dapanda.api.common.domain.model.http.getStartTime
 import dapanda.api.common.domain.model.locale.LocaleResolver
+import dapanda.api.common.domain.model.locale.LocaleResolverPlain
 import dapanda.api.common.domain.model.logging.LoggerDelegate
 import dapanda.api.common.domain.model.resourcebundle.CommonResourceBundleFactory
 import dapanda.api.core.blanco.db.common.exception.NoRowFoundException
@@ -30,11 +33,11 @@ import javax.sql.DataSource
  */
 @Singleton
 class SampleLoginManagement (
-    private val apiBase: ApiBase,
+    private val apiBasePlain: ApiBasePlain,
     private val dataSource: DataSource,
     private val loginQuery: ISampleLoginQuery,
     private val loginRepository: ISampleLoginRepository,
-    private val localeResolver: LocaleResolver,
+    private val localeResolverPlain: LocaleResolverPlain,
     private val resourceBundle: CommonResourceBundleFactory,
     @Value("\${token-authenticate.token-valid-term}")
     private val tokenValidTerm: Int,
@@ -42,16 +45,16 @@ class SampleLoginManagement (
     private val salt: String,
     @Value("\${spoil.SampleLogin.POST}")
     private val spoilSampleLoginPost: Boolean
-    ) : IApiBase by apiBase {
+    ) : IApiBasePlain by apiBasePlain {
     companion object {
         private val log by LoggerDelegate()
     }
 
     fun doPost(
-        httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, SampleLoginPostRequest>>
-    ): HttpResponse<CommonResponse<ResponseHeader, SampleLoginPostResponse>> {
-        val locale = localeResolver.resolve(httpRequest)
-        val telegram = httpRequest.commonRequest!!.telegram!!
+        httpRequest: HttpCommonRequest<SampleLoginPostRequest>
+    ): HttpResponse<SampleLoginPostResponse> {
+        val locale = localeResolverPlain.resolve(httpRequest)
+        val telegram = httpRequest.commonRequest!!
         val password = getPassword(telegram.userId, locale)
         if ((password == null) || !verifyPassword(password, telegram.password)) {
             var logMessage = ""
@@ -74,6 +77,7 @@ class SampleLoginManagement (
         }
 
         val responseTelegram = SampleLoginPostResponse(token)
+        /*
         var responseLocale = blanco.restgenerator.valueobject.Locale()
             httpRequest.commonRequest?.let {
                 responseLocale = it.info.locale
@@ -83,9 +87,9 @@ class SampleLoginManagement (
             Utilities.getMeasurementTime(httpRequest.getStartTime()),
             CommonConstants.ResponseResultCode.SUCCESS.name
         )
+         */
 
         return CommonHttpResponseFactory.create(
-            responseHeader,
             responseTelegram
         )
     }

@@ -14,6 +14,7 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Put
 import io.micronaut.http.annotation.QueryValue
+import java.util.Optional
 
 /** Methodテスト用API&lt;br&gt; */
 @Controller("/sample_methods")
@@ -33,12 +34,13 @@ constructor(
   @Get("{?userId,password}")
   fun doGet(
       argHttpRequest: HttpRequest<SampleMethodTestGetRequest>,
-      @QueryValue argUserId: String,
-      @QueryValue argPassword: String
+      @QueryValue("userId") argUserId: Optional<String>?,
+      @QueryValue("password") argPassword: Optional<String>?
   ): HttpResponse<SampleMethodTestGetResponse> {
     val requestBean =
         dapanda.api.sample.blanco.SampleMethodTestGetRequest(
-            userId = argUserId, password = argPassword)
+            userId = if (argUserId?.isPresent == true) argUserId.get() else "",
+            password = if (argPassword?.isPresent == true) argPassword.get() else "")
 
     val httpCommonRequest =
         HttpCommonRequest<dapanda.api.sample.blanco.SampleMethodTestGetRequest>(
@@ -132,12 +134,13 @@ constructor(
   @Delete("{?userId,password}")
   fun doDelete(
       argHttpRequest: HttpRequest<SampleMethodTestDeleteRequest>,
-      @QueryValue argUserId: String,
-      @QueryValue argPassword: String
+      @QueryValue("userId") argUserId: Optional<String>?,
+      @QueryValue("password") argPassword: Optional<String>?
   ): HttpResponse<SampleMethodTestDeleteResponse> {
     val requestBean =
         dapanda.api.sample.blanco.SampleMethodTestDeleteRequest(
-            userId = argUserId, password = argPassword)
+            userId = if (argUserId?.isPresent == true) argUserId.get() else "",
+            password = if (argPassword?.isPresent == true) argPassword.get() else "")
 
     val httpCommonRequest =
         HttpCommonRequest<dapanda.api.sample.blanco.SampleMethodTestDeleteRequest>(

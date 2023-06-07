@@ -11,6 +11,7 @@ import dapanda.api.common.domain.model.authenticate.IAuthenticatePlain
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
 import dapanda.api.common.domain.model.http.getBearerToken
 import dapanda.api.common.domain.model.locale.LocaleResolver
+import dapanda.api.common.domain.model.locale.LocaleResolverPlain
 import dapanda.api.common.domain.model.logging.LoggerDelegate
 import dapanda.api.common.domain.model.resourcebundle.CommonResourceBundleFactory
 import dapanda.api.common.domain.model.verifier.ITokenInfoQuery
@@ -36,7 +37,7 @@ class TokenAuthenticatePlain(
     private val bundleFactory: CommonResourceBundleFactory,
     private val tokenInfoQuery: ITokenInfoQuery,
     private val tokenInfoRepository: ITokenInfoRepository,
-    private val localeResolver: LocaleResolver,
+    private val localeResolverPlain: LocaleResolverPlain,
     private val resourceBundle: CommonResourceBundleFactory,
     @Value("\${token-authenticate.token-valid-term}")
     private val tokenValidTerm: Int
@@ -45,10 +46,10 @@ class TokenAuthenticatePlain(
         private val log by LoggerDelegate()
     }
 
-    override fun <S : RequestHeader, T : ApiTelegram> isAuthenticated(
-        request: HttpCommonRequest<CommonRequest<S, T>>,
+    override fun <T : ApiTelegram> isAuthenticated(
+        request: HttpCommonRequest<T>,
     ): Boolean {
-        val locale = localeResolver.resolve(request)
+        val locale = localeResolverPlain.resolve(request)
         if (request.noAuthentication) {
             log.info(resourceBundle.getApiLogMessage(locale).alm90006)
             return true

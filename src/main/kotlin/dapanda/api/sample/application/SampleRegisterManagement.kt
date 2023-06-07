@@ -3,11 +3,14 @@ package dapanda.api.sample.application
 import blanco.restgenerator.valueobject.*
 import dapanda.api.common.domain.CommonConstants
 import dapanda.api.common.application.ApiBase
+import dapanda.api.common.application.ApiBasePlain
 import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
 import dapanda.api.common.domain.model.hashing.sha256WithSalt
 import dapanda.api.common.domain.model.http.IApiBase
+import dapanda.api.common.domain.model.http.IApiBasePlain
 import dapanda.api.common.domain.model.locale.LocaleResolver
+import dapanda.api.common.domain.model.locale.LocaleResolverPlain
 import dapanda.api.common.domain.model.resourcebundle.CommonResourceBundleFactory
 import dapanda.api.sample.blanco.SampleRegisterPostRequest
 import dapanda.api.sample.blanco.SampleRegisterPostResponse
@@ -22,18 +25,18 @@ import java.sql.SQLIntegrityConstraintViolationException
  */
 @Singleton
 class SampleRegisterManagement (
-    private val apiBase: ApiBase,
+    private val apiBasePlain: ApiBasePlain,
     private val registerRepository: ISampleRegisterRepository,
-    private val localeResolver: LocaleResolver,
+    private val localeResolverPlain: LocaleResolverPlain,
     private val resourceBundle: CommonResourceBundleFactory,
     @Value("\${token-authenticate.salt}")
     private val salt: String
-) : IApiBase by apiBase {
+) : IApiBasePlain by apiBasePlain {
     fun doPost(
-        httpRequest: HttpCommonRequest<CommonRequest<RequestHeader, SampleRegisterPostRequest>>
-    ): HttpResponse<CommonResponse<ResponseHeader, SampleRegisterPostResponse>> {
-        val telegram = httpRequest.commonRequest!!.telegram!!
-        val locale = localeResolver.resolve(httpRequest)
+        httpRequest: HttpCommonRequest<SampleRegisterPostRequest>
+    ): HttpResponse<SampleRegisterPostResponse> {
+        val telegram = httpRequest.commonRequest!!
+        val locale = localeResolverPlain.resolve(httpRequest)
         runCatching {
             registerRepository.add(telegram.userId, telegram.password.sha256WithSalt(salt))
         }.onFailure {

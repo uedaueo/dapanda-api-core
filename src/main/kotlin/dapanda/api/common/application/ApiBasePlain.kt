@@ -14,7 +14,9 @@ import dapanda.api.common.domain.model.http.IApiBasePlain
 import dapanda.api.common.domain.model.http.setRequestHeaderLocale
 import dapanda.api.common.domain.model.http.setStartTime
 import dapanda.api.common.domain.model.locale.LocaleResolver
+import dapanda.api.common.domain.model.locale.LocaleResolverPlain
 import dapanda.api.common.domain.model.logging.LoggerDelegate
+import dapanda.api.common.domain.model.privilege.IPrivilegePlain
 import dapanda.api.common.domain.model.resourcebundle.CommonResourceBundleFactory
 import io.micronaut.context.annotation.Value
 import io.micronaut.http.HttpResponse
@@ -27,11 +29,11 @@ import javax.validation.Validation
 @Singleton
 class ApiBasePlain(
     private val bundleFactory: CommonResourceBundleFactory,
-    private val localeResolver: LocaleResolver,
+    private val localeResolverPlain: LocaleResolverPlain,
     private val authenticate: IAuthenticatePlain,
     @Value("\${authenticate.required}")
     private val doAuthenticate: Boolean,
-    private val privilege: IPrivilege,
+    private val privilegePlain: IPrivilegePlain,
     @Value("\${privilege.required}")
     private val testPrivilege: Boolean
 ) : IApiBasePlain {
@@ -39,8 +41,8 @@ class ApiBasePlain(
         private val log by LoggerDelegate()
     }
 
-    override fun <S : RequestHeader, T : ApiTelegram> prepare(
-        httpRequest: HttpCommonRequest<CommonRequest<S, T>>
+    override fun <T : ApiTelegram> prepare(
+        httpRequest: HttpCommonRequest<T>
     ) {
         /*
          * 計測開始
@@ -50,11 +52,12 @@ class ApiBasePlain(
 
         // requestに設定されているLocaleを取得
         httpRequest.commonRequest?.let {
-            httpRequest.setRequestHeaderLocale(it.info.locale)
+            // TODO ACCEPT-LANGUAGE HTTP ヘッダー からlocaleを取得する? とりあえずデフォルト値を入れる
+            httpRequest.setRequestHeaderLocale(Locale())
         }
 
         // ロケールを取得
-        val locale = localeResolver.resolve(httpRequest)
+        val locale = localeResolverPlain.resolve(httpRequest)
 
         // バリデーション
         val violations = Validation.buildDefaultValidatorFactory().validator.validate(httpRequest)
@@ -88,7 +91,7 @@ class ApiBasePlain(
 
         // 権限処理
         if (testPrivilege) {
-            if (!privilege.isPermitted(httpRequest)) {
+            if (!privilegePlain.isPermitted(httpRequest)) {
                 val metaInfo = ApiResponseMetaInfoConstants.META90010
                 metaInfo.message = bundleFactory.getApiResultMessage(locale = locale).arm90010
                 val logMessage = bundleFactory.getApiLogMessage(locale = locale).alm90010
@@ -99,45 +102,10 @@ class ApiBasePlain(
         }
     }
 
-    override fun <S1 : ResponseHeader, S2 : RequestHeader, T1 : ApiTelegram, T2 : ApiTelegram> finish(
-        httpResponse: HttpResponse<CommonResponse<S1, T1>>,
-        httpRequest: HttpCommonRequest<CommonRequest<S2, T2>>
+    override fun <T1 : ApiTelegram, T2 : ApiTelegram> finish(
+        httpResponse: HttpResponse<T1>,
+        httpRequest: HttpCommonRequest<T2>
     ) {
-    }
-
-    override fun <S : RequestHeader, T : ApiTelegram> convertJsonToCommonRequest(
-        body: String,
-        deserializer: BlancoRestGeneratorKtRequestDeserializer<S, T>,
-        argHttpRequest: HttpCommonRequest<CommonRequest<S, T>>
-    ): CommonRequest<S, T> {
-        val mapper = ObjectMapper()
-        val module = SimpleModule()
-        module.addDeserializer(CommonRequest::class.java, deserializer)
-        mapper.registerModule(module)
-        val co =
-            runCatching {
-                mapper.readValue(body, CommonRequest::class.java)
-            }
-                .onFailure {
-                    throw it
-                }
-                .getOrThrow()
-
-        @Suppress("UNCHECKED_CAST")
-        val info = co.info as S
-
-        @Suppress("UNCHECKED_CAST")
-        val telegram = co.telegram as T?
-
-        return CommonRequest(info, telegram)
-    }
-
-    override fun <S : ResponseHeader, T : ApiTelegram> createCommonResponse(header: S, telegram: T): CommonResponse<S, T> {
-        TODO("Not yet implemented")
-    }
-
-    override fun <S : RequestHeader, T : ApiTelegram> createCommonRequest(info: S, telegram: T?): CommonRequest<S, T> {
-        TODO("Not yet implemented")
     }
 
     override fun isSpoiled(method: String): Boolean {

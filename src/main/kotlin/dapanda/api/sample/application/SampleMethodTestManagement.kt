@@ -2,10 +2,12 @@ package dapanda.api.sample.application
 
 import blanco.restgenerator.valueobject.*
 import dapanda.api.common.application.ApiBase
+import dapanda.api.common.application.ApiBasePlain
 import dapanda.api.common.domain.CommonConstants
 import dapanda.api.common.domain.model.common.Utilities
 import dapanda.api.common.domain.model.http.CommonHttpResponseFactory
 import dapanda.api.common.domain.model.http.IApiBase
+import dapanda.api.common.domain.model.http.IApiBasePlain
 import dapanda.api.common.domain.model.http.getStartTime
 import dapanda.api.sample.blanco.*
 import io.micronaut.http.HttpResponse
@@ -13,8 +15,8 @@ import jakarta.inject.Singleton
 
 @Singleton
 class SampleMethodTestManagement(
-    private val apiBase: ApiBase,
-    ) : IApiBase by apiBase {
+    private val apiBasePlain: ApiBasePlain,
+    ) : IApiBasePlain by apiBasePlain {
 
     fun doGet(httpCommonRequest: HttpCommonRequest<SampleMethodTestGetRequest>): HttpResponse<SampleMethodTestGetResponse> {
 
