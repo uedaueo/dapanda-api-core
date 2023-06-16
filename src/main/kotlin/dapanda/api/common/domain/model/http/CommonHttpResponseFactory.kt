@@ -85,4 +85,18 @@ object CommonHttpResponseFactory {
                 )
             )
     }
+
+    /**
+     * エラー時のHttpResponse を生成します。
+     * blanco固有のレスポンスを返さない場合に使います。
+     *
+     * @param httpStatus 返却ステータス
+     * @param telegram エラー電文
+     */
+    fun create(
+        httpStatus: HttpStatus,
+        telegram: ApiTelegram
+    ): MutableHttpResponse<ApiTelegram> {
+        return HttpResponse.status<ApiTelegram>(httpStatus).body(telegram)
+    }
 }

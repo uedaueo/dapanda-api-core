@@ -6,6 +6,7 @@ import dapanda.api.common.domain.CommonConstants
 import dapanda.api.common.domain.CommonConstants.ResponseResultCode
 import dapanda.api.common.domain.model.common.Utilities
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeException
+import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionPlain
 import dapanda.api.common.domain.model.exceptions.ApiSpoilException
 import dapanda.api.common.domain.model.exceptions.DapandaApiRuntimeException
 import dapanda.api.common.domain.model.http.CommonHttpResponseFactory
@@ -67,6 +68,14 @@ class GlobalErrorHandleController(
                 errorCode = e.errorCode,
                 message = e.resultMessage,
                 httpStatus = e.httpStatus
+            )
+        } else if (e is ApiRuntimeExceptionPlain) {
+            // API 例外
+            log.error(e.message, e)
+
+            CommonHttpResponseFactory.create(
+                httpStatus = e.httpStatus,
+                telegram = e.telegram
             )
         } else if (e is DapandaApiRuntimeException) {
             // API 例外
