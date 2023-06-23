@@ -100,3 +100,7 @@ privilege:
 spoil:
   SampleLogin:
     POST: true
+
+plain-telegram:
+  # プレーンテレグラムかどうか
+  enabled: true

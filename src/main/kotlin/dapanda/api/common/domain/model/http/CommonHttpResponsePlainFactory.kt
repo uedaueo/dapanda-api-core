@@ -8,21 +8,7 @@ import io.micronaut.http.MutableHttpResponse
 /**
  * レスポンスを生成します。
  */
-object CommonHttpResponseFactory {
-    /**
-     * アプリケーションからは電文以外に返す物がない場合（正常終了時）
-     *
-     * @param telegram 返却予定電文
-     */
-    fun <S : ResponseHeader, T : ApiTelegram> create(info: S, telegram: T): MutableHttpResponse<CommonResponse<S, T>> {
-        return HttpResponse.ok(
-            CommonResponse<S, T>(
-                info = info,
-                telegram = telegram
-            )
-        )
-    }
-
+object CommonHttpResponsePlainFactory {
     /**
      * アプリケーションからは電文以外に返す物がない場合（正常終了時）
      * plain 電文スタイル時。
@@ -37,52 +23,52 @@ object CommonHttpResponseFactory {
 
     /**
      * エラー時のHttpResponse を生成します。
-     * エラーなので電文はありません。
+     * blanco固有のレスポンスを返さない場合に使います。
      *
-     * @param result リザルトコード
      * @param errorCode エラーコード
      * @param message エラーメッセージ
      * @param httpStatus 返却ステータス
      */
     fun create(
-        info: ResponseHeader,
         errorCode: String,
         message: String,
         httpStatus: HttpStatus
-    ): MutableHttpResponse<CommonResponse<ResponseHeader, ApiTelegram>> {
+    ): MutableHttpResponse<ArrayList<MessageItem>> {
         val errors: ArrayList<MessageItem> = ArrayList()
         errors.add(MessageItem(errorCode, message))
         return HttpResponse
-            .status<CommonResponse<ResponseHeader, ApiTelegram>>(httpStatus)
-            .body(
-                CommonResponse(
-                    info = info,
-                    messages = errors
-                )
-            )
+            .status<ArrayList<MessageItem>>(httpStatus)
+            .body(errors)
     }
 
     /**
      * 複数のエラー結果のHttpResponse を生成します。
-     * エラーなので電文はありません。
+     * blanco固有のレスポンスを返さない場合に使います。
      * 複数のエラーを返したい場合。
      *
-     * @param info レスポンスヘッダー
      * @param errors エラーリスト
      * @param httpStatus 返却ステータス
      */
     fun create(
-        info: ResponseHeader,
         errors: ArrayList<MessageItem>,
         httpStatus: HttpStatus
-    ): MutableHttpResponse<CommonResponse<ResponseHeader, ApiTelegram>> {
+    ): MutableHttpResponse<ArrayList<MessageItem>> {
         return HttpResponse
-            .status<CommonResponse<ResponseHeader, ApiTelegram>>(httpStatus)
-            .body(
-                CommonResponse(
-                    info = info,
-                    messages = errors
-                )
-            )
+            .status<ArrayList<MessageItem>>(httpStatus)
+            .body(errors)
+    }
+
+    /**
+     * エラー時のHttpResponse を生成します。
+     * blanco固有のレスポンスを返さない場合に使います。
+     *
+     * @param httpStatus 返却ステータス
+     * @param telegram エラー電文
+     */
+    fun create(
+        httpStatus: HttpStatus,
+        telegram: ApiTelegram
+    ): MutableHttpResponse<ApiTelegram> {
+        return HttpResponse.status<ApiTelegram>(httpStatus).body(telegram)
     }
 }

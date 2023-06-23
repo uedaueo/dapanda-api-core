@@ -2,12 +2,13 @@ package dapanda.api.common.application
 
 import blanco.restgenerator.valueobject.*
 import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
-import dapanda.api.common.domain.CommonConstants
 import dapanda.api.common.domain.model.common.Utilities
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeException
+import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionPlain
 import dapanda.api.common.domain.model.exceptions.ApiSpoilException
 import dapanda.api.common.domain.model.exceptions.DapandaApiRuntimeException
 import dapanda.api.common.domain.model.http.CommonHttpResponseFactory
+import dapanda.api.common.domain.model.http.CommonHttpResponsePlainFactory
 import dapanda.api.common.domain.model.http.getRequestHeaderLocale
 import dapanda.api.common.domain.model.http.getStartTime
 import dapanda.api.common.domain.model.logging.LoggerDelegate
@@ -25,11 +26,11 @@ import java.net.URISyntaxException
  * グローバルエラーハンドラーコントローラー
  */
 @Requirements(
-    Requires(property = "plain-telegram.enabled", value = StringUtils.FALSE),
+    Requires(property = "plain-telegram.enabled", value = StringUtils.TRUE),
     Requires(property = "globalErrorHandler.enabled", value = StringUtils.TRUE)
 )
 @Controller
-class GlobalErrorHandleController(
+class GlobalErrorHandlePlainController(
     private val bundleFactory: CommonResourceBundleFactory
 ) {
     companion object {
@@ -47,7 +48,6 @@ class GlobalErrorHandleController(
     @Error(global = true)
     fun globalErrorHandler(request: HttpRequest<*>, e: Throwable): HttpResponse<*> {
         val locale = request.getRequestHeaderLocale()
-
         return if (e is ApiRuntimeException) {
             // API 例外
             log.error(e.message, e)
@@ -63,11 +63,18 @@ class GlobalErrorHandleController(
                 time = Utilities.getMeasurementTime(request.getStartTime()),
                 result = e.result.name
             )
-            CommonHttpResponseFactory.create(
-                info = info,
+            CommonHttpResponsePlainFactory.create(
                 errorCode = e.errorCode,
                 message = e.resultMessage,
                 httpStatus = e.httpStatus
+            )
+        } else if (e is ApiRuntimeExceptionPlain) {
+            // API 例外
+            log.error(e.message, e)
+
+            CommonHttpResponsePlainFactory.create(
+                httpStatus = e.httpStatus,
+                telegram = e.telegram
             )
         } else if (e is DapandaApiRuntimeException) {
             // API 例外
@@ -81,25 +88,14 @@ class GlobalErrorHandleController(
             }
 
             // response を生成
-            val info = ResponseHeader(
-                locale = locale,
-                time = Utilities.getMeasurementTime(request.getStartTime()),
-                result = e.result.name
-            )
-            CommonHttpResponseFactory.create(
-                info = info,
+            CommonHttpResponsePlainFactory.create(
                 errors = e.errors,
                 httpStatus = e.httpStatus
             )
         } else if (e is ApiSpoilException) {
             // response を生成
             val metaInfo = ApiResponseMetaInfoConstants.META90007
-            val info = ResponseHeader(
-                locale = locale,
-                result = CommonConstants.ResponseResultCode.ERROR.name
-            )
-            CommonHttpResponseFactory.create(
-                info = info,
+            CommonHttpResponsePlainFactory.create(
                 errorCode = metaInfo.errorCode,
                 message = bundleFactory.getApiResultMessage().arm90007,
                 httpStatus = metaInfo.httpStatus
@@ -108,14 +104,7 @@ class GlobalErrorHandleController(
             log.error(e.message, e)
             val metaInfo = ApiResponseMetaInfoConstants.META99999
             // response を生成
-            val info = ResponseHeader(
-                locale = locale,
-                time = Utilities.getMeasurementTime(request.getStartTime()),
-                result = metaInfo.resultCode.name
-            )
-
-            CommonHttpResponseFactory.create(
-                info = info,
+            CommonHttpResponsePlainFactory.create(
                 errorCode = metaInfo.errorCode,
                 message = metaInfo.message,
                 httpStatus = metaInfo.httpStatus
