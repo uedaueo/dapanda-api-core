@@ -34,13 +34,13 @@ constructor(
   @Get("{?userId,password}")
   fun doGet(
       argHttpRequest: HttpRequest<SampleMethodTestGetRequest>,
-      @QueryValue("userId") argUserId: Optional<String>?,
-      @QueryValue("password") argPassword: Optional<String>?
+      @QueryValue("userId") argUserId: Optional<String>,
+      @QueryValue("password") argPassword: Optional<String>
   ): HttpResponse<SampleMethodTestGetResponse> {
     val requestBean =
         dapanda.api.sample.blanco.SampleMethodTestGetRequest(
-            userId = if (argUserId?.isPresent == true) argUserId.get() else "",
-            password = if (argPassword?.isPresent == true) argPassword.get() else "")
+            userId = if (argUserId.isPresent == true) argUserId.get() else "",
+            password = if (argPassword.isPresent == true) argPassword.get() else "")
 
     val httpCommonRequest =
         HttpCommonRequest<dapanda.api.sample.blanco.SampleMethodTestGetRequest>(
@@ -134,13 +134,13 @@ constructor(
   @Delete("{?userId,password}")
   fun doDelete(
       argHttpRequest: HttpRequest<SampleMethodTestDeleteRequest>,
-      @QueryValue("userId") argUserId: Optional<String>?,
-      @QueryValue("password") argPassword: Optional<String>?
+      @QueryValue("userId") argUserId: Optional<String>,
+      @QueryValue("password") argPassword: Optional<String>
   ): HttpResponse<SampleMethodTestDeleteResponse> {
     val requestBean =
         dapanda.api.sample.blanco.SampleMethodTestDeleteRequest(
-            userId = if (argUserId?.isPresent == true) argUserId.get() else "",
-            password = if (argPassword?.isPresent == true) argPassword.get() else "")
+            userId = if (argUserId.isPresent == true) argUserId.get() else "",
+            password = if (argPassword.isPresent == true) argPassword.get() else "")
 
     val httpCommonRequest =
         HttpCommonRequest<dapanda.api.sample.blanco.SampleMethodTestDeleteRequest>(
