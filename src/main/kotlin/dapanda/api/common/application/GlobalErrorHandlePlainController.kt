@@ -7,7 +7,6 @@ import dapanda.api.common.domain.model.exceptions.ApiRuntimeException
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionPlain
 import dapanda.api.common.domain.model.exceptions.ApiSpoilException
 import dapanda.api.common.domain.model.exceptions.DapandaApiRuntimeException
-import dapanda.api.common.domain.model.http.CommonHttpResponseFactory
 import dapanda.api.common.domain.model.http.CommonHttpResponsePlainFactory
 import dapanda.api.common.domain.model.http.getRequestHeaderLocale
 import dapanda.api.common.domain.model.http.getStartTime
@@ -66,7 +65,8 @@ class GlobalErrorHandlePlainController(
             CommonHttpResponsePlainFactory.create(
                 errorCode = e.errorCode,
                 message = e.resultMessage,
-                httpStatus = e.httpStatus
+                httpStatus = e.httpStatus,
+                request = request
             )
         } else if (e is ApiRuntimeExceptionPlain) {
             // API 例外
@@ -74,7 +74,8 @@ class GlobalErrorHandlePlainController(
 
             CommonHttpResponsePlainFactory.create(
                 httpStatus = e.httpStatus,
-                telegram = e.telegram
+                telegram = e.telegram,
+                request = request
             )
         } else if (e is DapandaApiRuntimeException) {
             // API 例外
@@ -90,7 +91,8 @@ class GlobalErrorHandlePlainController(
             // response を生成
             CommonHttpResponsePlainFactory.create(
                 errors = e.errors,
-                httpStatus = e.httpStatus
+                httpStatus = e.httpStatus,
+                request = request
             )
         } else if (e is ApiSpoilException) {
             // response を生成
@@ -98,7 +100,8 @@ class GlobalErrorHandlePlainController(
             CommonHttpResponsePlainFactory.create(
                 errorCode = metaInfo.errorCode,
                 message = bundleFactory.getApiResultMessage().arm90007,
-                httpStatus = metaInfo.httpStatus
+                httpStatus = metaInfo.httpStatus,
+                request = request
             )
         } else if (e is RuntimeException || e is URISyntaxException) {
             log.error(e.message, e)
@@ -107,7 +110,8 @@ class GlobalErrorHandlePlainController(
             CommonHttpResponsePlainFactory.create(
                 errorCode = metaInfo.errorCode,
                 message = metaInfo.message,
-                httpStatus = metaInfo.httpStatus
+                httpStatus = metaInfo.httpStatus,
+                request = request
             )
         }  else {
             // 想定外の例外の場合

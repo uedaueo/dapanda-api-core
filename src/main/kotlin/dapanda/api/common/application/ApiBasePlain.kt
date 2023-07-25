@@ -1,19 +1,13 @@
 package dapanda.api.common.application
 
-import dapanda.api.common.domain.model.http.IApiBase
-import blanco.restgenerator.util.BlancoRestGeneratorKtRequestDeserializer
 import blanco.restgenerator.valueobject.*
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.module.SimpleModule
 import dapanda.api.common.blanco.constants.ApiResponseMetaInfoConstants
-import dapanda.api.common.domain.model.authenticate.IAuthenticate
+import dapanda.api.common.domain.CommonConstants
 import dapanda.api.common.domain.model.authenticate.IAuthenticatePlain
-import dapanda.api.common.domain.model.privilege.IPrivilege
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionFactory
 import dapanda.api.common.domain.model.http.IApiBasePlain
 import dapanda.api.common.domain.model.http.setRequestHeaderLocale
 import dapanda.api.common.domain.model.http.setStartTime
-import dapanda.api.common.domain.model.locale.LocaleResolver
 import dapanda.api.common.domain.model.locale.LocaleResolverPlain
 import dapanda.api.common.domain.model.logging.LoggerDelegate
 import dapanda.api.common.domain.model.privilege.IPrivilegePlain
@@ -51,9 +45,25 @@ class ApiBasePlain(
         log.debug("ApiBase#prepare: START!")
 
         // requestに設定されているLocaleを取得
-        httpRequest.commonRequest?.let {
-            // TODO ACCEPT-LANGUAGE HTTP ヘッダー からlocaleを取得する? とりあえずデフォルト値を入れる
-            httpRequest.setRequestHeaderLocale(Locale())
+        httpRequest.let {
+            val blancoLocale = Locale()
+            it.headers.getFirst(CommonConstants.X_DAPANDA_LANGUAGE).let {
+                if (it.isPresent) {
+                    blancoLocale.lang = it.get()
+                }
+            }
+            it.headers.getFirst(CommonConstants.X_DAPANDA_TIMEZONE).let {
+                if (it.isPresent) {
+                    blancoLocale.tz = it.get()
+                }
+            }
+            it.headers.getFirst(CommonConstants.X_DAPANDA_CURRENCY).let {
+                if (it.isPresent) {
+                    blancoLocale.currency = it.get()
+                }
+            }
+            log.debug("Locale = " + blancoLocale.toString())
+            it.setRequestHeaderLocale(blancoLocale)
         }
 
         // ロケールを取得

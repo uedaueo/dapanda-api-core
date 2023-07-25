@@ -28,6 +28,14 @@ object CommonConstants {
     const val HTTP_DELETE = "DELETE"
 
     /**
+     * HTTP ヘッダ
+     */
+    const val X_DAPANDA_LANGUAGE = "X-Dapanda-Language"
+    const val X_DAPANDA_TIMEZONE = "X-Dapanda-Timezone"
+    const val X_DAPANDA_CURRENCY = "X-Dapanda-Currency"
+    const val X_DAPANDA_ELAPSED_TIME = "X-Dapanda-Elapsed-Time"
+
+    /**
      * 成功 HTTP レスポンス処理結果コード
      */
     private const val RESPONSE_RESULT_CODE_SUCCESS = 10

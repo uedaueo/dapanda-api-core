@@ -1,14 +1,10 @@
 package dapanda.api.sample.application
 
-import blanco.restgenerator.valueobject.*
-import dapanda.api.common.application.ApiBase
+import blanco.restgenerator.valueobject.HttpCommonRequest
 import dapanda.api.common.application.ApiBasePlain
-import dapanda.api.common.domain.CommonConstants
-import dapanda.api.common.domain.model.common.Utilities
 import dapanda.api.common.domain.model.http.CommonHttpResponseFactory
-import dapanda.api.common.domain.model.http.IApiBase
+import dapanda.api.common.domain.model.http.CommonHttpResponsePlainFactory
 import dapanda.api.common.domain.model.http.IApiBasePlain
-import dapanda.api.common.domain.model.http.getStartTime
 import dapanda.api.sample.blanco.*
 import io.micronaut.http.HttpResponse
 import jakarta.inject.Singleton
@@ -23,8 +19,8 @@ class SampleMethodTestManagement(
         var responseLocale = blanco.restgenerator.valueobject.Locale()
         val responseTelegram = SampleMethodTestGetResponse()
 
-        return CommonHttpResponseFactory.create(
-            responseTelegram
+        return CommonHttpResponsePlainFactory.create(
+            responseTelegram, httpCommonRequest
         )
     }
 
@@ -32,8 +28,8 @@ class SampleMethodTestManagement(
         var responseLocale = blanco.restgenerator.valueobject.Locale()
         val responseTelegram = SampleMethodTestPostResponse()
 
-        return CommonHttpResponseFactory.create(
-            responseTelegram
+        return CommonHttpResponsePlainFactory.create(
+            responseTelegram, httpCommonRequest
         )
     }
 
@@ -41,8 +37,8 @@ class SampleMethodTestManagement(
 
         val responseTelegram = SampleMethodTestPutResponse()
 
-        return CommonHttpResponseFactory.create(
-            responseTelegram
+        return CommonHttpResponsePlainFactory.create(
+            responseTelegram, httpCommonRequest
         )
     }
 
@@ -51,8 +47,8 @@ class SampleMethodTestManagement(
         var responseLocale = blanco.restgenerator.valueobject.Locale()
         val responseTelegram = SampleMethodTestDeleteResponse()
 
-        return CommonHttpResponseFactory.create(
-            responseTelegram
+        return CommonHttpResponsePlainFactory.create(
+            responseTelegram, httpCommonRequest
         )
     }
 }

@@ -1,6 +1,11 @@
 package dapanda.api.common.domain.model.http
 
-import blanco.restgenerator.valueobject.*
+import blanco.restgenerator.valueobject.ApiTelegram
+import blanco.restgenerator.valueobject.HttpCommonRequest
+import blanco.restgenerator.valueobject.MessageItem
+import dapanda.api.common.domain.CommonConstants
+import dapanda.api.common.domain.model.common.Utilities
+import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MutableHttpResponse
@@ -9,16 +14,22 @@ import io.micronaut.http.MutableHttpResponse
  * レスポンスを生成します。
  */
 object CommonHttpResponsePlainFactory {
+
     /**
      * アプリケーションからは電文以外に返す物がない場合（正常終了時）
      * plain 電文スタイル時。
-     * 
+     *
      * @param telegram 返却予定電文
      */
-    fun <T : ApiTelegram> create(telegram: T): MutableHttpResponse<T> {
+    fun <T: ApiTelegram> create(response: T, request: HttpCommonRequest<*>): MutableHttpResponse<T> {
+        val blancoLocale = request.getRequestHeaderLocale()
+        val elapsed = Utilities.getMeasurementTime(request.getStartTime())
         return HttpResponse.ok(
-            telegram
-        )
+            response
+        ).header(CommonConstants.X_DAPANDA_LANGUAGE, blancoLocale.lang)
+            .header(CommonConstants.X_DAPANDA_TIMEZONE, blancoLocale.tz)
+            .header(CommonConstants.X_DAPANDA_CURRENCY, blancoLocale.currency)
+            .header(CommonConstants.X_DAPANDA_ELAPSED_TIME, elapsed.toString())
     }
 
     /**
@@ -32,13 +43,20 @@ object CommonHttpResponsePlainFactory {
     fun create(
         errorCode: String,
         message: String,
-        httpStatus: HttpStatus
+        httpStatus: HttpStatus,
+        request: HttpRequest<*>
     ): MutableHttpResponse<ArrayList<MessageItem>> {
         val errors: ArrayList<MessageItem> = ArrayList()
         errors.add(MessageItem(errorCode, message))
+        val blancoLocale = request.getRequestHeaderLocale()
+        val elapsed = Utilities.getMeasurementTime(request.getStartTime())
         return HttpResponse
             .status<ArrayList<MessageItem>>(httpStatus)
             .body(errors)
+            .header(CommonConstants.X_DAPANDA_LANGUAGE, blancoLocale.lang)
+            .header(CommonConstants.X_DAPANDA_TIMEZONE, blancoLocale.tz)
+            .header(CommonConstants.X_DAPANDA_CURRENCY, blancoLocale.currency)
+            .header(CommonConstants.X_DAPANDA_ELAPSED_TIME, elapsed.toString())
     }
 
     /**
@@ -51,11 +69,18 @@ object CommonHttpResponsePlainFactory {
      */
     fun create(
         errors: ArrayList<MessageItem>,
-        httpStatus: HttpStatus
+        httpStatus: HttpStatus,
+        request: HttpRequest<*>
     ): MutableHttpResponse<ArrayList<MessageItem>> {
+        val blancoLocale = request.getRequestHeaderLocale()
+        val elapsed = Utilities.getMeasurementTime(request.getStartTime())
         return HttpResponse
             .status<ArrayList<MessageItem>>(httpStatus)
             .body(errors)
+            .header(CommonConstants.X_DAPANDA_LANGUAGE, blancoLocale.lang)
+            .header(CommonConstants.X_DAPANDA_TIMEZONE, blancoLocale.tz)
+            .header(CommonConstants.X_DAPANDA_CURRENCY, blancoLocale.currency)
+            .header(CommonConstants.X_DAPANDA_ELAPSED_TIME, elapsed.toString())
     }
 
     /**
@@ -67,8 +92,15 @@ object CommonHttpResponsePlainFactory {
      */
     fun create(
         httpStatus: HttpStatus,
-        telegram: ApiTelegram
+        telegram: ApiTelegram,
+        request: HttpRequest<*>
     ): MutableHttpResponse<ApiTelegram> {
+        val blancoLocale = request.getRequestHeaderLocale()
+        val elapsed = Utilities.getMeasurementTime(request.getStartTime())
         return HttpResponse.status<ApiTelegram>(httpStatus).body(telegram)
+            .header(CommonConstants.X_DAPANDA_LANGUAGE, blancoLocale.lang)
+            .header(CommonConstants.X_DAPANDA_TIMEZONE, blancoLocale.tz)
+            .header(CommonConstants.X_DAPANDA_CURRENCY, blancoLocale.currency)
+            .header(CommonConstants.X_DAPANDA_ELAPSED_TIME, elapsed.toString())
     }
 }

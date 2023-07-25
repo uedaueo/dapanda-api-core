@@ -1,9 +1,7 @@
 package dapanda.api.common.domain.model.locale
 
 import blanco.restgenerator.valueobject.ApiTelegram
-import blanco.restgenerator.valueobject.CommonRequest
 import blanco.restgenerator.valueobject.HttpCommonRequest
-import blanco.restgenerator.valueobject.RequestHeader
 import com.fasterxml.jackson.databind.ObjectMapper
 import dapanda.api.common.domain.model.logging.LoggerDelegate
 import dapanda.api.common.domain.model.resourcebundle.CommonResourceBundleFactory
