@@ -15,6 +15,20 @@ import io.micronaut.http.MutableHttpResponse
  */
 object CommonHttpResponsePlainFactory {
 
+
+    fun <T: ApiTelegram> appendExposeHeaders(response: MutableHttpResponse<T>, additionalHeaders: String): MutableHttpResponse<T> {
+        var newHeaders = ""
+        response.headers.getFirst(CommonConstants.ACCESS_CONTROL_EXPOSE_HEADERS).let {
+            if (it.isPresent) {
+                newHeaders = it.get() + "," + additionalHeaders
+                response.headers.remove(CommonConstants.ACCESS_CONTROL_EXPOSE_HEADERS)
+            } else {
+                newHeaders = additionalHeaders
+            }
+        }
+        return response.header(CommonConstants.ACCESS_CONTROL_EXPOSE_HEADERS, newHeaders)
+    }
+
     /**
      * アプリケーションからは電文以外に返す物がない場合（正常終了時）
      * plain 電文スタイル時。
