@@ -30,6 +30,7 @@ object CommonHttpResponsePlainFactory {
             .header(CommonConstants.X_DAPANDA_TIMEZONE, blancoLocale.tz)
             .header(CommonConstants.X_DAPANDA_CURRENCY, blancoLocale.currency)
             .header(CommonConstants.X_DAPANDA_ELAPSED_TIME, elapsed.toString())
+            .header(CommonConstants.ACCESS_CONTROL_EXPOSE_HEADERS, CommonConstants.DEFAULT_EXPOSE_HEADERS)
     }
 
     /**
@@ -57,6 +58,7 @@ object CommonHttpResponsePlainFactory {
             .header(CommonConstants.X_DAPANDA_TIMEZONE, blancoLocale.tz)
             .header(CommonConstants.X_DAPANDA_CURRENCY, blancoLocale.currency)
             .header(CommonConstants.X_DAPANDA_ELAPSED_TIME, elapsed.toString())
+            .header(CommonConstants.ACCESS_CONTROL_EXPOSE_HEADERS, CommonConstants.DEFAULT_EXPOSE_HEADERS)
     }
 
     /**
@@ -81,6 +83,7 @@ object CommonHttpResponsePlainFactory {
             .header(CommonConstants.X_DAPANDA_TIMEZONE, blancoLocale.tz)
             .header(CommonConstants.X_DAPANDA_CURRENCY, blancoLocale.currency)
             .header(CommonConstants.X_DAPANDA_ELAPSED_TIME, elapsed.toString())
+            .header(CommonConstants.ACCESS_CONTROL_EXPOSE_HEADERS, CommonConstants.DEFAULT_EXPOSE_HEADERS)
     }
 
     /**
@@ -102,5 +105,6 @@ object CommonHttpResponsePlainFactory {
             .header(CommonConstants.X_DAPANDA_TIMEZONE, blancoLocale.tz)
             .header(CommonConstants.X_DAPANDA_CURRENCY, blancoLocale.currency)
             .header(CommonConstants.X_DAPANDA_ELAPSED_TIME, elapsed.toString())
+            .header(CommonConstants.ACCESS_CONTROL_EXPOSE_HEADERS, CommonConstants.DEFAULT_EXPOSE_HEADERS)
     }
 }

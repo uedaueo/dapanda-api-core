@@ -34,6 +34,8 @@ object CommonConstants {
     const val X_DAPANDA_TIMEZONE = "X-Dapanda-Timezone"
     const val X_DAPANDA_CURRENCY = "X-Dapanda-Currency"
     const val X_DAPANDA_ELAPSED_TIME = "X-Dapanda-Elapsed-Time"
+    const val ACCESS_CONTROL_EXPOSE_HEADERS = "Access-Control-Expose-Headers"
+    const val DEFAULT_EXPOSE_HEADERS = "X-Dapanda-Language,X-Dapanda-Timezone,X-Dapanda-Currency,X-Dapanda-Elapsed-Time"
 
     /**
      * 成功 HTTP レスポンス処理結果コード
