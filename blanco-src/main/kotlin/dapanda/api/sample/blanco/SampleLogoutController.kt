@@ -28,14 +28,17 @@ constructor(
   @Put
   fun doPut(
       argHttpRequest: HttpRequest<SampleLogoutPutRequest>,
-      @Body argRequestBean: SampleLogoutPutRequest
+      @Body argRequestBean: SampleLogoutPutRequestBody
   ): HttpResponse<SampleLogoutPutResponse> {
+    val requestBean =
+        dapanda.api.sample.blanco.SampleLogoutPutRequest(userId = argRequestBean.userId)
+
     val httpCommonRequest =
         HttpCommonRequest<dapanda.api.sample.blanco.SampleLogoutPutRequest>(
             argHttpRequest, false, listOf(), null)
 
     /* Stores the RequestBean with its type determined */
-    httpCommonRequest.commonRequest = argRequestBean
+    httpCommonRequest.commonRequest = requestBean
 
     /* Performs preprocessing (validation, etc.) */
     sampleLogoutManagement.prepare(httpCommonRequest)

@@ -3,16 +3,16 @@
  */
 package dapanda.api.sample.blanco
 
-import blanco.restgenerator.valueobject.ApiGetTelegram
+import blanco.restgenerator.valueobject.ApiPostTelegram
 import io.micronaut.core.annotation.Introspected
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Pattern
 import javax.validation.constraints.Size
 
-/** GETメソッドの要求電文 */
+/** ログインAPIの要求電文 */
 @Introspected
-data class SampleMethodTestGetRequest
+data class SampleLoginPostRequestBody
 constructor(
     /**
      * ユーザーID
@@ -31,5 +31,5 @@ constructor(
         regexp =
             "^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])|(?=.*[a-z])(?=.*[A-Z])(?=.*[@%\\+\\/\\\'!#\\$\\^\\?:\\.\\(\\)\\{\\}\\[\\]~\\-_])|(?=.*[a-z])(?=.*[0-9])(?=.*[@%\\+\\/\\\'!#\\$\\^\\?:\\.\\(\\)\\{\\}\\[\\]~\\-_])|(?=.*[A-Z])(?=.*[0-9])(?=.*[@%\\+\\/\\\'!#\\$\\^\\?:\\.\\(\\)\\{\\}\\[\\]~\\-_]))[a-zA-Z0-9@%\\+\\/\\\'!#\\$\\^\\?:\\.\\(\\)\\{\\}\\[\\]~\\-_]{8,20}$")
     @field:NotNull
-    var password: String? = ""
-) : ApiGetTelegram()
+    var password: String = ""
+) : ApiPostTelegram()

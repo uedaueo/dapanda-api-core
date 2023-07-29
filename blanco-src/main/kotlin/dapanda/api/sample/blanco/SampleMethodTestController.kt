@@ -11,6 +11,7 @@ import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Delete
 import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Put
 import io.micronaut.http.annotation.QueryValue
@@ -31,15 +32,15 @@ constructor(
    * @param argPassword パスワード
    * @return validation済みのレスポンス情報です
    */
-  @Get("{?userId,password}")
+  @Get("/{userId}{?password}")
   fun doGet(
       argHttpRequest: HttpRequest<SampleMethodTestGetRequest>,
-      @QueryValue("userId") argUserId: Optional<String>,
+      @PathVariable("userId") argUserId: String,
       @QueryValue("password") argPassword: Optional<String>
   ): HttpResponse<SampleMethodTestGetResponse> {
     val requestBean =
         dapanda.api.sample.blanco.SampleMethodTestGetRequest(
-            userId = if (argUserId.isPresent == true) argUserId.get() else "",
+            userId = argUserId,
             password = if (argPassword.isPresent == true) argPassword.get() else "")
 
     val httpCommonRequest =
@@ -65,20 +66,26 @@ constructor(
    * APIベースクラスから呼ばれる実行メソッドです
    *
    * @param argHttpRequest validation前のリクエスト情報です
+   * @param argUserId ユーザーID
    * @param argRequestBean bean that body json is binded to
    * @return validation済みのレスポンス情報です
    */
-  @Post
+  @Post("/{userId}")
   fun doPost(
       argHttpRequest: HttpRequest<SampleMethodTestPostRequest>,
-      @Body argRequestBean: SampleMethodTestPostRequest
+      @PathVariable("userId") argUserId: String,
+      @Body argRequestBean: SampleMethodTestPostRequestBody
   ): HttpResponse<SampleMethodTestPostResponse> {
+    val requestBean =
+        dapanda.api.sample.blanco.SampleMethodTestPostRequest(
+            userId = argUserId, password = argRequestBean.password)
+
     val httpCommonRequest =
         HttpCommonRequest<dapanda.api.sample.blanco.SampleMethodTestPostRequest>(
             argHttpRequest, true, listOf(), null)
 
     /* Stores the RequestBean with its type determined */
-    httpCommonRequest.commonRequest = argRequestBean
+    httpCommonRequest.commonRequest = requestBean
 
     /* Performs preprocessing (validation, etc.) */
     sampleMethodTestManagement.prepare(httpCommonRequest)
@@ -96,20 +103,27 @@ constructor(
    * APIベースクラスから呼ばれる実行メソッドです
    *
    * @param argHttpRequest validation前のリクエスト情報です
-   * @param argRequestBean bean that body json is binded to
+   * @param argUserId ユーザーID
+   * @param argPassword パスワード
    * @return validation済みのレスポンス情報です
    */
-  @Put
+  @Put("/{userId}{?password}")
   fun doPut(
       argHttpRequest: HttpRequest<SampleMethodTestPutRequest>,
-      @Body argRequestBean: SampleMethodTestPutRequest
+      @PathVariable("userId") argUserId: String,
+      @QueryValue("password") argPassword: Optional<String>
   ): HttpResponse<SampleMethodTestPutResponse> {
+    val requestBean =
+        dapanda.api.sample.blanco.SampleMethodTestPutRequest(
+            userId = argUserId,
+            password = if (argPassword.isPresent == true) argPassword.get() else "")
+
     val httpCommonRequest =
         HttpCommonRequest<dapanda.api.sample.blanco.SampleMethodTestPutRequest>(
             argHttpRequest, true, listOf(), null)
 
     /* Stores the RequestBean with its type determined */
-    httpCommonRequest.commonRequest = argRequestBean
+    httpCommonRequest.commonRequest = requestBean
 
     /* Performs preprocessing (validation, etc.) */
     sampleMethodTestManagement.prepare(httpCommonRequest)

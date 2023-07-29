@@ -28,14 +28,18 @@ constructor(
   @Post
   fun doPost(
       argHttpRequest: HttpRequest<SampleLoginPostRequest>,
-      @Body argRequestBean: SampleLoginPostRequest
+      @Body argRequestBean: SampleLoginPostRequestBody
   ): HttpResponse<SampleLoginPostResponse> {
+    val requestBean =
+        dapanda.api.sample.blanco.SampleLoginPostRequest(
+            userId = argRequestBean.userId, password = argRequestBean.password)
+
     val httpCommonRequest =
         HttpCommonRequest<dapanda.api.sample.blanco.SampleLoginPostRequest>(
             argHttpRequest, true, listOf(), null)
 
     /* Stores the RequestBean with its type determined */
-    httpCommonRequest.commonRequest = argRequestBean
+    httpCommonRequest.commonRequest = requestBean
 
     /* Performs preprocessing (validation, etc.) */
     sampleLoginManagement.prepare(httpCommonRequest)
