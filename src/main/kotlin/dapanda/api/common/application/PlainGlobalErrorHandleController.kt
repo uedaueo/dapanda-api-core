@@ -7,7 +7,7 @@ import dapanda.api.common.domain.model.exceptions.ApiRuntimeException
 import dapanda.api.common.domain.model.exceptions.ApiRuntimeExceptionPlain
 import dapanda.api.common.domain.model.exceptions.ApiSpoilException
 import dapanda.api.common.domain.model.exceptions.DapandaApiRuntimeException
-import dapanda.api.common.domain.model.http.CommonHttpResponsePlainFactory
+import dapanda.api.common.domain.model.http.PlainHttpResponseFactory
 import dapanda.api.common.domain.model.http.getRequestHeaderLocale
 import dapanda.api.common.domain.model.http.getStartTime
 import dapanda.api.common.domain.model.logging.LoggerDelegate
@@ -29,7 +29,7 @@ import java.net.URISyntaxException
     Requires(property = "globalErrorHandler.enabled", value = StringUtils.TRUE)
 )
 @Controller
-class GlobalErrorHandlePlainController(
+class PlainGlobalErrorHandleController(
     private val bundleFactory: CommonResourceBundleFactory
 ) {
     companion object {
@@ -57,22 +57,17 @@ class GlobalErrorHandlePlainController(
                 log.info("Accept ヘッダが設定されていません。$request")
             }
             // response を生成
-            val info = ResponseHeader(
-                locale = locale,
-                time = Utilities.getMeasurementTime(request.getStartTime()),
-                result = e.result.name
-            )
-            CommonHttpResponsePlainFactory.create(
-                errorCode = e.errorCode,
-                message = e.resultMessage,
+            val errorTelegram = ErrorTelegram(e.errorCode, e.resultMessage)
+            PlainHttpResponseFactory.create(
                 httpStatus = e.httpStatus,
+                telegram = errorTelegram,
                 request = request
             )
         } else if (e is ApiRuntimeExceptionPlain) {
             // API 例外
             log.error(e.message, e)
 
-            CommonHttpResponsePlainFactory.create(
+            PlainHttpResponseFactory.create(
                 httpStatus = e.httpStatus,
                 telegram = e.telegram,
                 request = request
@@ -88,29 +83,47 @@ class GlobalErrorHandlePlainController(
                 log.info("Accept ヘッダが設定されていません。$request")
             }
 
+            val messageBuffer = StringBuffer()
+            var code: String? = ""
+            var message: String? = ""
+            var i = 0
+            for (error in e.errors) {
+                if (i != 0) {
+                    messageBuffer.append(message)
+                    message = "," + error.message
+                } else {
+                    code = error.code
+                    message = error.message
+                }
+                i++
+            }
+            if (message != null && !message.isEmpty()) {
+                messageBuffer.append(message)
+            }
+            val errorTelegram = ErrorTelegram(code, message)
             // response を生成
-            CommonHttpResponsePlainFactory.create(
-                errors = e.errors,
+            PlainHttpResponseFactory.create(
                 httpStatus = e.httpStatus,
+                telegram = errorTelegram,
                 request = request
             )
         } else if (e is ApiSpoilException) {
             // response を生成
             val metaInfo = ApiResponseMetaInfoConstants.META90007
-            CommonHttpResponsePlainFactory.create(
-                errorCode = metaInfo.errorCode,
-                message = bundleFactory.getApiResultMessage().arm90007,
+            val errorTelegram = ErrorTelegram(metaInfo.errorCode, metaInfo.message)
+            PlainHttpResponseFactory.create(
                 httpStatus = metaInfo.httpStatus,
+                telegram = errorTelegram,
                 request = request
             )
         } else if (e is RuntimeException || e is URISyntaxException) {
             log.error(e.message, e)
             val metaInfo = ApiResponseMetaInfoConstants.META99999
             // response を生成
-            CommonHttpResponsePlainFactory.create(
-                errorCode = metaInfo.errorCode,
-                message = metaInfo.message,
+            val errorTelegram = ErrorTelegram(metaInfo.errorCode, metaInfo.message)
+            PlainHttpResponseFactory.create(
                 httpStatus = metaInfo.httpStatus,
+                telegram = errorTelegram,
                 request = request
             )
         }  else {
@@ -119,3 +132,4 @@ class GlobalErrorHandlePlainController(
         }
     }
 }
+    

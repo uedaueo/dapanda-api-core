@@ -13,7 +13,7 @@ import io.micronaut.http.MutableHttpResponse
 /**
  * レスポンスを生成します。
  */
-object CommonHttpResponsePlainFactory {
+object PlainHttpResponseFactory {
 
 
     fun <T: ApiTelegram> appendExposeHeaders(response: MutableHttpResponse<T>, additionalHeaders: String): MutableHttpResponse<T> {

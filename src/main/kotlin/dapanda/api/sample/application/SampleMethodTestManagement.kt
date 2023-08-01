@@ -2,8 +2,7 @@ package dapanda.api.sample.application
 
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import dapanda.api.common.application.ApiBasePlain
-import dapanda.api.common.domain.model.http.CommonHttpResponseFactory
-import dapanda.api.common.domain.model.http.CommonHttpResponsePlainFactory
+import dapanda.api.common.domain.model.http.PlainHttpResponseFactory
 import dapanda.api.common.domain.model.http.IApiBasePlain
 import dapanda.api.sample.blanco.*
 import io.micronaut.http.HttpResponse
@@ -19,7 +18,7 @@ class SampleMethodTestManagement(
         var responseLocale = blanco.restgenerator.valueobject.Locale()
         val responseTelegram = SampleMethodTestGetResponse()
 
-        return CommonHttpResponsePlainFactory.create(
+        return PlainHttpResponseFactory.create(
             responseTelegram, httpCommonRequest
         )
     }
@@ -28,7 +27,7 @@ class SampleMethodTestManagement(
         var responseLocale = blanco.restgenerator.valueobject.Locale()
         val responseTelegram = SampleMethodTestPostResponse()
 
-        return CommonHttpResponsePlainFactory.create(
+        return PlainHttpResponseFactory.create(
             responseTelegram, httpCommonRequest
         )
     }
@@ -37,7 +36,7 @@ class SampleMethodTestManagement(
 
         val responseTelegram = SampleMethodTestPutResponse()
 
-        return CommonHttpResponsePlainFactory.create(
+        return PlainHttpResponseFactory.create(
             responseTelegram, httpCommonRequest
         )
     }
@@ -47,7 +46,7 @@ class SampleMethodTestManagement(
         var responseLocale = blanco.restgenerator.valueobject.Locale()
         val responseTelegram = SampleMethodTestDeleteResponse()
 
-        return CommonHttpResponsePlainFactory.create(
+        return PlainHttpResponseFactory.create(
             responseTelegram, httpCommonRequest
         )
     }
