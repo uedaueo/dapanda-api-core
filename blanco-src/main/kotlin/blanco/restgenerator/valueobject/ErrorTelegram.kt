@@ -1,6 +1,9 @@
 package blanco.restgenerator.valueobject
 
+import io.micronaut.core.annotation.Introspected
+
 /** APIが返すエラーを定義します */
+@Introspected
 data class ErrorTelegram
 constructor(
     /**
