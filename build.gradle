@@ -149,7 +149,6 @@ dependencies {
     runtimeOnly('ch.qos.logback:logback-classic:1.4.7')
 
     compileOnly('org.graalvm.nativeimage:svm')
-    runtimeOnly('com.fasterxml.jackson.module:jackson-module-kotlin')
     implementation group: 'commons-logging', name: 'commons-logging', version: '1.2'
 
     blancoDb "mysql:mysql-connector-java:${mysqlJdbcVersion}"
@@ -179,6 +178,15 @@ dependencies {
     testImplementation "io.kotest:kotest-runner-junit5-jvm"
     // Kotlin Coroutine テストユーティリティ
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineVersion"
+
+    /* api コマンドで依存関係を参照先に伝播させる */
+    api('com.fasterxml.jackson.module:jackson-module-kotlin')
+    // インスタンス生成時に引数ありコンストラクタを利用するためのモジュール
+    api('com.fasterxml.jackson.module:jackson-module-parameter-names')
+    // java.time.ZonedDateTime をサポートするためのモジュール
+    api('com.fasterxml.jackson.datatype:jackson-datatype-jsr310')
+    // serialize 形式を制御するためのモジュール
+    api('io.micronaut.serde:micronaut-serde-jackson')
 }
 
 application {
