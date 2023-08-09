@@ -4,6 +4,8 @@ import blanco.restgenerator.valueobject.HttpCommonRequest
 import dapanda.api.common.application.ApiBasePlain
 import dapanda.api.common.domain.model.http.PlainHttpResponseFactory
 import dapanda.api.common.domain.model.http.IApiBasePlain
+import dapanda.api.common.domain.model.logging.LoggerDelegate
+import dapanda.api.common.domain.model.random.IDapandaRandomFactory
 import dapanda.api.sample.blanco.*
 import io.micronaut.http.HttpResponse
 import jakarta.inject.Singleton
@@ -11,9 +13,17 @@ import jakarta.inject.Singleton
 @Singleton
 class SampleMethodTestManagement(
     private val apiBasePlain: ApiBasePlain,
-    ) : IApiBasePlain by apiBasePlain {
+    private val randomFactory: IDapandaRandomFactory
+) : IApiBasePlain by apiBasePlain {
+
+    companion object {
+        private val log by LoggerDelegate()
+    }
 
     fun doGet(httpCommonRequest: HttpCommonRequest<SampleMethodTestGetRequest>): HttpResponse<SampleMethodTestGetResponse> {
+
+        val rand = randomFactory.getSecureRandom()
+        log.debug("%%% rand = " + rand.algorithm)
 
         var responseLocale = blanco.restgenerator.valueobject.Locale()
         val responseTelegram = SampleMethodTestGetResponse()

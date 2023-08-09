@@ -4,7 +4,6 @@ import blanco.restgenerator.valueobject.CommonRequest
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.RequestHeader
 import dapanda.api.common.application.privilege.DefaultPrivilege
-import dapanda.api.common.domain.model.logging.LoggerDelegate
 import dapanda.api.sample.blanco.SampleLoginPostRequest
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe

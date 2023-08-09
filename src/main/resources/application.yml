@@ -106,3 +106,7 @@ spoil:
 plain-telegram:
   # プレーンテレグラムかどうか
   enabled: true
+
+dapanda:
+  random:
+    algorithm: ${secure.random.algorithm:`NativePRNGNonBlocking`}

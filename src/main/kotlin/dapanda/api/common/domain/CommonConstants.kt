@@ -70,4 +70,8 @@ object CommonConstants {
             gen.writeNumber(code)
         }
     }
+
+    const val RANDOM_ALGORITHM_NATIVE_PRNG = "NativePRNG"
+    const val RANDOM_ALGORITHM_NATIVE_PRNG_BLOCKING = "NativePRNGBlocking"
+    const val RANDOM_ALGORITHM_NATIVE_PRNG_NON_BLOCKING = "NativePRNGNonBlocking"
 }

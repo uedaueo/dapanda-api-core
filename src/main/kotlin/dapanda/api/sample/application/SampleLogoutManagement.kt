@@ -5,6 +5,7 @@ import dapanda.api.common.application.ApiBase
 import dapanda.api.common.application.ApiBasePlain
 import dapanda.api.common.domain.model.http.IApiBase
 import dapanda.api.common.domain.model.http.IApiBasePlain
+import dapanda.api.common.domain.model.random.IDapandaRandomFactory
 import dapanda.api.sample.blanco.SampleLogoutPutRequest
 import dapanda.api.sample.blanco.SampleLogoutPutResponse
 import dapanda.api.sample.domain.login.ISampleLoginRepository
