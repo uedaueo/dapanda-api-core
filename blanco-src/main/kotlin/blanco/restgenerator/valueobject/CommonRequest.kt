@@ -1,10 +1,12 @@
 package blanco.restgenerator.valueobject
 
 import io.micronaut.core.annotation.Introspected
+import io.micronaut.serde.annotation.Serdeable
 import javax.validation.Valid
 
 /** 共通リクエストを表すオブジェクトです。 */
 @Introspected
+@Serdeable
 data class CommonRequest<S : RequestHeader, T : ApiTelegram>
 constructor(
     /**

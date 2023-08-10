@@ -5,6 +5,7 @@ package dapanda.api.sample.blanco
 
 import blanco.restgenerator.valueobject.ApiGetTelegram
 import io.micronaut.core.annotation.Introspected
+import io.micronaut.serde.annotation.Serdeable
 
 /** ユーザー登録APIの要求電文 */
-@Introspected class SampleGetNoQueryGetRequest : ApiGetTelegram()
+@Introspected @Serdeable class SampleGetNoQueryGetRequest : ApiGetTelegram()

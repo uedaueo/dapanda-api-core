@@ -1,8 +1,10 @@
 package blanco.restgenerator.valueobject
 
+import io.micronaut.serde.annotation.Serdeable
 import javax.validation.Valid
 
 /** 共通レスポンスを表すオブジェクトです。 */
+@Serdeable
 data class CommonResponse<S : ResponseHeader, T : ApiTelegram>
 constructor(
     /**

@@ -5,6 +5,7 @@ package dapanda.api.sample.blanco
 
 import blanco.restgenerator.valueobject.ApiPostTelegram
 import io.micronaut.core.annotation.Introspected
+import io.micronaut.serde.annotation.Serdeable
 
 /** ユーザー登録APIの応答電文 */
-@Introspected class SampleRegisterPostResponse : ApiPostTelegram()
+@Introspected @Serdeable class SampleRegisterPostResponse : ApiPostTelegram()

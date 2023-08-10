@@ -1,6 +1,9 @@
 package blanco.restgenerator.valueobject
 
+import io.micronaut.serde.annotation.Serdeable
+
 /** ロケール情報 */
+@Serdeable
 data class Locale
 constructor(
     /**

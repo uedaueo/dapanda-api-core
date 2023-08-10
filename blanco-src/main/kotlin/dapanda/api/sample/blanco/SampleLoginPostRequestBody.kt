@@ -5,6 +5,7 @@ package dapanda.api.sample.blanco
 
 import blanco.restgenerator.valueobject.ApiPostTelegram
 import io.micronaut.core.annotation.Introspected
+import io.micronaut.serde.annotation.Serdeable
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Pattern
@@ -12,6 +13,7 @@ import javax.validation.constraints.Size
 
 /** ログインAPIの要求電文 */
 @Introspected
+@Serdeable
 data class SampleLoginPostRequestBody
 constructor(
     /**

@@ -1,8 +1,10 @@
 package blanco.restgenerator.valueobject
 
+import io.micronaut.serde.annotation.Serdeable
 import javax.validation.Valid
 
 /** APIが返すレスポンスのヘッダを表す型です */
+@Serdeable
 data class ResponseHeader
 constructor(
     /**

@@ -107,8 +107,8 @@ run {
 }
 
 configurations {
-    blancoDb
-    blancoFramework
+    blancoDb.extendsFrom api
+    blancoFramework.extendsFrom api
 }
 
 dependencies {
@@ -454,7 +454,8 @@ task blancoRestGeneratorKt {
                     // Describe the end of the package name of the value object
                     voPackageSuffix: "blanco",
                     // NO CommonRequest and CommonResponse styel.
-                    telegramStyle: "plain"
+                    telegramStyle: "plain",
+                    serdeable: true
             )
         }
     }
@@ -504,6 +505,7 @@ task generateTelegrams {
                     lineSeparator: "LF",
                     // パッケージ名の末尾に追加する名称
                     packageSuffix: "",
+                    serdeable: true,
                     // 詳細ログを出力する
                     verbose: true
             )
@@ -538,6 +540,7 @@ task generateTelegrams {
                     lineSeparator: "LF",
                     // パッケージ名の末尾に追加する名称
                     packageSuffix: "",
+                    serdeable: true,
                     // 詳細ログを出力する
                     verbose: true
             )

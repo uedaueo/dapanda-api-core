@@ -5,6 +5,7 @@ package dapanda.api.sample.blanco
 
 import blanco.restgenerator.valueobject.ApiPutTelegram
 import io.micronaut.core.annotation.Introspected
+import io.micronaut.serde.annotation.Serdeable
 
 /** ログアウトAPIの応答電文 */
-@Introspected class SampleLogoutPutResponse : ApiPutTelegram()
+@Introspected @Serdeable class SampleLogoutPutResponse : ApiPutTelegram()

@@ -5,6 +5,7 @@ package dapanda.api.sample.blanco
 
 import blanco.restgenerator.valueobject.ApiPutTelegram
 import io.micronaut.core.annotation.Introspected
+import io.micronaut.serde.annotation.Serdeable
 
 /** PUTメソッドの応答電文 */
-@Introspected class SampleMethodTestPutResponse : ApiPutTelegram()
+@Introspected @Serdeable class SampleMethodTestPutResponse : ApiPutTelegram()

@@ -5,6 +5,7 @@ package dapanda.api.sample.blanco
 
 import blanco.restgenerator.valueobject.ApiDeleteTelegram
 import io.micronaut.core.annotation.Introspected
+import io.micronaut.serde.annotation.Serdeable
 
 /** DELETEメソッドの応答電文 */
-@Introspected class SampleMethodTestDeleteResponse : ApiDeleteTelegram()
+@Introspected @Serdeable class SampleMethodTestDeleteResponse : ApiDeleteTelegram()

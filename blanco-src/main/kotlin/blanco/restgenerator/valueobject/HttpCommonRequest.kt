@@ -2,11 +2,13 @@ package blanco.restgenerator.valueobject
 
 import io.micronaut.core.annotation.Introspected
 import io.micronaut.http.HttpRequest
+import io.micronaut.serde.annotation.Serdeable
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
 /** 共通リクエストを表すオブジェクトです。 */
 @Introspected
+@Serdeable
 data class HttpCommonRequest<T>
 constructor(
     /**
