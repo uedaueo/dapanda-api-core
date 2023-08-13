@@ -1,5 +1,6 @@
 package blanco.restgenerator.valueobject
 
+import io.micronaut.core.annotation.Nullable
 import io.micronaut.serde.annotation.Serdeable
 import javax.validation.Valid
 
@@ -12,17 +13,17 @@ constructor(
      *
      * フィールド: [info]。 デフォルト: [null]。
      */
-    @field:Valid var info: S? = null,
+    @field:Valid @Nullable var info: S? = null,
     /**
      * API毎の応答電文, ApiTelegramを継承してAPI毎に独自の型を指定
      *
      * フィールド: [telegram]。 デフォルト: [null]。
      */
-    var telegram: T? = null,
+    @Nullable var telegram: T? = null,
     /**
      * メッセージ・エラー情報
      *
      * フィールド: [messages]。 デフォルト: [ArrayList&lt;MessageItem&gt;()]。
      */
-    var messages: ArrayList<MessageItem>? = ArrayList<MessageItem>()
+    @Nullable var messages: ArrayList<MessageItem>? = ArrayList<MessageItem>()
 )

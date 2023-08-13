@@ -34,7 +34,7 @@ apply from: "local.gradle"
 repositories {
     mavenLocal()
     maven {
-        url 'https://raw.github.com/uedaueo/blancofw-maven2/gh-pages-v3/'
+        url "${blancofwMavenRepository}"
     }
     mavenCentral()
 }
@@ -107,8 +107,8 @@ run {
 }
 
 configurations {
-    blancoDb.extendsFrom api
-    blancoFramework.extendsFrom api
+    blancoDb
+    blancoFramework
 }
 
 dependencies {
@@ -455,7 +455,8 @@ task blancoRestGeneratorKt {
                     voPackageSuffix: "blanco",
                     // NO CommonRequest and CommonResponse styel.
                     telegramStyle: "plain",
-                    serdeable: true
+                    serdeable: true,
+                    nullableAnnotation: true
             )
         }
     }
@@ -506,6 +507,7 @@ task generateTelegrams {
                     // パッケージ名の末尾に追加する名称
                     packageSuffix: "",
                     serdeable: true,
+                    nullableAnnotation: true,
                     // 詳細ログを出力する
                     verbose: true
             )
@@ -541,6 +543,7 @@ task generateTelegrams {
                     // パッケージ名の末尾に追加する名称
                     packageSuffix: "",
                     serdeable: true,
+                    nullableAnnotation: true,
                     // 詳細ログを出力する
                     verbose: true
             )

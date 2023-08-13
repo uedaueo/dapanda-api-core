@@ -1,6 +1,7 @@
 package blanco.restgenerator.valueobject
 
 import io.micronaut.core.annotation.Introspected
+import io.micronaut.core.annotation.Nullable
 import io.micronaut.http.HttpRequest
 import io.micronaut.serde.annotation.Serdeable
 import javax.validation.Valid
@@ -16,30 +17,30 @@ constructor(
      *
      * フィールド: [delegate]。
      */
-    @NotNull @field:Valid val delegate: HttpRequest<T>,
+    @NotNull @field:Valid @Nullable val delegate: HttpRequest<T>,
     /**
      * 認証が不要なAPIであればtrue
      *
      * フィールド: [noAuthentication]。 デフォルト: [false]。
      */
-    val noAuthentication: Boolean = false,
+    @Nullable val noAuthentication: Boolean = false,
     /**
      * メタID情報（文字列）のリスト
      *
      * フィールド: [metaIdList]。
      */
-    @field:Valid val metaIdList: List<String>?,
+    @field:Valid @Nullable val metaIdList: List<String>?,
     /**
      * blancoRestGeneratorの独自のCommonRequest
      *
      * フィールド: [commonRequest]。
      */
-    @NotNull @field:Valid var commonRequest: T?
+    @NotNull @field:Valid @Nullable var commonRequest: T?
 ) : HttpRequest<T> by delegate {
   /**
    * IPアドレス認証等、補助的な認証も不要なAPIであればtrue
    *
    * フィールド: [noAuxiliaryAuthentication]。 デフォルト: [false]。
    */
-  var noAuxiliaryAuthentication: Boolean = false
+  @Nullable var noAuxiliaryAuthentication: Boolean = false
 }

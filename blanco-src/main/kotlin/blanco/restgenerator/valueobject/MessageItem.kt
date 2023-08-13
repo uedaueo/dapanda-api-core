@@ -1,5 +1,6 @@
 package blanco.restgenerator.valueobject
 
+import io.micronaut.core.annotation.Nullable
 import io.micronaut.serde.annotation.Serdeable
 
 /** APIが返すメッセージ（エラー他）を定義します */
@@ -11,11 +12,11 @@ constructor(
      *
      * フィールド: [code]。 デフォルト: [&quot;&quot;]。
      */
-    var code: String? = "",
+    @Nullable var code: String? = "",
     /**
      * エラーメッセージ
      *
      * フィールド: [message]。 デフォルト: [&quot;&quot;]。
      */
-    var message: String? = ""
+    @Nullable var message: String? = ""
 )
