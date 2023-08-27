@@ -24,14 +24,13 @@ constructor(
    * @return validation済みのレスポンス情報です
    */
   @Get
-  fun doGet(
-      argHttpRequest: HttpRequest<SampleGetNoQueryGetRequest>
-  ): HttpResponse<SampleGetNoQueryGetResponse> {
+  fun doGet(argHttpRequest: HttpRequest<*>): HttpResponse<SampleGetNoQueryGetResponse> {
     val requestBean = dapanda.api.sample.blanco.SampleGetNoQueryGetRequest()
 
-    val httpCommonRequest =
-        HttpCommonRequest<dapanda.api.sample.blanco.SampleGetNoQueryGetRequest>(
-            argHttpRequest, true, listOf(), null)
+    @Suppress("UNCHECKED_CAST")
+    val typedHttpRequest =
+        argHttpRequest as HttpRequest<dapanda.api.sample.blanco.SampleGetNoQueryGetRequest>
+    val httpCommonRequest = HttpCommonRequest(typedHttpRequest, true, listOf(), null)
 
     /* Stores the RequestBean with its type determined */
     httpCommonRequest.commonRequest = requestBean
