@@ -1,8 +1,6 @@
 package dapanda.api.common.domain.model.http
 
-import blanco.restgenerator.util.BlancoRestGeneratorKtRequestDeserializer
 import blanco.restgenerator.valueobject.*
-import dapanda.api.common.domain.model.authenticate.IAuthenticate
 import io.micronaut.http.HttpResponse
 
 /**
@@ -21,6 +19,14 @@ interface IApiBasePlain {
      */
     fun <T1 : ApiTelegram, T2 : ApiTelegram> finish(
         httpResponse: HttpResponse<T1>,
+        httpRequest: HttpCommonRequest<T2>
+    )
+
+    /**
+     * APIのリクエストパラメータの後処理を行います。（配列ペイロードを返す版）
+     */
+    fun <T1 : ApiTelegram, T2 : ApiTelegram> finishArray(
+        httpResponse: HttpResponse<List<T1>>,
         httpRequest: HttpCommonRequest<T2>
     )
 

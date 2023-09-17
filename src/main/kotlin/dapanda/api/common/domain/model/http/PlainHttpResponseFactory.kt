@@ -121,4 +121,48 @@ object PlainHttpResponseFactory {
             .header(CommonConstants.X_DAPANDA_ELAPSED_TIME, elapsed.toString())
             .header(CommonConstants.ACCESS_CONTROL_EXPOSE_HEADERS, CommonConstants.DEFAULT_EXPOSE_HEADERS)
     }
+
+    /*
+     * 応答がListの場合
+     */
+
+    /**
+     * アプリケーションからは電文以外に返す物がない場合（正常終了時）
+     * plain 電文スタイル時。
+     *
+     * @param telegram 返却予定電文
+     */
+    fun <T: ApiTelegram> create(response: List<T>, request: HttpCommonRequest<*>): MutableHttpResponse<List<T>> {
+        val blancoLocale = request.getRequestHeaderLocale()
+        val elapsed = Utilities.getMeasurementTime(request.getStartTime())
+        return HttpResponse.ok(
+            response
+        ).header(CommonConstants.X_DAPANDA_LANGUAGE, blancoLocale.lang)
+            .header(CommonConstants.X_DAPANDA_TIMEZONE, blancoLocale.tz)
+            .header(CommonConstants.X_DAPANDA_CURRENCY, blancoLocale.currency)
+            .header(CommonConstants.X_DAPANDA_ELAPSED_TIME, elapsed.toString())
+            .header(CommonConstants.ACCESS_CONTROL_EXPOSE_HEADERS, CommonConstants.DEFAULT_EXPOSE_HEADERS)
+    }
+
+    /**
+     * エラー時のHttpResponse を生成します。
+     * blanco固有のレスポンスを返さない場合に使います。
+     *
+     * @param httpStatus 返却ステータス
+     * @param telegram エラー電文
+     */
+    fun create(
+        httpStatus: HttpStatus,
+        telegram: List<ApiTelegram>,
+        request: HttpRequest<*>
+    ): MutableHttpResponse<List<ApiTelegram>> {
+        val blancoLocale = request.getRequestHeaderLocale()
+        val elapsed = Utilities.getMeasurementTime(request.getStartTime())
+        return HttpResponse.status<ApiTelegram>(httpStatus).body(telegram)
+            .header(CommonConstants.X_DAPANDA_LANGUAGE, blancoLocale.lang)
+            .header(CommonConstants.X_DAPANDA_TIMEZONE, blancoLocale.tz)
+            .header(CommonConstants.X_DAPANDA_CURRENCY, blancoLocale.currency)
+            .header(CommonConstants.X_DAPANDA_ELAPSED_TIME, elapsed.toString())
+            .header(CommonConstants.ACCESS_CONTROL_EXPOSE_HEADERS, CommonConstants.DEFAULT_EXPOSE_HEADERS)
+    }
 }

@@ -118,6 +118,12 @@ class ApiBasePlain(
     ) {
     }
 
+    override fun <T1 : ApiTelegram, T2 : ApiTelegram> finishArray(
+        httpResponse: HttpResponse<List<T1>>,
+        httpRequest: HttpCommonRequest<T2>
+    ) {
+    }
+
     override fun isSpoiled(method: String): Boolean {
         return false
     }
