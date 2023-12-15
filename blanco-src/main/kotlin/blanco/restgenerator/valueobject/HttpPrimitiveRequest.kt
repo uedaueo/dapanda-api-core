@@ -7,10 +7,10 @@ import io.micronaut.serde.annotation.Serdeable
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
-/** 共通リクエストを表すオブジェクトです。 */
+/** Body に Primitive を持つ場合の共通リクエストを表すオブジェクトです。 */
 @Introspected
 @Serdeable
-data class HttpCommonRequest<T>
+data class HttpPrimitiveRequest<T, B>
 constructor(
     /**
      * micronautが用意しているHttpRequest
@@ -35,7 +35,13 @@ constructor(
      *
      * フィールド: [commonRequest]。
      */
-    @NotNull @field:Valid @Nullable var commonRequest: T?
+    @NotNull @field:Valid @Nullable var commonRequest: T?,
+    /**
+     * body に載せられた Primitive またはその配列
+     *
+     * フィールド: [primitiveRequest]。
+     */
+    @field:Valid @Nullable var primitiveRequest: B?
 ) : HttpRequest<T> by delegate {
   /**
    * IPアドレス認証等、補助的な認証も不要なAPIであればtrue
