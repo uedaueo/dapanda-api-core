@@ -5,18 +5,23 @@ package dapanda.api.sample.blanco
 
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.HttpPrimitiveRequest
-import dapanda.api.sample.application.SamplePrimitivePayloadTestManagement
+import dapanda.api.sample.application.SamplePrimitiveArrayPayloadTestManagement
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
-import io.micronaut.http.annotation.*
+import io.micronaut.http.annotation.Body
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.PathVariable
+import io.micronaut.http.annotation.Post
+import io.micronaut.http.annotation.QueryValue
 import java.util.Optional
 
-/** primitivePayloadテスト用API&lt;br&gt; */
+/** primitiveArrayPayloadテスト用API&lt;br&gt; */
 @Controller("/sample_primitive")
-class SamplePrimitivePayloadTestController
+class SamplePrimitiveArrayPayloadTestController
 constructor(
-    /** The implementation class to be called by SamplePrimitivePayloadTestController. */
-    var samplePrimitivePayloadTestManagement: SamplePrimitivePayloadTestManagement
+    /** The implementation class to be called by SamplePrimitiveArrayPayloadTestController. */
+    var samplePrimitiveArrayPayloadTestManagement: SamplePrimitiveArrayPayloadTestManagement
 ) {
   /**
    * APIベースクラスから呼ばれる実行メソッドです
@@ -31,29 +36,29 @@ constructor(
       argHttpRequest: HttpRequest<*>,
       @PathVariable("userId") argUserId: String,
       @QueryValue("password") argPassword: Optional<String>
-  ): HttpResponse<String> {
+  ): HttpResponse<List<String>> {
     val requestBean =
-        dapanda.api.sample.blanco.SamplePrimitivePayloadTestGetRequest(
+        dapanda.api.sample.blanco.SamplePrimitiveArrayPayloadTestGetRequest(
             userId = argUserId,
             password = if (argPassword.isPresent == true) argPassword.get() else "")
 
     @Suppress("UNCHECKED_CAST")
     val typedHttpRequest =
         argHttpRequest
-            as HttpRequest<dapanda.api.sample.blanco.SamplePrimitivePayloadTestGetRequest>
+            as HttpRequest<dapanda.api.sample.blanco.SamplePrimitiveArrayPayloadTestGetRequest>
     val httpCommonRequest = HttpCommonRequest(typedHttpRequest, true, listOf(), null)
 
     /* Stores the RequestBean with its type determined */
     httpCommonRequest.commonRequest = requestBean
 
     /* Performs preprocessing (validation, etc.) */
-    samplePrimitivePayloadTestManagement.prepare(httpCommonRequest)
+    samplePrimitiveArrayPayloadTestManagement.prepare(httpCommonRequest)
 
     /* Passes HttpCommonRequest */
-    val httpResponse = samplePrimitivePayloadTestManagement.doGet(httpCommonRequest)
+    val httpResponse = samplePrimitiveArrayPayloadTestManagement.doGet(httpCommonRequest)
 
     /* Postprocessing */
-    samplePrimitivePayloadTestManagement.finishPrimitive(httpResponse, httpCommonRequest)
+    samplePrimitiveArrayPayloadTestManagement.finishPrimitiveArray(httpResponse, httpCommonRequest)
 
     return httpResponse
   }
@@ -71,16 +76,16 @@ constructor(
       argHttpRequest: HttpRequest<*>,
       @PathVariable("userId") argUserId: String,
       @PathVariable("password") argPassword: String,
-      @Body argRequestBody: String
-  ): HttpResponse<String> {
+      @Body argRequestBody: List<String>
+  ): HttpResponse<List<String>> {
     val requestBean =
-        dapanda.api.sample.blanco.SamplePrimitivePayloadTestPostRequest(
+        dapanda.api.sample.blanco.SamplePrimitiveArrayPayloadTestPostRequest(
             userId = argUserId, password = argPassword)
 
     @Suppress("UNCHECKED_CAST")
     val typedHttpRequest =
         argHttpRequest
-            as HttpRequest<dapanda.api.sample.blanco.SamplePrimitivePayloadTestPostRequest>
+            as HttpRequest<dapanda.api.sample.blanco.SamplePrimitiveArrayPayloadTestPostRequest>
     val httpCommonRequest = HttpCommonRequest(typedHttpRequest, true, listOf(), null)
     val httpPrimitiveRequest = HttpPrimitiveRequest(typedHttpRequest, true, listOf(), null, argRequestBody)
 
@@ -89,13 +94,13 @@ constructor(
     httpPrimitiveRequest.commonRequest = requestBean
 
     /* Performs preprocessing (validation, etc.) */
-    samplePrimitivePayloadTestManagement.prepare(httpCommonRequest)
+    samplePrimitiveArrayPayloadTestManagement.prepare(httpCommonRequest)
 
     /* Passes HttpCommonRequest */
-    val httpResponse = samplePrimitivePayloadTestManagement.doPost(httpPrimitiveRequest)
+    val httpResponse = samplePrimitiveArrayPayloadTestManagement.doPost(httpPrimitiveRequest)
 
     /* Postprocessing */
-    samplePrimitivePayloadTestManagement.finishPrimitive(httpResponse, httpPrimitiveRequest)
+    samplePrimitiveArrayPayloadTestManagement.finishPrimitiveArray(httpResponse, httpPrimitiveRequest)
 
     return httpResponse
   }

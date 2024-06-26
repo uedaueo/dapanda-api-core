@@ -5,14 +5,14 @@ package dapanda.api.sample.blanco.interfaces
 
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import blanco.restgenerator.valueobject.HttpPrimitiveRequest
-import dapanda.api.sample.blanco.SamplePrimitivePayloadTestGetRequest
-import dapanda.api.sample.blanco.SamplePrimitivePayloadTestGetResponse
-import dapanda.api.sample.blanco.SamplePrimitivePayloadTestPostRequest
-import dapanda.api.sample.blanco.SamplePrimitivePayloadTestPostResponse
+import dapanda.api.sample.blanco.SamplePrimitiveArrayPayloadTestGetRequest
+import dapanda.api.sample.blanco.SamplePrimitiveArrayPayloadTestGetResponse
+import dapanda.api.sample.blanco.SamplePrimitiveArrayPayloadTestPostRequest
+import dapanda.api.sample.blanco.SamplePrimitiveArrayPayloadTestPostResponse
 import io.micronaut.http.HttpResponse
 
-/** primitivePayloadテスト用API&lt;br&gt; */
-interface ISamplePrimitivePayloadTestManagement {
+/** primitiveArrayPayloadテスト用API&lt;br&gt; */
+interface ISamplePrimitiveArrayPayloadTestManagement {
   /**
    * APIベースクラスから呼ばれる実行メソッドです
    *
@@ -20,8 +20,8 @@ interface ISamplePrimitivePayloadTestManagement {
    * @return validation済みのレスポンス情報です
    */
   fun doGet(
-      httpRequest: HttpCommonRequest<SamplePrimitivePayloadTestGetRequest>
-  ): HttpResponse<String>
+      httpRequest: HttpCommonRequest<SamplePrimitiveArrayPayloadTestGetRequest>
+  ): HttpResponse<List<String>>
 
   /**
    * APIベースクラスから呼ばれる実行メソッドです
@@ -30,6 +30,6 @@ interface ISamplePrimitivePayloadTestManagement {
    * @return validation済みのレスポンス情報です
    */
   fun doPost(
-      httpRequest: HttpPrimitiveRequest<SamplePrimitivePayloadTestPostRequest, String>
-  ): HttpResponse<String>
+      httpRequest: HttpPrimitiveRequest<SamplePrimitiveArrayPayloadTestPostRequest, List<String>>
+  ): HttpResponse<List<String>>
 }

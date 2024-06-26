@@ -16,7 +16,7 @@ import io.micronaut.http.MutableHttpResponse
 object PlainHttpResponseFactory {
 
 
-    fun <T: ApiTelegram> appendExposeHeaders(response: MutableHttpResponse<T>, additionalHeaders: String): MutableHttpResponse<T> {
+    fun <T> appendExposeHeaders(response: MutableHttpResponse<T>, additionalHeaders: String): MutableHttpResponse<T> {
         var newHeaders = ""
         response.headers.getFirst(CommonConstants.ACCESS_CONTROL_EXPOSE_HEADERS).let {
             if (it.isPresent) {
@@ -35,7 +35,7 @@ object PlainHttpResponseFactory {
      *
      * @param telegram 返却予定電文
      */
-    fun <T: ApiTelegram> create(response: T, request: HttpCommonRequest<*>): MutableHttpResponse<T> {
+    fun <T> create(response: T, request: HttpRequest<*>): MutableHttpResponse<T> {
         val blancoLocale = request.getRequestHeaderLocale()
         val elapsed = Utilities.getMeasurementTime(request.getStartTime())
         return HttpResponse.ok(
@@ -107,14 +107,14 @@ object PlainHttpResponseFactory {
      * @param httpStatus 返却ステータス
      * @param telegram エラー電文
      */
-    fun create(
+    fun <T> create(
         httpStatus: HttpStatus,
-        telegram: ApiTelegram,
+        telegram: T,
         request: HttpRequest<*>
-    ): MutableHttpResponse<ApiTelegram> {
+    ): MutableHttpResponse<T> {
         val blancoLocale = request.getRequestHeaderLocale()
         val elapsed = Utilities.getMeasurementTime(request.getStartTime())
-        return HttpResponse.status<ApiTelegram>(httpStatus).body(telegram)
+        return HttpResponse.status<T>(httpStatus).body(telegram)
             .header(CommonConstants.X_DAPANDA_LANGUAGE, blancoLocale.lang)
             .header(CommonConstants.X_DAPANDA_TIMEZONE, blancoLocale.tz)
             .header(CommonConstants.X_DAPANDA_CURRENCY, blancoLocale.currency)
@@ -132,7 +132,7 @@ object PlainHttpResponseFactory {
      *
      * @param telegram 返却予定電文
      */
-    fun <T: ApiTelegram> create(response: List<T>, request: HttpCommonRequest<*>): MutableHttpResponse<List<T>> {
+    fun <T> create(response: List<T>, request: HttpCommonRequest<*>): MutableHttpResponse<List<T>> {
         val blancoLocale = request.getRequestHeaderLocale()
         val elapsed = Utilities.getMeasurementTime(request.getStartTime())
         return HttpResponse.ok(
@@ -151,11 +151,11 @@ object PlainHttpResponseFactory {
      * @param httpStatus 返却ステータス
      * @param telegram エラー電文
      */
-    fun create(
+    fun <T> create(
         httpStatus: HttpStatus,
-        telegram: List<ApiTelegram>,
+        telegram: List<T>,
         request: HttpRequest<*>
-    ): MutableHttpResponse<List<ApiTelegram>> {
+    ): MutableHttpResponse<List<T>> {
         val blancoLocale = request.getRequestHeaderLocale()
         val elapsed = Utilities.getMeasurementTime(request.getStartTime())
         return HttpResponse.status<ApiTelegram>(httpStatus).body(telegram)

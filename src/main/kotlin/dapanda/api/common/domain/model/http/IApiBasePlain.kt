@@ -31,6 +31,38 @@ interface IApiBasePlain {
     )
 
     /**
+     * APIのリクエストパラメータの後処理を行います。（Primitiveペイロードを返す版, GET/DELETE用）
+     */
+    fun <T1, T2 : ApiTelegram> finishPrimitive(
+        httpResponse: HttpResponse<T1>,
+        httpRequest: HttpCommonRequest<T2>
+    )
+
+    /**
+     * APIのリクエストパラメータの後処理を行います。（Primitiveペイロードを返す版, POST/PUT用）
+     */
+    fun <T1, T2 : ApiTelegram> finishPrimitive(
+        httpResponse: HttpResponse<T1>,
+        httpRequest: HttpPrimitiveRequest<T2, T1>
+    )
+
+    /**
+     * APIのリクエストパラメータの後処理を行います。（Primitive配列ペイロードを返す版, GET/DELETE用）
+     */
+    fun <T1, T2 : ApiTelegram> finishPrimitiveArray(
+        httpResponse: HttpResponse<List<T1>>,
+        httpRequest: HttpCommonRequest<T2>
+    )
+
+    /**
+     * APIのリクエストパラメータの後処理を行います。（Primitive配列ペイロードを返す版, POST/PUT用）
+     */
+    fun <T1, T2 : ApiTelegram> finishPrimitiveArray(
+        httpResponse: HttpResponse<List<T1>>,
+        httpRequest: HttpPrimitiveRequest<T2, List<T1>>
+    )
+
+    /**
      * APIが呼び出し可能かどうかを返します。
      */
     fun isSpoiled(method: String): Boolean
