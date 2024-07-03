@@ -112,51 +112,15 @@ class ApiBasePlain(
         }
     }
 
-    override fun <T1 : ApiTelegram, T2 : ApiTelegram> finish(
+    override fun <T1, T2 : ApiTelegram> finish(
         httpResponse: HttpResponse<T1>,
         httpRequest: HttpCommonRequest<T2>
     ) {
     }
 
-    override fun <T1 : ApiTelegram, T2 : ApiTelegram> finishArray(
+    override fun <T1, T2 : ApiTelegram> finishArray(
         httpResponse: HttpResponse<List<T1>>,
         httpRequest: HttpCommonRequest<T2>
-    ) {
-    }
-
-    /**
-     * APIのリクエストパラメータの後処理を行います。（Primitiveペイロードを返す版, GET/DELETE用）
-     */
-    override fun <T1, T2 : ApiTelegram> finishPrimitive(
-        httpResponse: HttpResponse<T1>,
-        httpRequest: HttpCommonRequest<T2>
-    ) {
-    }
-
-    /**
-     * APIのリクエストパラメータの後処理を行います。（Primitiveペイロードを返す版）
-     */
-    override fun <T1, T2 : ApiTelegram> finishPrimitive(
-        httpResponse: HttpResponse<T1>,
-        httpRequest: HttpPrimitiveRequest<T2, T1>
-    ) {
-    }
-
-    /**
-     * APIのリクエストパラメータの後処理を行います。（Primitive配列ペイロードを返す版, GET/DELETE用）
-     */
-    override fun <T1, T2 : ApiTelegram> finishPrimitiveArray(
-        httpResponse: HttpResponse<List<T1>>,
-        httpRequest: HttpCommonRequest<T2>
-    ) {
-    }
-
-    /**
-     * APIのリクエストパラメータの後処理を行います。（Primitive配列ペイロードを返す版）
-     */
-    override fun <T1, T2 : ApiTelegram> finishPrimitiveArray(
-        httpResponse: HttpResponse<List<T1>>,
-        httpRequest: HttpPrimitiveRequest<T2, List<T1>>
     ) {
     }
 

@@ -71,17 +71,20 @@ constructor(
    */
   @Post("/{userId}")
   fun doPost(
-      argHttpRequest: HttpRequest<SampleArrayPayloadTestPostRequest>,
+      argHttpRequest: HttpRequest<*>,
       @PathVariable("userId") argUserId: String,
-      @Body argRequestBean: SampleArrayPayloadTestPostRequestBody
+      @Body argRequestBean: Optional<List<SampleArrayPayloadTestPostRequestBody>>
   ): HttpResponse<List<SampleArrayPayloadTestPostResponse>> {
     val requestBean =
-        dapanda.api.sample.blanco.SampleArrayPayloadTestPostRequest(
-            userId = argUserId, password = argRequestBean.password)
+        dapanda.api.sample.blanco.SampleArrayPayloadTestPostRequest(userId = argUserId)
+    if (argRequestBean.isPresent == true) {
+      requestBean.arrayBody = argRequestBean.get()
+    }
 
-    val httpCommonRequest =
-        HttpCommonRequest<dapanda.api.sample.blanco.SampleArrayPayloadTestPostRequest>(
-            argHttpRequest, true, listOf(), null)
+    @Suppress("UNCHECKED_CAST")
+    val typedHttpRequest =
+        argHttpRequest as HttpRequest<dapanda.api.sample.blanco.SampleArrayPayloadTestPostRequest>
+    val httpCommonRequest = HttpCommonRequest(typedHttpRequest, true, listOf(), null)
 
     /* Stores the RequestBean with its type determined */
     httpCommonRequest.commonRequest = requestBean

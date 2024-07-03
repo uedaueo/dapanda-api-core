@@ -32,6 +32,9 @@ group project.name.replace("-", ".")
 apply from: "local.gradle"
 
 repositories {
+    // https://docs.gradle.org/current/userguide/declaring_repositories.html#sec:case-for-maven-local
+    // mavenLocal() は原則非推奨。team開発時にローカルだけにmaven形式でライブラリを配置する場合にのみ使用する。
+    // リモートリポジトリが存在する場合はそちらが優先される（バージョン番号によらない）
     mavenLocal()
     maven {
         url "${blancofwMavenRepository}"
@@ -456,7 +459,9 @@ task blancoRestGeneratorKt {
                     // NO CommonRequest and CommonResponse styel.
                     telegramStyle: "plain",
                     serdeable: true,
-                    nullableAnnotation: true
+                    nullableAnnotation: true,
+                    // 詳細ログを出力する
+                    verbose: true
             )
         }
     }

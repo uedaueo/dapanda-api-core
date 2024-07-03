@@ -27,4 +27,11 @@ constructor(
      * 規定値 [&quot;&quot;]
      */
     @field:Size(max = 254) @field:NotBlank @field:NotNull var password: String = ""
-) : ApiPostTelegram()
+) : ApiPostTelegram() {
+  /**
+   * POSTメソッドの要求電文
+   *
+   * 規定値 [Optional.empty()]
+   */
+  var primitiveBody: Optional<String>? = Optional.empty()
+}

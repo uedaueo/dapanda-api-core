@@ -4,11 +4,8 @@
 package dapanda.api.sample.blanco.interfaces
 
 import blanco.restgenerator.valueobject.HttpCommonRequest
-import blanco.restgenerator.valueobject.HttpPrimitiveRequest
 import dapanda.api.sample.blanco.SamplePrimitivePayloadTestGetRequest
-import dapanda.api.sample.blanco.SamplePrimitivePayloadTestGetResponse
 import dapanda.api.sample.blanco.SamplePrimitivePayloadTestPostRequest
-import dapanda.api.sample.blanco.SamplePrimitivePayloadTestPostResponse
 import io.micronaut.http.HttpResponse
 
 /** primitivePayloadテスト用API&lt;br&gt; */
@@ -30,6 +27,6 @@ interface ISamplePrimitivePayloadTestManagement {
    * @return validation済みのレスポンス情報です
    */
   fun doPost(
-      httpRequest: HttpPrimitiveRequest<SamplePrimitivePayloadTestPostRequest, String>
+      httpRequest: HttpCommonRequest<SamplePrimitivePayloadTestPostRequest>
   ): HttpResponse<String>
 }

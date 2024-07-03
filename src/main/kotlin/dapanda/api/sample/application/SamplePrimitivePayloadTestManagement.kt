@@ -29,7 +29,7 @@ class SamplePrimitivePayloadTestManagement(
      * @param httpRequest validation前のリクエスト情報です
      * @return validation済みのレスポンス情報です
      */
-    override fun doPost(httpRequest: HttpPrimitiveRequest<SamplePrimitivePayloadTestPostRequest, String>): HttpResponse<String> {
+    override fun doPost(httpRequest: HttpCommonRequest<SamplePrimitivePayloadTestPostRequest>): HttpResponse<String> {
         return PlainHttpResponseFactory.create("Post Primitive Body", httpRequest)
     }
 }

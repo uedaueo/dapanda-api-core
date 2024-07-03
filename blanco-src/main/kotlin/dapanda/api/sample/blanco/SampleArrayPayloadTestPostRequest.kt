@@ -8,7 +8,6 @@ import io.micronaut.core.annotation.Introspected
 import io.micronaut.serde.annotation.Serdeable
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
-import javax.validation.constraints.Pattern
 import javax.validation.constraints.Size
 
 /** POSTメソッドの要求電文 */
@@ -21,17 +20,12 @@ constructor(
      *
      * 規定値 [&quot;&quot;]
      */
-    @field:Size(max = 254) @field:NotBlank @field:NotNull var userId: String = "",
-    /**
-     * パスワード
-     *
-     * 規定値 [&quot;&quot;]
-     */
-    @field:Size(max = 50)
-    @field:NotBlank
-    @field:Pattern(
-        regexp =
-            "^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])|(?=.*[a-z])(?=.*[A-Z])(?=.*[@%\\+\\/\\\'!#\\$\\^\\?:\\.\\(\\)\\{\\}\\[\\]~\\-_])|(?=.*[a-z])(?=.*[0-9])(?=.*[@%\\+\\/\\\'!#\\$\\^\\?:\\.\\(\\)\\{\\}\\[\\]~\\-_])|(?=.*[A-Z])(?=.*[0-9])(?=.*[@%\\+\\/\\\'!#\\$\\^\\?:\\.\\(\\)\\{\\}\\[\\]~\\-_]))[a-zA-Z0-9@%\\+\\/\\\'!#\\$\\^\\?:\\.\\(\\)\\{\\}\\[\\]~\\-_]{8,20}$")
-    @field:NotNull
-    var password: String = ""
-) : ApiPostTelegram()
+    @field:Size(max = 254) @field:NotBlank @field:NotNull var userId: String = ""
+) : ApiPostTelegram() {
+  /**
+   * POSTメソッドの要求電文
+   *
+   * 規定値 [mutableListOf()]
+   */
+  var arrayBody: List<SampleArrayPayloadTestPostRequestBody>? = mutableListOf()
+}

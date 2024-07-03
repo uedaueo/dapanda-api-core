@@ -33,11 +33,9 @@ class SamplePrimitiveArrayPayloadTestManagement(
      * @param httpRequest validation前のリクエスト情報です
      * @return validation済みのレスポンス情報です
      */
-    override fun doPost(httpRequest: HttpPrimitiveRequest<SamplePrimitiveArrayPayloadTestPostRequest, List<String>>): HttpResponse<List<String>> {
+    override fun doPost(httpRequest: HttpCommonRequest<SamplePrimitiveArrayPayloadTestPostRequest>): HttpResponse<List<String>> {
         val responseBean = mutableListOf("Post Primitive element 01")
-        responseBean += httpRequest.primitiveRequest!!
+        responseBean += httpRequest.commonRequest?.primitiveBody!!
         return PlainHttpResponseFactory.create(responseBean, httpRequest)
     }
 }
-
-
