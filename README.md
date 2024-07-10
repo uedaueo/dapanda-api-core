@@ -70,11 +70,17 @@ class UserRepository(
 ```
 
 ## ビルドについて
+
 gradle でのクリーンビルドは、以下のように行う。
 この方法は、キャッシュやバックグランド実行を行わない。
 Micronaut の Bean 定義が、正常に生成されない場合などで、このコマンドを実行する。
 ```
 gradlew --no-build-cache --no-daemon clean build
+```
+
+blancoFramework が生成したファイルも含めて削除する場合は次のようにする。
+```
+gradlew --no-build-cache --no-daemon cleanMeta meta build
 ```
 
 IntelliJ の場合は、`Run/Debug Configurations` の `VM options` に

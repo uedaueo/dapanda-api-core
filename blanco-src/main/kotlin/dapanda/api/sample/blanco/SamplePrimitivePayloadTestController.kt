@@ -4,14 +4,10 @@
 package dapanda.api.sample.blanco
 
 import blanco.restgenerator.valueobject.HttpCommonRequest
-import dapanda.api.common.domain.model.http.PlainHttpResponseFactory
-import dapanda.api.common.domain.model.logging.LoggerDelegate
 import dapanda.api.sample.application.SamplePrimitivePayloadTestManagement
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
-import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Body
-import io.micronaut.http.annotation.Consumes
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.PathVariable
@@ -27,10 +23,6 @@ constructor(
     /** The implementation class to be called by SamplePrimitivePayloadTestController. */
     var samplePrimitivePayloadTestManagement: SamplePrimitivePayloadTestManagement
 ) {
-    companion object {
-        private val log by LoggerDelegate()
-    }
-
   /**
    * APIベースクラスから呼ばれる実行メソッドです
    *
@@ -49,8 +41,6 @@ constructor(
         dapanda.api.sample.blanco.SamplePrimitivePayloadTestGetRequest(
             userId = argUserId,
             password = if (argPassword.isPresent == true) argPassword.get() else "")
-
-      log.info("Sample#Get!")
 
     @Suppress("UNCHECKED_CAST")
     val typedHttpRequest =
@@ -89,9 +79,6 @@ constructor(
       @PathVariable("password") argPassword: String,
       @Body argRequestBean: String
   ): HttpResponse<String> {
-
-      log.info("Sample#Post!")
-
     val requestBean =
         dapanda.api.sample.blanco.SamplePrimitivePayloadTestPostRequest(
             userId = argUserId, password = argPassword, argBody = argRequestBean)

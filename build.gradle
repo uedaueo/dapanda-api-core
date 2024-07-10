@@ -1,5 +1,7 @@
 import groovy.io.FileType
 import org.jetbrains.gradle.ext.EncodingConfiguration
+import org.jetbrains.kotlin.gradle.tasks.KaptGenerateStubs
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id "application"
@@ -78,11 +80,6 @@ micronaut {
     }
 }
 
-clean.doFirst {
-    println "Delete blanco generated files."
-    delete "${rootDir}/blanco-src/"
-}
-
 // アプリケーションのメインクラス
 //mainClassName = "dapanda.api.common.application.Application"
 
@@ -105,7 +102,7 @@ run {
     if (project.hasProperty("jvmArgs")) {
         // 以下のように実行すると、実行パラメータをコマンドラインで指定できる。
         // gradlew run -PjvmArgs="-Ddb.host=192.168.1.1 -Ddb.port=33360"
-        jvmArgs(project.jvmArgs.split(/\s+/))
+        jvmArgs(project.jvmArgs.split(/\s+/ as Closure))
     }
 }
 
@@ -200,16 +197,16 @@ application {
     mainClass.set("dapanda.api.common.application.Application")
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+tasks.withType(KotlinCompile).configureEach {
     kotlinOptions.jvmTarget = "17"
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KaptGenerateStubs).configureEach {
+tasks.withType(KaptGenerateStubs).configureEach {
     kotlinOptions.jvmTarget = "17"
 }
 
-task sourcesJar(type: Jar) {
-    duplicatesStrategy = 'include'
+tasks.register('sourcesJar', Jar) {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
     archiveClassifier.convention('sources')
     archiveClassifier.set('sources')
     from sourceSets.main.allSource
@@ -276,7 +273,7 @@ idea {
     }
 }
 
-task blancoDb {
+tasks.register('blancoDb') {
     group "blanco"
     description "Generate source code by blancoDB"
     doFirst {
@@ -377,7 +374,7 @@ void modifyBlancoDBRowClasses() {
             }
 }
 
-task blancoValueObjectKt {
+tasks.register('blancoValueObjectKt') {
     group "blanco"
     description "Generate value object for Kotlin by blancoValueObjectKt"
     doFirst {
@@ -409,7 +406,7 @@ task blancoValueObjectKt {
     }
 }
 
-task blancoRestGeneratorKt {
+tasks.register('blancoRestGeneratorKt') {
     dependsOn "generateTelegrams"
     group "blanco"
     description "Generate REST source for Kotlin by blancoRestGeneratorKt"
@@ -472,7 +469,7 @@ task blancoRestGeneratorKt {
     }
 }
 
-task generateTelegrams {
+tasks.register('generateTelegrams') {
     dependsOn "blancoValueObjectKt"
     group "blanco"
     description "Generate telegram value object for Kotlin"
@@ -561,7 +558,7 @@ task generateTelegrams {
     }
 }
 
-task blancoResourceBundle {
+tasks.register('blancoResourceBundle') {
     group "blanco"
     description "Generate resource bundle by blancoResourceBundle"
     doFirst {
@@ -614,7 +611,7 @@ task blancoResourceBundle {
     }
 }
 
-task blancoResponseMetaInfoVO {
+tasks.register('blancoResponseMetaInfoVO') {
     group "blanco"
     description "Generate resource constants by blancoValueObject"
     doFirst {
@@ -651,7 +648,7 @@ task blancoResponseMetaInfoVO {
     }
 }
 
-task blancoResponseMetaInfo {
+tasks.register('blancoResponseMetaInfo') {
     dependsOn "blancoResponseMetaInfoVO"
     group "blanco"
     description "Generate ResponseMetaInfo constants by blancoConstatns"
@@ -694,10 +691,20 @@ task blancoResponseMetaInfo {
     }
 }
 
-task meta(type: GradleBuild) {
+tasks.register('meta', GradleBuild) {
     group "blanco"
     startParameter.projectProperties = gradle.startParameter.projectProperties
-    tasks = ["blancoDb", "blancoRestGeneratorKt","blancoResourceBundle","blancoResponseMetaInfo"]
+    tasks = ["blancoDb", "blancoRestGeneratorKt", "blancoResourceBundle", "blancoResponseMetaInfo"]
+}
+
+tasks.register('cleanAll') {
+    dependsOn "clean"
+    group "blanco"
+    description "Delete blanco generated files."
+    doFirst {
+        println "Delete blanco generated files."
+        delete "${rootDir}/blanco-src/"
+    }
 }
 
 /**
@@ -725,7 +732,7 @@ def getProjectVersion() {
     }
 }
 
-task printProjectVersion {
+tasks.register('printProjectVersion') {
     println "Version = $version"
 }
 
@@ -768,7 +775,7 @@ def publishToGhPages() {
     mygit.push()
 }
 
-task pubPush(type: GradleBuild) {
+tasks.register('pubPush', GradleBuild) {
     dependsOn "publish"
     doFirst {
         def creds = getCredentials()
