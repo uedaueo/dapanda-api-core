@@ -4,10 +4,7 @@ import blanco.restgenerator.valueobject.HttpCommonRequest
 import dapanda.api.common.application.ApiBasePlain
 import dapanda.api.common.domain.model.http.IApiBasePlain
 import dapanda.api.common.domain.model.http.PlainHttpResponseFactory
-import dapanda.api.sample.blanco.SampleArrayPayloadTestGetRequest
-import dapanda.api.sample.blanco.SampleArrayPayloadTestGetResponse
-import dapanda.api.sample.blanco.SampleArrayPayloadTestPostRequest
-import dapanda.api.sample.blanco.SampleArrayPayloadTestPostResponse
+import dapanda.api.sample.blanco.*
 import dapanda.api.sample.blanco.interfaces.ISampleArrayPayloadTestManagement
 import io.micronaut.http.HttpResponse
 import jakarta.inject.Singleton
@@ -46,5 +43,18 @@ class SampleArrayPayloadTestManagement(
         return PlainHttpResponseFactory.create(
             responseTelegram, httpRequest
         )
+    }
+
+    /**
+     * APIベースクラスから呼ばれる実行メソッドです
+     *
+     * @param httpRequest validation前のリクエスト情報です
+     * @return validation済みのレスポンス情報です
+     */
+    override fun doPut(httpRequest: HttpCommonRequest<SampleArrayPayloadTestPutRequest>): HttpResponse<List<SampleArrayPayloadTestPutResponse>> {
+        val responseTelegram = mutableListOf<SampleArrayPayloadTestPutResponse>()
+        responseTelegram.add(SampleArrayPayloadTestPutResponse("PUT-1", 10))
+        responseTelegram.add(SampleArrayPayloadTestPutResponse("PUT-2", 20))
+        return PlainHttpResponseFactory.create(responseTelegram, httpRequest)
     }
 }

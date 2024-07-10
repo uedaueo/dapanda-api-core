@@ -17,7 +17,7 @@ import dapanda.api.common.domain.model.resourcebundle.CommonResourceBundleFactor
 import io.micronaut.context.annotation.Value
 import io.micronaut.http.HttpResponse
 import jakarta.inject.Singleton
-import javax.validation.Validation
+import jakarta.validation.Validation
 
 /**
  * Application クラスの共通処理を定義するクラスです。

@@ -3,7 +3,7 @@
  */
 package dapanda.api.sample.blanco
 
-import blanco.restgenerator.valueobject.ApiPostTelegram
+import blanco.restgenerator.valueobject.ApiPutTelegram
 import io.micronaut.core.annotation.Introspected
 import io.micronaut.serde.annotation.Serdeable
 import jakarta.validation.constraints.NotBlank
@@ -14,14 +14,8 @@ import jakarta.validation.constraints.Size
 /** POSTメソッドの要求電文 */
 @Introspected
 @Serdeable
-data class SampleMethodTestPostRequest
+data class SampleArrayPayloadTestPutRequestBody
 constructor(
-    /**
-     * ユーザーID
-     *
-     * 規定値 [&quot;&quot;]
-     */
-    @field:Size(max = 254) @field:NotBlank @field:NotNull var userId: String = "",
     /**
      * パスワード
      *
@@ -34,4 +28,4 @@ constructor(
             "^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])|(?=.*[a-z])(?=.*[A-Z])(?=.*[@%\\+\\/\\\'!#\\$\\^\\?:\\.\\(\\)\\{\\}\\[\\]~\\-_])|(?=.*[a-z])(?=.*[0-9])(?=.*[@%\\+\\/\\\'!#\\$\\^\\?:\\.\\(\\)\\{\\}\\[\\]~\\-_])|(?=.*[A-Z])(?=.*[0-9])(?=.*[@%\\+\\/\\\'!#\\$\\^\\?:\\.\\(\\)\\{\\}\\[\\]~\\-_]))[a-zA-Z0-9@%\\+\\/\\\'!#\\$\\^\\?:\\.\\(\\)\\{\\}\\[\\]~\\-_]{8,20}$")
     @field:NotNull
     var password: String = ""
-) : ApiPostTelegram()
+) : ApiPutTelegram()

@@ -6,6 +6,7 @@ package dapanda.api.sample.blanco.interfaces
 import blanco.restgenerator.valueobject.HttpCommonRequest
 import dapanda.api.sample.blanco.SamplePrimitiveArrayPayloadTestGetRequest
 import dapanda.api.sample.blanco.SamplePrimitiveArrayPayloadTestPostRequest
+import dapanda.api.sample.blanco.SamplePrimitiveArrayPayloadTestPutRequest
 import io.micronaut.http.HttpResponse
 
 /** primitiveArrayPayloadテスト用API&lt;br&gt; */
@@ -28,5 +29,15 @@ interface ISamplePrimitiveArrayPayloadTestManagement {
    */
   fun doPost(
       httpRequest: HttpCommonRequest<SamplePrimitiveArrayPayloadTestPostRequest>
+  ): HttpResponse<List<String>>
+
+  /**
+   * APIベースクラスから呼ばれる実行メソッドです
+   *
+   * @param httpRequest validation前のリクエスト情報です
+   * @return validation済みのレスポンス情報です
+   */
+  fun doPut(
+      httpRequest: HttpCommonRequest<SamplePrimitiveArrayPayloadTestPutRequest>
   ): HttpResponse<List<String>>
 }

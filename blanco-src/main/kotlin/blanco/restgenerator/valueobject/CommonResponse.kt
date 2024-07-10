@@ -2,7 +2,7 @@ package blanco.restgenerator.valueobject
 
 import io.micronaut.core.annotation.Nullable
 import io.micronaut.serde.annotation.Serdeable
-import javax.validation.Valid
+import jakarta.validation.Valid
 
 /** 共通レスポンスを表すオブジェクトです。 */
 @Serdeable

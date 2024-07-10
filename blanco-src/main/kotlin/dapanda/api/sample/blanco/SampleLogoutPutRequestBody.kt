@@ -6,9 +6,9 @@ package dapanda.api.sample.blanco
 import blanco.restgenerator.valueobject.ApiPutTelegram
 import io.micronaut.core.annotation.Introspected
 import io.micronaut.serde.annotation.Serdeable
-import javax.validation.constraints.NotBlank
-import javax.validation.constraints.NotNull
-import javax.validation.constraints.Size
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Size
 
 /** ログアウトAPIの要求電文 */
 @Introspected

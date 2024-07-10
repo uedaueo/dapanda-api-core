@@ -8,6 +8,8 @@ import dapanda.api.sample.blanco.SampleArrayPayloadTestGetRequest
 import dapanda.api.sample.blanco.SampleArrayPayloadTestGetResponse
 import dapanda.api.sample.blanco.SampleArrayPayloadTestPostRequest
 import dapanda.api.sample.blanco.SampleArrayPayloadTestPostResponse
+import dapanda.api.sample.blanco.SampleArrayPayloadTestPutRequest
+import dapanda.api.sample.blanco.SampleArrayPayloadTestPutResponse
 import io.micronaut.http.HttpResponse
 
 /** Methodテスト用API&lt;br&gt; */
@@ -31,4 +33,14 @@ interface ISampleArrayPayloadTestManagement {
   fun doPost(
       httpRequest: HttpCommonRequest<SampleArrayPayloadTestPostRequest>
   ): HttpResponse<List<SampleArrayPayloadTestPostResponse>>
+
+  /**
+   * APIベースクラスから呼ばれる実行メソッドです
+   *
+   * @param httpRequest validation前のリクエスト情報です
+   * @return validation済みのレスポンス情報です
+   */
+  fun doPut(
+      httpRequest: HttpCommonRequest<SampleArrayPayloadTestPutRequest>
+  ): HttpResponse<List<SampleArrayPayloadTestPutResponse>>
 }

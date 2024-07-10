@@ -8,7 +8,7 @@ import dapanda.api.sample.blanco.SampleLoginPostRequest
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.micronaut.http.HttpRequest
-import io.micronaut.test.extensions.kotest.annotation.MicronautTest
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 
 @MicronautTest
 class DefaultPrivilegeTest() : StringSpec({

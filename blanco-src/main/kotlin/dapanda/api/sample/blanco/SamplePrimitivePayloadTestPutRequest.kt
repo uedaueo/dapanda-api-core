@@ -10,15 +10,23 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 
-/** ログアウトAPIの要求電文 */
+/** POSTメソッドの要求電文 */
 @Introspected
 @Serdeable
-data class SampleLogoutPutRequest
+data class SamplePrimitivePayloadTestPutRequest
 constructor(
     /**
      * ユーザーID
      *
      * 規定値 [&quot;&quot;]
      */
-    @field:Size(max = 254) @field:NotBlank @field:NotNull var userId: String = ""
+    @field:Size(max = 254) @field:NotBlank @field:NotNull var userId: String = "",
+    /**
+     * パスワード
+     *
+     * 規定値 [&quot;&quot;]
+     */
+    @field:Size(max = 254) @field:NotBlank @field:NotNull var password: String = "",
+    /** POSTメソッドの要求電文 */
+    var argBody: String?
 ) : ApiPutTelegram()
