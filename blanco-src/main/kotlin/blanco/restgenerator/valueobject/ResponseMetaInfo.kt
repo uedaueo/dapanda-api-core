@@ -3,9 +3,11 @@ package blanco.restgenerator.valueobject
 import dapanda.api.common.domain.CommonConstants.ResponseResultCode
 import io.micronaut.core.annotation.Introspected
 import io.micronaut.http.HttpStatus
+import io.micronaut.serde.annotation.Serdeable
 
 /** APIのレスポンスに含む共通情報を表すオブジェクトです。 */
 @Introspected
+@Serdeable
 data class ResponseMetaInfo
 constructor(
     /**

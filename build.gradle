@@ -400,7 +400,8 @@ tasks.register('blancoValueObjectKt') {
                     targetStyle: "maven",
                     lineSeparator: "LF",
                     packageSuffix: "",
-                    verbose: true
+                    verbose: true,
+                    serdeable: true
             )
         }
     }
