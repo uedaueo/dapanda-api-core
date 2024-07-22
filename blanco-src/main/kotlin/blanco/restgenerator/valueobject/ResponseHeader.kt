@@ -6,7 +6,7 @@ import jakarta.validation.Valid
 
 /** APIが返すレスポンスのヘッダを表す型です */
 @Serdeable
-data class ResponseHeader
+open class ResponseHeader
 constructor(
     /**
      * ロケール

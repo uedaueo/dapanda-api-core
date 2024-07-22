@@ -6,7 +6,7 @@ import jakarta.validation.Valid
 
 /** 通信に関するメタ情報を表す型です */
 @Serdeable
-data class RequestHeader
+open class RequestHeader
 constructor(
     /**
      * ロケール
