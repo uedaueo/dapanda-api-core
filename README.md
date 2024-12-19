@@ -1,7 +1,7 @@
 # dapanda-api-core project
 
 ## build手順
-* Java11以上（17推奨）, mysqlが必要なのでインストール。
+* Java17以上（21推奨）, mysqlが必要なのでインストール。
 * dapanda-api-coreには現状トークン認証のサンプルがあるのでDBの設定が必要。
 mysqlを使えるようにしdapanda-api-coreにあるsampleTable.sqlを使ってデータベースの作成を行う。
 * ~~application.ymlのデータベースの設定をしている箇所(datasources.default)を環境に合わせて修正する。~~
